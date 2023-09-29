@@ -1,9 +1,14 @@
-import "./App.scss"
+import './App.scss';
+import CodeEditor from './components/code/CodeEditor';
+import Nodes from './components/nodes/Nodes';
 
 const App = () => {
-    return <>
-         App
-    </>
-}
+  return (
+    <div className="main__wrapper">
+      <Nodes />
+      <CodeEditor />
+    </div>
+  );
+};
 
-export default  App
+export default App;
