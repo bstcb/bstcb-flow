@@ -1,19 +1,38 @@
-import { ReactFlow } from 'reactflow';
+import {
+  Controls,
+  Edge,
+  OnConnect,
+  ReactFlow,
+  addEdge,
+  useEdgesState,
+  useNodesState,
+} from 'reactflow';
 import './Nodes.scss';
 
+import { useCallback } from 'react';
 import 'reactflow/dist/style.css';
+import { initialEdges, initialNodes } from './initialNodes';
 
 const Nodes = () => {
-  const initialNodes = [
-    { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-    { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-  ];
-  const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges);
 
+  const onConnect: OnConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges],
+  );
   return (
     <div className="nodes">
       <div className="nodes__wrapper">
-        <ReactFlow nodes={initialNodes} edges={initialEdges} />
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onConnect={onConnect}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+        >
+          <Controls />
+        </ReactFlow>
       </div>
     </div>
   );
