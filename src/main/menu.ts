@@ -4,6 +4,7 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  MenuItem,
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -26,13 +27,30 @@ export default class MenuBuilder {
       this.setupDevelopmentEnvironment();
     }
 
-    const template =
-      process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
-        : this.buildDefaultTemplate();
-
+      const template: Electron.MenuItem[] = [
+	  {
+	      label: "Nodes",
+	      submenu: [
+		  {
+	      "label": "Add Node",
+		      submenu: [
+			  {
+			      "label": "if branch",
+			      click: () => {
+				  console.log("if clicked")
+			      }
+			  },
+			  {
+			      "label": "for loop"
+			  }
+		      ],
+		  },
+	      ],
+	  },
+    ]      
     const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+
+      Menu.setApplicationMenu(menu);
 
     return menu;
   }
