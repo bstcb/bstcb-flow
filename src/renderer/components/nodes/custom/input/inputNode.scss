@@ -1,0 +1,15 @@
+._input_wrapper {
+  border: 1px solid #000;
+  padding: 10px;
+  background-color: transparent;
+  color: #000;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  input {
+    border: none;
+    text-align: center;
+  }
+}

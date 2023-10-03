@@ -13,5 +13,11 @@ export const initialNodes: Node[] = [
     type: 'output',
     data: { label: 'End' },
   },
+  // {
+  //   id: '_input_1',
+  //   type: '_nput',
+  //   position: { x: 0, y: 300 },
+  //   data: { label: 'x = 0' },
+  // },
 ];
 export const initialEdges: Edge[] = [];
