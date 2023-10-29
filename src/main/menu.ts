@@ -37,6 +37,11 @@ export default class MenuBuilder {
                 label: 'if branch',
                 click: () => {
                   console.log('if clicked');
+                  this.mainWindow.webContents.send(
+                    'add-node',
+                    '_if_cond',
+                    'x = 0',
+                  );
                 },
               },
               {

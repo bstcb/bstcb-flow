@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Handle, NodeProps, Position } from 'reactflow';
 
+import { DefaultNodeProps } from '../../../../types/defaultNodeProps';
 import './inputNode.scss';
 
 type Variable = {
@@ -8,10 +9,7 @@ type Variable = {
   value: string;
 };
 
-type InputNodeProps = {
-  label: string;
-  value: string;
-};
+interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
   const onChangeName = useCallback((evt: any) => {
@@ -35,7 +33,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
       value: v.split('=')[1],
     };
   };
-  console.log(props);
+  // console.log(props);
   const [currentVariable, SetCurrentVariable] = useState<Variable>(
     variableFromValue(props.value),
   );

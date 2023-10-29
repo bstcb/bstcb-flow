@@ -15,6 +15,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import 'reactflow/dist/style.css';
 import { getRandomInt } from '../../utils/random';
 import InputNode from './custom/input/InputNode';
+import IfConditionNode from './custom/input/ifCondition/IfConditionNode';
 import { initialEdges, initialNodes } from './initialNodes';
 
 const Nodes = () => {
@@ -48,7 +49,10 @@ const Nodes = () => {
     [setEdges],
   );
 
-  const nodeTypes = useMemo(() => ({ _input: InputNode }), []);
+  const nodeTypes = useMemo(
+    () => ({ _input: InputNode, _if_cond: IfConditionNode }),
+    [],
+  );
   return (
     <div className="nodes">
       <div className="nodes__wrapper">
