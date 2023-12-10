@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Handle, NodeProps, Position } from 'reactflow'
-import { DefaultNodeProps } from '../../../../../types/defaultNodeProps'
 import './IfConditionNode.scss'
+import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 
 interface IfConditionNodeProps extends DefaultNodeProps {}
 

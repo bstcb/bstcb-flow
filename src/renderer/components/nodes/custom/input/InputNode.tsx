@@ -47,6 +47,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
           onChange={onChangeName}
           value={`${currentVariable.name}`}
         />
+        <span>=</span>
         <input
           id='_input_variable_value'
           name='_input_text_value'
