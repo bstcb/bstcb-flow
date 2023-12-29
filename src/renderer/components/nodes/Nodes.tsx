@@ -17,6 +17,7 @@ import { getRandomInt } from '../../utils/random'
 import InputNode from './custom/input/InputNode'
 import IfConditionNode from './custom/ifCondition/IfConditionNode'
 import { initialEdges, initialNodes } from './initialNodes'
+import ForLoopNode from './custom/forLoop/ForLoopNode'
 
 const Nodes = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
@@ -50,7 +51,11 @@ const Nodes = () => {
   )
 
   const nodeTypes = useMemo(
-    () => ({ _input: InputNode, _if_cond: IfConditionNode }),
+    () => ({
+      _input: InputNode,
+      _if_cond: IfConditionNode,
+      _for_lp: ForLoopNode,
+    }),
     [],
   )
   return (
