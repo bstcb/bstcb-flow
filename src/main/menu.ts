@@ -56,6 +56,17 @@ export default class MenuBuilder {
                 },
               },
               {
+                label: 'while loop',
+                click: () => {
+                  console.log('while clicked')
+                  this.mainWindow.webContents.send(
+                    'add-node',
+                    '_while_lp',
+                    'while (i < 5)',
+                  )
+                },
+              },
+              {
                 label: 'input',
                 click: () => {
                   console.log('input clicked')
