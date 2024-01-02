@@ -77,6 +77,13 @@ export default class MenuBuilder {
                   )
                 },
               },
+              {
+                label: 'output',
+                click: () => {
+                  console.log('output clicked')
+                  this.mainWindow.webContents.send('add-node', '_output', 'x,y')
+                },
+              },
             ],
           },
         ],

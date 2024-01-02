@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { Handle, NodeProps, Position } from 'reactflow'
 
 import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
-import './inputNode.scss'
+import './InputNode.scss'
 
 type Variable = {
   name: string

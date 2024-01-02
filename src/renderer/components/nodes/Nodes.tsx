@@ -19,6 +19,7 @@ import IfConditionNode from './custom/ifCondition/IfConditionNode'
 import { initialEdges, initialNodes } from './initialNodes'
 import ForLoopNode from './custom/forLoop/ForLoopNode'
 import WhileLoopNode from './custom/whileLoop/WhileLoopNode'
+import OutputNode from './custom/output/OutputNode'
 
 const Nodes = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
@@ -54,6 +55,7 @@ const Nodes = () => {
   const nodeTypes = useMemo(
     () => ({
       _input: InputNode,
+      _output: OutputNode,
       _if_cond: IfConditionNode,
       _for_lp: ForLoopNode,
       _while_lp: WhileLoopNode,

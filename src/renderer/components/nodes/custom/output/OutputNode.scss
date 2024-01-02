@@ -1,0 +1,17 @@
+._input_wrapper {
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 10px;
+  color: #000;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: skew(20deg);
+  input {
+    border: none;
+    width: 45px;
+    height: 25px;
+    text-align: center;
+  }
+}
