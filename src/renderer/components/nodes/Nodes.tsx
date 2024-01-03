@@ -20,6 +20,7 @@ import { initialEdges, initialNodes } from './initialNodes'
 import ForLoopNode from './custom/forLoop/ForLoopNode'
 import WhileLoopNode from './custom/whileLoop/WhileLoopNode'
 import OutputNode from './custom/output/OutputNode'
+import { useNodeStore } from '../../store/NodeStore'
 
 const Nodes = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
@@ -39,7 +40,8 @@ const Nodes = () => {
             },
             data: { label: value, value },
           }
-          console.log(newNode.data)
+          // console.log(newNode.data)
+          useNodeStore.getState().setNodes([...nodes, newNode])
           return [...nodes, newNode]
         })
       },

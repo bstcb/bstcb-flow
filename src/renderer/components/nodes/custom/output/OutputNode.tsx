@@ -14,14 +14,14 @@ interface OutputNodeProps extends DefaultNodeProps {}
 const OutputNode = ({ data: props }: NodeProps<OutputNodeProps>) => {
   const onVariablesChange = useCallback((e: any) => {
     SetCurrentVariable(variableFromValue(e.target.value))
-    console.log(currentVariable)
+    // console.log(currentVariable)
   }, [])
   const variableFromValue = (v: string) => {
     let variables = v.split(',')
     return variables
   }
-  console.log(props)
-  console.log(variableFromValue(props.value))
+  // console.log(props)
+  // console.log(variableFromValue(props.value))
   const [currentVariable, SetCurrentVariable] = useState(
     variableFromValue(props.value),
   )

@@ -13,14 +13,14 @@ interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
   const onChangeName = useCallback((evt: any) => {
-    console.log(evt.target.value)
+    // console.log(evt.target.value)
     SetCurrentVariable({
       name: evt.target.value,
       value: currentVariable.value,
     })
   }, [])
   const onChangeValue = useCallback((evt: any) => {
-    console.log(evt.target.value)
+    // console.log(evt.target.value)
     SetCurrentVariable({
       name: currentVariable.name,
       value: evt.target.value,
