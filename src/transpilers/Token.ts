@@ -4,6 +4,7 @@ export type NodeToken = {
 }
 
 export enum NodeTokenKind {
+  NTK_IF_CONDITION = '_if_cond',
   NTK_FOR_LOOP = '_for_lp',
   NTK_WHILE_LOOP = '_while_lp',
   NTK_INPUT = '_input',
@@ -11,11 +12,9 @@ export enum NodeTokenKind {
   NTK_INITAL = 'NTK_INITAL', // does it need a name?
 }
 
-export function getTokenKind(tokenKind: string): NodeTokenKind | undefined {
-  for (let key of Object.keys(NodeTokenKind)) {
-    if (tokenKind.toUpperCase() == key) {
-      // TODO: not implemeted
-      return undefined
-    }
-  }
+export function getTokenKind(token: string): NodeTokenKind | undefined {
+  const key = Object.keys(NodeTokenKind).find(
+    k => NodeTokenKind[k as keyof typeof NodeTokenKind] === token,
+  )
+  return key ? NodeTokenKind[key as keyof typeof NodeTokenKind] : undefined
 }

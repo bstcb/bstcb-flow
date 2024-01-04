@@ -19,11 +19,10 @@ export class NodeTranspiler {
         tokens.push({ type: NodeTokenKind.NTK_INITAL, value: null })
         console.log(tokens)
       } else {
-        let t = getTokenKind(n.type!)
-        console.log(Object.keys(NodeTokenKind))
-        console.log(n.type!, getTokenKind(n.type!))
-        let v: string = n.data.value ?? n.data.label
-        tokens.push({ type: t!, value: v })
+        let tokenKind = getTokenKind(n.type!)
+        console.log(n.type!, tokenKind)
+        let tokenValue: string = n.data.value ?? n.data.label
+        tokens.push({ type: tokenKind!, value: tokenValue })
         console.log(tokens)
       }
     })
