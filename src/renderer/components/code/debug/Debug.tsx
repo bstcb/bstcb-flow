@@ -1,4 +1,4 @@
-import { NodeParser } from '../../../../fcParser/NodeParser'
+import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useNodeStore } from '../../../store/NodeStore'
 
 const Debug = () => {
@@ -6,7 +6,8 @@ const Debug = () => {
     console.log('trying to parse nodes')
     let currentNodes = useNodeStore.getState().nodes
     console.log(currentNodes)
-    NodeParser.parse(currentNodes)
+    let transpiler = new NodeTranspiler(currentNodes)
+    transpiler.transpile()
   }
   return (
     <div className='debug'>
