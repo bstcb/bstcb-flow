@@ -50,7 +50,11 @@ const Nodes = () => {
   }, [])
 
   const onConnect: OnConnect = useCallback(
-    params => setEdges(eds => addEdge(params, eds)),
+    connection => {
+      setEdges(eds => addEdge(connection, eds))
+      let connections = useNodeStore.getState().connections
+      useNodeStore.getState().setConnections([...connections, connection])
+    },
     [setEdges],
   )
 
