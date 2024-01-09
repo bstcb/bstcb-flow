@@ -24,14 +24,7 @@ const CodeEditor = () => {
   }, [])
 
   useCodeStore.subscribe(state => {
-    editorRef.current?.editor.getSession().setValue('')
-    editorRef.current?.editor
-      .getSession()
-      .setValue(editorRef.current?.editor.getSession().getValue())
-    editorRef.current?.editor.resize()
-    state.codeChunks.forEach(cc => {
-      editorRef.current?.editor.insert(cc)
-    })
+    editorRef.current?.editor.setValue(state.codeChunks.join(''))
   })
 
   return (
