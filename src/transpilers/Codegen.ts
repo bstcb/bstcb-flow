@@ -23,7 +23,7 @@ export class CodeGen {
         console.log(
           `input generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
         )
-        const chunk = `let ${variable.name} = ${variable.value}`
+        const chunk = `let ${variable.name} = ${variable.value}\n`
         useCodeStore
           .getState()
           .setCodeChunks([...useCodeStore.getState().codeChunks, chunk])

@@ -7,10 +7,12 @@ import 'ace-builds/src-noconflict/mode-javascript'
 import AceEditor from 'react-ace'
 
 import Debug from './debug/Debug'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useCodeStore } from '../../store/CodeStore'
 
 const CodeEditor = () => {
+  const [codeChunks, setCodeChunks] = useState<string[]>([])
+
   const editorRef = useRef<AceEditor>(null)
   useEffect(() => {
     const editor = editorRef.current?.editor
@@ -20,6 +22,17 @@ const CodeEditor = () => {
     console.log(currentLang)
     useCodeStore.getState().setActiveLanguage(currentLang)
   }, [])
+
+  useCodeStore.subscribe(state => {
+    editorRef.current?.editor.getSession().setValue('')
+    editorRef.current?.editor
+      .getSession()
+      .setValue(editorRef.current?.editor.getSession().getValue())
+    editorRef.current?.editor.resize()
+    state.codeChunks.forEach(cc => {
+      editorRef.current?.editor.insert(cc)
+    })
+  })
 
   return (
     <div className='code__editor'>
