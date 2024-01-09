@@ -8,6 +8,12 @@ enum CodeLanguage {
   // TODO: fill up with languages
 }
 
+function applyChunk(chunk: string) {
+  useCodeStore
+    .getState()
+    .setCodeChunks([...useCodeStore.getState().codeChunks, chunk])
+}
+
 export class CodeGen {
   static activeLanguage: CodeLanguage
   static getActiveLang() {
@@ -24,9 +30,51 @@ export class CodeGen {
           `input generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
         )
         const chunk = `let ${variable.name} = ${variable.value}\n`
-        useCodeStore
-          .getState()
-          .setCodeChunks([...useCodeStore.getState().codeChunks, chunk])
+        applyChunk(chunk)
+    }
+  }
+
+  static genOutput(variable: Variable) {
+    switch (this.activeLanguage) {
+      case CodeLanguage.LANG_JS:
+        console.log(
+          `output generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
+        )
+        const chunk = `console.log(${variable.value})\n`
+        applyChunk(chunk)
+    }
+  }
+
+  static genIf(expr: string) {
+    switch (this.activeLanguage) {
+      case CodeLanguage.LANG_JS:
+        console.log(
+          `if condition generation in ${this.activeLanguage} with expression: ${expr}`,
+        )
+        const chunk = `if (${expr}) {\n`
+        applyChunk(chunk)
+    }
+  }
+
+  static genWhile(expr: string) {
+    switch (this.activeLanguage) {
+      case CodeLanguage.LANG_JS:
+        console.log(
+          `while loop generation in ${this.activeLanguage} with expression: ${expr}`,
+        )
+        const chunk = `while (${expr}) {\n`
+        applyChunk(chunk)
+    }
+  }
+
+  static genFor(expr: string) {
+    switch (this.activeLanguage) {
+      case CodeLanguage.LANG_JS:
+        console.log(
+          `for loop generation in ${this.activeLanguage} with expression: ${expr}`,
+        )
+        const chunk = `for (${expr}) {\n`
+        applyChunk(chunk)
     }
   }
 }
