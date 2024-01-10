@@ -31,17 +31,19 @@ export class CodeGen {
         )
         const chunk = `let ${variable.name} = ${variable.value}\n`
         applyChunk(chunk)
+        break
     }
   }
 
-  static genOutput(variable: Variable) {
+  static genOutput(expr: string) {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
         console.log(
-          `output generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
+          `output generation in ${this.activeLanguage} with variable: ${expr}`,
         )
-        const chunk = `console.log(${variable.value})\n`
+        const chunk = `console.log(${expr})\n`
         applyChunk(chunk)
+        break
     }
   }
 

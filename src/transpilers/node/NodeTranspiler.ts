@@ -1,6 +1,5 @@
 import { Node } from 'reactflow'
 import { NodeToken, NodeTokenKind, getTokenKind } from '../Token'
-import ace from 'react-ace'
 import { CodeGen } from '../Codegen'
 import { variableFromValue } from '../../helpers/helpers'
 
@@ -37,8 +36,32 @@ export class NodeTranspiler {
     for (let token of this.tokens) {
       switch (token.type) {
         case NodeTokenKind.NTK_INPUT:
-          console.log('parsing input node')
+          console.log('parsing INPUT node')
           CodeGen.genInput(variableFromValue(token.value!))
+          break
+        case NodeTokenKind.NTK_OUTPUT:
+          console.log(
+            `parsing OUTPUT node with name ${token.type} and value: ${
+              token.value
+            } of type ${typeof token.value}  `,
+          )
+          CodeGen.genOutput(token.value!)
+          break
+        case NodeTokenKind.NTK_IF_CONDITION:
+          console.log('parsing IF CONDITION node')
+          CodeGen.genIf(token.value!)
+          break
+        case NodeTokenKind.NTK_FOR_LOOP:
+          console.log('parsing FOR LOOP node')
+          CodeGen.genFor(token.value!)
+          break
+        case NodeTokenKind.NTK_WHILE_LOOP:
+          console.log('parsing WHILE LOOP node')
+          CodeGen.genWhile(token.value!)
+          break
+        case NodeTokenKind.NTK_INITAL:
+          console.log('parsing INITIAL node')
+          break
       }
     }
   }
