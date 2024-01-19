@@ -24,6 +24,7 @@ const CodeEditor = () => {
   }, [])
 
   useCodeStore.subscribe(state => {
+    editorRef.current?.editor.setValue('')
     editorRef.current?.editor.setValue(state.codeChunks.join(''))
   })
 
