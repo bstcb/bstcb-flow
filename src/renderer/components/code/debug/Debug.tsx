@@ -1,4 +1,5 @@
 import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
+import { useCodeStore } from '../../../store/CodeStore'
 import { useNodeStore } from '../../../store/NodeStore'
 
 const Debug = () => {
@@ -23,6 +24,7 @@ const Debug = () => {
       }
     }
     let transpiler = new NodeTranspiler(activeNodes)
+    useCodeStore.getState().clearCodeChunks()
     transpiler.transpile()
   }
   return (

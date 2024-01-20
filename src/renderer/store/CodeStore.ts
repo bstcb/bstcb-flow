@@ -5,6 +5,7 @@ type State = {
   activeLanguage: string
   setActiveLanguage: (al: string) => void
   setCodeChunks: (cc: string[]) => void
+  clearCodeChunks: () => void
 }
 
 const INITIAL_LANGUAGE = 'javascript'
@@ -20,5 +21,10 @@ export const useCodeStore = create<State>(set => ({
   setCodeChunks: (cc: string[]) => {
     set(() => ({ codeChunks: cc }))
     console.log('[STORE]: code chunks updated:', cc)
+  },
+
+  clearCodeChunks: () => {
+    set(() => ({ codeChunks: [] }))
+    console.log('[STORE]: code chunks cleared')
   },
 }))
