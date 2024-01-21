@@ -9,6 +9,7 @@ import AceEditor from 'react-ace'
 import Debug from './debug/Debug'
 import { useEffect, useRef, useState } from 'react'
 import { useCodeStore } from '../../store/CodeStore'
+import { NodeToken, NodeTokenKind } from '../../../transpilers/Token'
 
 const CodeEditor = () => {
   const [codeChunks, setCodeChunks] = useState<string[]>([])
@@ -23,9 +24,14 @@ const CodeEditor = () => {
     useCodeStore.getState().setActiveLanguage(currentLang)
   }, [])
 
+  const isBlockScope = (n: string) => n.endsWith('{')
+
   useCodeStore.subscribe(state => {
     editorRef.current?.editor.setValue('')
-    editorRef.current?.editor.setValue(state.codeChunks.join(''))
+    state.codeChunks.forEach(n => {
+      if (isBlockScope(n)) editorRef.current?.editor.insert('}')
+      editorRef.current?.editor.insert(n)
+    })
   })
 
   return (

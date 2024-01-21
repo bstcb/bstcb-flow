@@ -53,7 +53,7 @@ export class CodeGen {
         console.log(
           `if condition generation in ${this.activeLanguage} with expression: ${expr}`,
         )
-        const chunk = `if (${expr}) {\n`
+        const chunk = `${expr} {\n`
         applyChunk(chunk)
     }
   }
@@ -64,7 +64,7 @@ export class CodeGen {
         console.log(
           `while loop generation in ${this.activeLanguage} with expression: ${expr}`,
         )
-        const chunk = `while (${expr}) {\n`
+        const chunk = `${expr} {\n`
         applyChunk(chunk)
     }
   }
@@ -75,7 +75,7 @@ export class CodeGen {
         console.log(
           `for loop generation in ${this.activeLanguage} with expression: ${expr}`,
         )
-        const chunk = `for (${expr}) {\n`
+        const chunk = `${expr} {\n`
         applyChunk(chunk)
     }
   }
