@@ -24,11 +24,18 @@ const CodeEditor = () => {
     useCodeStore.getState().setActiveLanguage(currentLang)
   }, [])
 
-  const isBlockScope = (n: string) => n.endsWith('{')
+  const isBlockScope = (n: string) => {
+    if (n.split('').at(-1) == '{' || n.split('').at(-2) == '{') {
+      return true
+    } else {
+      return false
+    }
+  }
 
   useCodeStore.subscribe(state => {
     editorRef.current?.editor.setValue('')
     state.codeChunks.forEach(n => {
+      console.log(isBlockScope(n))
       if (isBlockScope(n)) editorRef.current?.editor.insert('}')
       editorRef.current?.editor.insert(n)
     })
