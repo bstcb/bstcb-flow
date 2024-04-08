@@ -34,10 +34,11 @@ const CodeEditor = () => {
 
   useCodeStore.subscribe(state => {
     editorRef.current?.editor.setValue('')
-    state.codeChunks.forEach(n => {
-      console.log(isBlockScope(n))
-      if (isBlockScope(n)) editorRef.current?.editor.insert('}')
-      editorRef.current?.editor.insert(n)
+    state.codeChunks.forEach(c => {
+      console.log(isBlockScope(c))
+      editorRef.current?.editor.insert(c)
+      // need to know amount of lines (probuably implement end[If|For|While]) as nodes
+      if (isBlockScope(c)) editorRef.current?.editor.insert('}')
     })
   })
 
