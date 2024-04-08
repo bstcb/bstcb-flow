@@ -11,7 +11,7 @@ import {
 import { v4 as uuid } from 'uuid'
 import './Nodes.scss'
 
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import 'reactflow/dist/style.css'
 import { getRandomInt } from '../../utils/random'
 import InputNode from './custom/input/InputNode'
@@ -23,8 +23,27 @@ import OutputNode from './custom/output/OutputNode'
 import { useNodeStore } from '../../store/NodeStore'
 
 const Nodes = () => {
+  // variables
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
+  const edgeUpdateSuccessful = useRef(true);
+  // functions for edge delition
+  const onEdgeUpdateStart = useCallback(() => {
+    edgeUpdateSuccessful.current = false;
+  }, []);
+
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    edgeUpdateSuccessful.current = true;
+    setEdges((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
+
+  const onEdgeUpdateEnd = useCallback((_, edge) => {
+    if (!edgeUpdateSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
+
+    edgeUpdateSuccessful.current = true;
+  }, []);
 
   useEffect(() => {
     window.electron.ipcRenderer.on(
@@ -68,6 +87,9 @@ const Nodes = () => {
     }),
     [],
   )
+
+
+
   return (
     <div className='nodes'>
       <div className='nodes__wrapper'>
@@ -78,6 +100,11 @@ const Nodes = () => {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           nodeTypes={nodeTypes}
+          // node update props
+          onEdgeUpdate={onEdgeUpdate}
+          onEdgeUpdateStart={onEdgeUpdateStart}
+          onEdgeUpdateEnd={onEdgeUpdateEnd}
+          onConnect={onConnect}
         >
           <Controls />
         </ReactFlow>
