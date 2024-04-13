@@ -18,7 +18,6 @@ import { initialEdges, initialNodes } from './initialNodes'
 import ForLoopNode from './custom/forLoop/ForLoopNode'
 import WhileLoopNode from './custom/whileLoop/WhileLoopNode'
 import OutputNode from './custom/output/OutputNode'
-import { useNodeStore } from '../../store/NodeStore'
 import ContextMenu from '../ContextMenu'
 import './Nodes.scss'
 
@@ -51,33 +50,22 @@ const Nodes = () => {
       window.electron.ipcRenderer.on(
          'add-node',
          (nodeType: string, value: string) => {
-            setNodes(nodes => {
-               let newNode: Node = {
-                  id: `_${nodeType}_${uuid()}`,
-                  type: nodeType,
-                  position: {
-                     x: getRandomInt(300, 500),
-                     y: getRandomInt(300, 500),
-                  },
-                  data: { label: value, value },
-               }
-               // console.log(newNode.data)
-               useNodeStore.getState().setNodes([...nodes, newNode])
-               return [...nodes, newNode]
-            })
+            let newNode: Node = {
+               id: `_${nodeType}_${uuid()}`,
+               type: nodeType,
+               position: {
+                  x: getRandomInt(300, 500),
+                  y: getRandomInt(300, 500),
+               },
+               data: { label: value, value },
+            }
+            setNodes(nds => nds.concat(newNode))
          },
       )
       return () => {}
    }, [])
 
-   const onConnect: OnConnect = useCallback(
-      connection => {
-         setEdges(eds => addEdge(connection, eds))
-         let connections = useNodeStore.getState().connections
-         useNodeStore.getState().setConnections([...connections, connection])
-      },
-      [setEdges],
-   )
+   const onConnect: OnConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
    const onNodeContextMenu = useCallback(
       (event, node) => {
@@ -120,7 +108,7 @@ const Nodes = () => {
       <div className='nodes'>
          <div className='nodes__wrapper'>
             <ReactFlow
-ref={ref}
+               ref={ref}
                nodes={nodes}
                edges={edges}
                onConnect={onConnect}

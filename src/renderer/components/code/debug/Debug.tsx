@@ -1,37 +1,35 @@
+import { getConnectedEdges, useReactFlow } from 'reactflow'
 import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useCodeStore } from '../../../store/CodeStore'
-import { useNodeStore } from '../../../store/NodeStore'
 
 const Debug = () => {
-  const tryParseNodes = () => {
-    console.log('trying to parse nodes')
-    let currentConnections = useNodeStore.getState().connections
+   const { getNodes, getEdges, getNode } = useReactFlow()
+   const tryParseNodes = () => {
+      console.log('trying to parse nodes')
 
-    let currentNodes = useNodeStore.getState().nodes // all displayed nodes
+      let currentNodes = getNodes()
+      let currentEdges = getEdges()
 
-    let activeNodes = [] // actual connected nodes that need to be transpiled
 
-    for (let i = 0; i < currentNodes.length; i++) {
-      for (let j = 0; j < currentConnections.length; j++) {
-        let node = currentNodes[i]
-        let conn = currentConnections[j]
-        // NOTE: if note connected it is need to be transpiled and displayed as code
-        if (node.id == conn.target) {
-          activeNodes.push(node)
-          console.log('[DEBUG]: active nodes updated')
-          console.log(activeNodes)
-        }
-      }
-    }
-    let transpiler = new NodeTranspiler(activeNodes)
-    useCodeStore.getState().clearCodeChunks()
-    transpiler.transpile()
-  }
-  return (
-    <div className='debug'>
-      <button onClick={tryParseNodes}>Try Parse Nodes</button>
-    </div>
-  )
+
+      // actual connected nodes that need to be transpiled
+      let activeNodes = getConnectedEdges(currentNodes, currentEdges)
+         .map(e => getNode(e.source))
+
+      console.log('[DEBUG]: active nodes are:')
+      console.log(activeNodes)
+
+      useCodeStore.getState().clearCodeChunks()
+
+      let transpiler = new NodeTranspiler(activeNodes)
+      transpiler.transpile()
+
+   }
+   return (
+      <div className='debug'>
+         <button onClick={tryParseNodes}>Try Parse Nodes</button>
+      </div>
+   )
 }
 
 export default Debug
