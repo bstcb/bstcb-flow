@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useReactFlow } from 'reactflow';
+import { useStyleStore } from '../store/StyleStore';
 
 export default function ContextMenu({
    id,
@@ -12,8 +13,13 @@ export default function ContextMenu({
    const { getNode, getNodes, setNodes, addNodes, setEdges } = useReactFlow();
 
    const deleteNode = useCallback(() => {
-      setNodes((nodes) => nodes.filter((node) => node.id !== id));
-      setEdges((edges) => edges.filter((edge) => edge.source !== id));
+      console.log(!getNode(id)!.type!.startsWith("_"))
+      if (getNode(id)!.type!.startsWith("_")) {
+         setNodes((nodes) => nodes.filter((node) => node.id !== id));
+         setEdges((edges) => edges.filter((edge) => edge.source !== id));
+      } else {
+         useStyleStore.getState().setIsNodeToastError(true)
+      }
    }, [id, setNodes, setEdges]);
 
    const node = getNode(id)

@@ -1,6 +1,7 @@
 import { getConnectedEdges, useReactFlow } from 'reactflow'
 import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useCodeStore } from '../../../store/CodeStore'
+import ErrorToast from '../../ui/ErrorToast'
 
 const Debug = () => {
    const { getNodes, getEdges, getNode } = useReactFlow()
