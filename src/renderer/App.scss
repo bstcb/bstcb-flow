@@ -15,4 +15,12 @@ body {
    position: absolute;
    right: 5%;
    bottom: 5%;
+   opacity: 0;
+   transform: translateY(100%);
+   transition: .3s ease all;
+   &.active {
+      opacity: 1;
+      transform: translateY(0);
+
+   }
 }
