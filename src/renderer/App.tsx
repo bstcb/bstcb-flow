@@ -8,23 +8,12 @@ import { useEffect, useState } from 'react'
 
 const App = () => {
    const [errorToast, setErrorToast] = useState(useStyleStore.getState().isNodeToastError)
-   useEffect(() => {
-
-      // just need the way to transfer state
-      useStyleStore.subscribe(state => {
-         setErrorToast(true)
-         const timer = setTimeout(() => {
-            setErrorToast(false)
-            console.log('timeout')
-         }, 2000)
-      })
-   }, [errorToast])
    return (
       <ReactFlowProvider>
          <div className='main__wrapper'>
             <Nodes />
             <CodeEditor />
-            <ErrorToast isTriggered={ErrorToast} message={"You can't delete initial nodes"} />
+            <ErrorToast message={"You can't delete initial nodes"} />
          </div>
       </ReactFlowProvider>
    )
