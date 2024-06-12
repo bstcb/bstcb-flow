@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Handle, NodeProps, Position, applyNodeChanges, useNodes, useNodesState, useReactFlow } from 'reactflow'
+import { Handle, NodeProps, Position, applyNodeChanges, useEdgesState, useNodes, useNodesState, useReactFlow } from 'reactflow'
 // #FIXME: long imports
 import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import './InputNode.scss'
@@ -9,16 +9,29 @@ import { variableFromValue } from '../../../../../helpers/helpers'
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
-  const { getNodes } = useReactFlow()
+  const { getNodes, getEdges } = useReactFlow()
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(getNodes())
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(getEdges())
   const [currentVariable, setCurrentVariable] = useState<Variable>(
     variableFromValue(props.value),
   )
-  // #DEBUG
+
   useEffect(() => {
-    console.log('[InputNode]: currentVaiable Updated: ')
-    console.log(currentVariable)
-  }, [currentVariable])
+    console.log('nodes')
+    console.log(nodes)
+    console.log('edges')
+    console.log(edges)
+    setNodes(() => {
+      nodes.map(node => {
+        if (node.id === props.id) {
+          node.data = {
+            ...node.data,
+            value: currentVariable
+          }
+        }
+      })
+    })
+  }, [currentVariable, setNodes])
 
   const onChangeName = (e: any) => {
     const newName = e.target.value;
