@@ -1,42 +1,36 @@
-import { useCallback, useState } from 'react'
-import { Handle, NodeProps, Position } from 'reactflow'
-
+import { useCallback, useEffect, useState } from 'react'
+import { Handle, NodeProps, Position, applyNodeChanges, useNodes, useNodesState, useReactFlow } from 'reactflow'
+// #FIXME: long imports
 import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import './InputNode.scss'
-
-type Variable = {
-  name: string
-  value: string
-}
+import { Variable } from '../../../../types/variable'
+import { variableFromValue } from '../../../../../helpers/helpers'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
-  const onChangeName = useCallback((evt: any) => {
-    // console.log(evt.target.value)
-    SetCurrentVariable({
-      name: evt.target.value,
-      value: currentVariable.value,
-    })
-  }, [])
-  const onChangeValue = useCallback((evt: any) => {
-    // console.log(evt.target.value)
-    SetCurrentVariable({
-      name: currentVariable.name,
-      value: evt.target.value,
-    })
-  }, [])
-
-  const variableFromValue = (v: string): Variable => {
-    return {
-      name: v.split('=')[0],
-      value: v.split('=')[1],
-    }
-  }
-  // console.log(props);
-  const [currentVariable, SetCurrentVariable] = useState<Variable>(
+  const { getNodes } = useReactFlow()
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(getNodes())
+  const [currentVariable, setCurrentVariable] = useState<Variable>(
     variableFromValue(props.value),
   )
+  // #DEBUG
+  useEffect(() => {
+    console.log('[InputNode]: currentVaiable Updated: ')
+    console.log(currentVariable)
+  }, [currentVariable])
+
+  const onChangeName = (e: any) => {
+    const newName = e.target.value;
+    setCurrentVariable({ ...currentVariable, name: newName });
+  };
+
+  const onChangeValue = (e: any) => {
+    const newValue = e.target.value;
+    setCurrentVariable({ ...currentVariable, value: newValue });
+  };
+
+
   return (
     <>
       <Handle type='target' position={Position.Top} />

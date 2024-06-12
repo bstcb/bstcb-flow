@@ -4,11 +4,6 @@ import { Handle, NodeProps, Position } from 'reactflow'
 import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import './OutputNode.scss'
 
-type Variable = {
-  name: string
-  value: string
-}
-
 interface OutputNodeProps extends DefaultNodeProps {}
 
 const OutputNode = ({ data: props }: NodeProps<OutputNodeProps>) => {
@@ -16,10 +11,7 @@ const OutputNode = ({ data: props }: NodeProps<OutputNodeProps>) => {
     SetCurrentVariable(variableFromValue(e.target.value))
     // console.log(currentVariable)
   }, [])
-  const variableFromValue = (v: string) => {
-    let variables = v.split(',')
-    return variables
-  }
+
   // console.log(props)
   // console.log(variableFromValue(props.value))
   const [currentVariable, SetCurrentVariable] = useState(
