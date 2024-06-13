@@ -1,3 +1,12 @@
+# Properly declared type is undefined
+
+I am implementing updating in custom node according to [this official example](https://reactflow.dev/examples/nodes/update-node)
+
+When i am iterating nodes in `nds.map` it says that `nds.map` is undefined
+
+Here is code of component:
+
+```tsx
 import { useCallback, useEffect, useState } from 'react'
 import { Handle, NodeProps, Position, applyNodeChanges, useEdgesState, useNodes, useNodesState, useReactFlow } from 'reactflow'
 // #FIXME: long imports
@@ -64,3 +73,5 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
 }
 
 export default InputNode
+
+```
