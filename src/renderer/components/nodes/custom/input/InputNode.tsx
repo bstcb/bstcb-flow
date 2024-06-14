@@ -9,9 +9,7 @@ import { variableFromValue } from '../../../../../helpers/helpers'
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
-  const { getNodes, getEdges } = useReactFlow()
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(getNodes())
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(getEdges())
+  const { setNodes } = useReactFlow()
   const [currentVariable, setCurrentVariable] = useState<Variable>(
     variableFromValue(props.value),
   )
