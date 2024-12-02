@@ -22,6 +22,7 @@ import WhileLoopNode from './custom/whileLoop/WhileLoopNode'
 import OutputNode from './custom/output/OutputNode'
 import ContextMenu from '../ContextMenu'
 import './Nodes.scss'
+import { NodeContextMenu } from '../../types/nodeContextMenu'
 
 const Nodes = () => {
 	// variables
@@ -75,32 +76,36 @@ const Nodes = () => {
 		[setEdges],
 	)
 
+	const onPaneClick = useCallback(() => setMenu(null), [setMenu])
+
 	const onNodeContextMenu = useCallback(
 		(event: React.MouseEvent, node: Node) => {
 			// Prevent native context menu from showing
 			event.preventDefault()
-			console.log(event)
-			// Calculate position of the context menu. We want to make sure it
-			// doesn't get positioned off-screen.
-			const pane = ref.current!.getBoundingClientRect()
-			console.log(pane)
+			// console.log(event)
+			const paneRect = ref.current!.getBoundingClientRect()
+			const menuWidth = 200 // Adjust this value based on your actual menu width
+			const menuHeight = 300 // Adjust this value based on your actual menu height
+			console.log(paneRect)
+
+			let top = Math.min(event.clientY, paneRect.bottom - menuHeight)
+			let left = Math.min(event.clientX, paneRect.right - menuWidth)
+
+			if (top < 0) top = 0
+			if (left < 0) left = 0
+
 			setMenu({
 				id: node.id,
-				top: (event.clientY < pane.height - 200 && event.clientY) || 0,
-				left: (event.clientX < pane.width - 200 && event.clientX) || 0,
-				right:
-					(event.clientX >= pane.width - 200 && pane.width - event.clientX) ||
-					0,
-				bottom:
-					(event.clientY >= pane.height - 200 && pane.height - event.clientY) ||
-					0,
+				top,
+				left,
+				right: paneRect.right - left,
+				bottom: paneRect.bottom - top,
+				onClick: onPaneClick,
 			})
 			console.log(menu)
 		},
-		[setMenu],
+		[ref, setMenu, onPaneClick],
 	)
-
-	const onPaneClick = useCallback(() => setMenu(null), [setMenu])
 
 	const nodeTypes = useMemo(
 		() => ({
@@ -134,7 +139,7 @@ const Nodes = () => {
 					onEdgeUpdateEnd={onEdgeUpdateEnd}
 				>
 					<Controls />
-					{menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+					{menu && <ContextMenu {...menu} />}
 				</ReactFlow>
 			</div>
 		</div>

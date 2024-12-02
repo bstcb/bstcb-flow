@@ -4,4 +4,5 @@ export interface NodeContextMenu {
 	left: number
 	right: number
 	bottom: number
+	onClick: () => void
 }
