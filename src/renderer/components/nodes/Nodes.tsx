@@ -1,10 +1,12 @@
 import {
+	Connection,
 	Controls,
 	Edge,
 	Node,
 	OnConnect,
 	ReactFlow,
 	addEdge,
+	updateEdge,
 	useEdgesState,
 	useNodesState,
 } from 'reactflow'
@@ -25,20 +27,23 @@ const Nodes = () => {
 	// variables
 	const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
 	const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
-	const [menu, setMenu] = useState(null)
+	const [menu, setMenu] = useState<NodeContextMenu | null>(null)
 	const edgeUpdateSuccessful = useRef(true)
-	const ref = useRef(null)
+	const ref = useRef<any>(null)
 	// functions for edge delition
 	const onEdgeUpdateStart = useCallback(() => {
 		edgeUpdateSuccessful.current = false
 	}, [])
 
-	const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
-		edgeUpdateSuccessful.current = true
-		setEdges(els => updateEdge(oldEdge, newConnection, els))
-	}, [])
+	const onEdgeUpdate = useCallback(
+		(oldEdge: Edge, newConnection: Connection) => {
+			edgeUpdateSuccessful.current = true
+			setEdges(els => updateEdge(oldEdge, newConnection, els))
+		},
+		[],
+	)
 
-	const onEdgeUpdateEnd = useCallback((_, edge) => {
+	const onEdgeUpdateEnd = useCallback((_: any, edge: Edge) => {
 		if (!edgeUpdateSuccessful.current) {
 			setEdges(eds => eds.filter(e => e.id !== edge.id))
 		}
@@ -71,21 +76,24 @@ const Nodes = () => {
 	)
 
 	const onNodeContextMenu = useCallback(
-		(event, node) => {
+		(event: React.MouseEvent, node: Node) => {
 			// Prevent native context menu from showing
 			event.preventDefault()
 			console.log(event)
 			// Calculate position of the context menu. We want to make sure it
 			// doesn't get positioned off-screen.
-			const pane = ref.current.getBoundingClientRect()
+			const pane = ref.current!.getBoundingClientRect()
 			console.log(pane)
 			setMenu({
 				id: node.id,
-				top: event.clientY < pane.height - 200 && event.clientY,
-				left: event.clientX < pane.width - 200 && event.clientX,
-				right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+				top: (event.clientY < pane.height - 200 && event.clientY) || 0,
+				left: (event.clientX < pane.width - 200 && event.clientX) || 0,
+				right:
+					(event.clientX >= pane.width - 200 && pane.width - event.clientX) ||
+					0,
 				bottom:
-					event.clientY >= pane.height - 200 && pane.height - event.clientY,
+					(event.clientY >= pane.height - 200 && pane.height - event.clientY) ||
+					0,
 			})
 			console.log(menu)
 		},
@@ -116,7 +124,6 @@ const Nodes = () => {
 					onNodesChange={onNodesChange}
 					onEdgesChange={onEdgesChange}
 					nodeTypes={nodeTypes}
-					onConnect={onConnect}
 					// content menu
 					onPaneClick={onPaneClick}
 					onNodeContextMenu={onNodeContextMenu}
