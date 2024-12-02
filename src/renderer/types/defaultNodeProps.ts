@@ -1,4 +1,5 @@
 export interface DefaultNodeProps {
-  label: string;
-  value: string;
+	id: string
+	label: string
+	value: string
 }

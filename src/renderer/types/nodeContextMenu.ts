@@ -1,4 +1,4 @@
-interface NodeContextMenu {
+export interface NodeContextMenu {
 	id: string
 	top: number
 	left: number
