@@ -23,6 +23,7 @@ import OutputNode from './custom/output/OutputNode'
 import ContextMenu from '../ContextMenu'
 import './Nodes.scss'
 import { NodeContextMenu } from '../../types/nodeContextMenu'
+import { variableFromValue } from '../../../helpers/helpers'
 
 const Nodes = () => {
 	// variables
@@ -53,17 +54,22 @@ const Nodes = () => {
 	}, [])
 
 	useEffect(() => {
+		let id = uuid()
 		window.electron.ipcRenderer.on(
 			'add-node',
 			(nodeType: string, value: string) => {
 				let newNode: Node = {
-					id: `_${nodeType}_${uuid()}`,
+					id: `_${nodeType}_${id}`,
 					type: nodeType,
 					position: {
 						x: getRandomInt(100, 100),
 						y: getRandomInt(100, 300),
 					},
-					data: { label: value, value },
+					data: {
+						id: `_${nodeType}_${id}`,
+						label: value,
+						value: value,
+					},
 				}
 				setNodes(nds => nds.concat(newNode))
 			},

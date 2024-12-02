@@ -18,15 +18,30 @@ import { variableFromValue } from '../../../../../helpers/helpers'
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
-	const { setNodes } = useReactFlow()
-	const [currentVariable, setCurrentVariable] = useState<Variable>(
-		variableFromValue(props.value),
-	)
+	const { setNodes, getNodes } = useReactFlow()
+	const [currentVariable, setCurrentVariable] = useState<Variable>({
+		name: 'test',
+		value: 'test',
+	})
 
 	useEffect(() => {
 		setNodes(nds =>
 			nds.map(node => {
+				console.log(props)
+				console.log(node.id === props.id)
 				if (node.id === props.id) {
+					console.log('node.data before')
+					console.log(node.data)
+					console.log(currentVariable)
+					console.log('node.data after')
+					console.log({
+						...node,
+						data: {
+							...node.data,
+							value: currentVariable,
+						},
+					})
+
 					return {
 						...node,
 						data: {
@@ -39,6 +54,9 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
 				return node
 			}),
 		)
+		// @TODO: implement update in NodeStore
+		console.log('[InputNode.tsx]: all nodes')
+		console.log(getNodes())
 	}, [currentVariable, setNodes])
 
 	const onChangeName = (e: any) => {
