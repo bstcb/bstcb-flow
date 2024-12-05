@@ -23,7 +23,6 @@ import OutputNode from './custom/output/OutputNode'
 import ContextMenu from '../ContextMenu'
 import './Nodes.scss'
 import { NodeContextMenu } from '../../types/nodeContextMenu'
-import { variableFromValue } from '../../../helpers/helpers'
 
 const Nodes = () => {
 	// variables

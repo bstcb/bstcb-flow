@@ -14,13 +14,14 @@ import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import './InputNode.scss'
 import { Variable } from '../../../../types/variable'
 import { VariableParser } from '../../../../../transpilers/VariableParser'
+import { NodeTokenKind } from '../../../../../transpilers/Token'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
 	const { setNodes, getNodes } = useReactFlow()
 	const [currentVariable, setCurrentVariable] = useState<Variable>(
-		VariableParser.parse(props.value),
+		VariableParser.parse(props.value, NodeTokenKind.NTK_INPUT),
 	)
 
 	useEffect(() => {
