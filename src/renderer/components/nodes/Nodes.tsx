@@ -54,23 +54,23 @@ const Nodes = () => {
 	}, [])
 
 	useEffect(() => {
-		let id = uuid()
 		window.electron.ipcRenderer.on(
 			'add-node',
 			(nodeType: string, value: string) => {
 				let newNode: Node = {
-					id: `_${nodeType}_${id}`,
+					id: `_${nodeType}_${uuid()}`,
 					type: nodeType,
 					position: {
 						x: getRandomInt(100, 100),
 						y: getRandomInt(100, 300),
 					},
 					data: {
-						id: `_${nodeType}_${id}`,
+						id: null,
 						label: value,
 						value: value,
 					},
 				}
+				newNode.data.id = newNode.id
 				setNodes(nds => nds.concat(newNode))
 			},
 		)

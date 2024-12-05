@@ -13,16 +13,15 @@ import {
 import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import './InputNode.scss'
 import { Variable } from '../../../../types/variable'
-import { variableFromValue } from '../../../../../helpers/helpers'
+import { VariableParser } from '../../../../../transpilers/VariableParser'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
 const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
 	const { setNodes, getNodes } = useReactFlow()
-	const [currentVariable, setCurrentVariable] = useState<Variable>({
-		name: 'test',
-		value: 'test',
-	})
+	const [currentVariable, setCurrentVariable] = useState<Variable>(
+		VariableParser.parse(props.value),
+	)
 
 	useEffect(() => {
 		setNodes(nds =>

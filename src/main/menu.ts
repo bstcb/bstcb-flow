@@ -74,7 +74,7 @@ export default class MenuBuilder {
 									this.mainWindow.webContents.send(
 										'add-node',
 										'_input',
-										VariableParser.parse('x = 0'),
+										'x = 0',
 									)
 								},
 							},
