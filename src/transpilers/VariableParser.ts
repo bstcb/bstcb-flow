@@ -24,8 +24,7 @@ export abstract class VariableParser {
                 case NodeTokenKind.NTK_OUTPUT:
                     return {
                         name: value,
-                        // @TODO: fix `trim()` dosen't work
-                        value: value.split(',')
+                        value: value
                     }
                 case NodeTokenKind.NTK_INITAL:
                     throw new Error(`${kind} variable parser is not implemented`)
