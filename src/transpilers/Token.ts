@@ -9,7 +9,7 @@ export enum NodeTokenKind {
   NTK_WHILE_LOOP = '_while_lp',
   NTK_INPUT = '_input',
   NTK_OUTPUT = '_output',
-  NTK_INITAL = 'NTK_INITAL', // does it need a name?
+  NTK_INITIAL = 'NTK_INITIAL', // does it need a name?
 }
 
 export function getTokenKind(token: string): NodeTokenKind | undefined {

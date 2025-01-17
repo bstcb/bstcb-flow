@@ -21,7 +21,7 @@ export class NodeTranspiler {
             console.log(n)
             if (!n.type!.startsWith('_')) {
                 // initial nodes
-                this.tokens.push({ type: NodeTokenKind.NTK_INITAL, value: null })
+                this.tokens.push({ type: NodeTokenKind.NTK_INITIAL, value: null })
             } else {
                 let tokenKind = getTokenKind(n.type!)
                 console.log(n.type!, tokenKind)
@@ -39,28 +39,28 @@ export class NodeTranspiler {
                 case NodeTokenKind.NTK_INPUT:
                     console.log('parsing INPUT node')
                     console.log(token)
-                    CodeGen.genInput(VariableParser.parse(token.value!))
+                    CodeGen.genInput(VariableParser.parse(token.value!, NodeTokenKind.NTK_INPUT))
                     break
                 case NodeTokenKind.NTK_OUTPUT:
                     console.log(
                         `parsing OUTPUT node with name ${token.type} and value: ${token.value
                         } of type ${typeof token.value}  `,
                     )
-                    CodeGen.genOutput(VariableParser.parse(token.value!).value)
+                    CodeGen.genOutput(VariableParser.parse(token.value!, NodeTokenKind.NTK_OUTPUT).value)
                     break
                 case NodeTokenKind.NTK_IF_CONDITION:
                     console.log('parsing IF CONDITION node')
-                    CodeGen.genIf(token.value!)
+                    CodeGen.genIf(VariableParser.parse(token.value!, NodeTokenKind.NTK_IF_CONDITION).value)
                     break
                 case NodeTokenKind.NTK_FOR_LOOP:
                     console.log('parsing FOR LOOP node')
-                    CodeGen.genFor(token.value!)
+                    CodeGen.genFor(VariableParser.parse(token.value!, NodeTokenKind.NTK_FOR_LOOP).value)
                     break
                 case NodeTokenKind.NTK_WHILE_LOOP:
                     console.log('parsing WHILE LOOP node')
-                    CodeGen.genWhile(token.value!)
+                    CodeGen.genWhile(VariableParser.parse(token.value!, NodeTokenKind.NTK_WHILE_LOOP).value)
                     break
-                case NodeTokenKind.NTK_INITAL:
+                case NodeTokenKind.NTK_INITIAL:
                     console.log('parsing INITIAL node')
                     break
             }

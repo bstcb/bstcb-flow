@@ -8,14 +8,20 @@ export abstract class VariableParser {
             switch (kind) {
                 // @TODO: handle potential wrong input type error
                 case NodeTokenKind.NTK_IF_CONDITION:
-                    throw new Error(`${kind} variable parser is not implemented`)
-                    return {} as Variable
+                    return {
+                        name: value,
+                        value: value
+                    }
                 case NodeTokenKind.NTK_FOR_LOOP:
-                    throw new Error(`${kind} variable parser is not implemented`)
-                    return {} as Variable
+                    return {
+                        name: value,
+                        value: value
+                    }
                 case NodeTokenKind.NTK_WHILE_LOOP:
-                    throw new Error(`${kind} variable parser is not implemented`)
-                    return {} as Variable
+                    return {
+                        name: value,
+                        value: value
+                    }
                 case NodeTokenKind.NTK_INPUT:
                     return {
                         name: value.split('=')[0].trim(),
@@ -26,8 +32,7 @@ export abstract class VariableParser {
                         name: value,
                         value: value
                     }
-                case NodeTokenKind.NTK_INITAL:
-                    throw new Error(`${kind} variable parser is not implemented`)
+                case NodeTokenKind.NTK_INITIAL:
                     return {} as Variable
             }
         } else {
