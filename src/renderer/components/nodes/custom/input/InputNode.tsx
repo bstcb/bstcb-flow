@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 import {
     Handle,
     NodeProps,
@@ -15,8 +15,8 @@ import './InputNode.scss'
 import { Variable } from '../../../../types/variable'
 import { VariableParser } from '../../../../../transpilers/VariableParser'
 import { NodeTokenKind } from '../../../../../transpilers/Token'
-import { NodeErrorKind, showNodeError } from '../../../../errors/NodeError'
 import { describeNodePosition } from '../../../../utils/nodeUtils'
+import { NodeError, NodeErrorKind } from '../../../../errors/NodeError'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
@@ -28,6 +28,10 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
     const nodes = getNodes()
     const node = getNode(props.id)!
     const nodeIndex = nodes.indexOf(nodes.find(n => n.id == props.id))!
+
+    const nameInputRef: MutableRefObject<HTMLInputElement> = useRef(null)
+    const valueInputRef: MutableRefObject<HTMLInputElement> = useRef(null)
+
 
     useEffect(() => {
         setNodes(nds =>
@@ -65,18 +69,25 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
     }, [currentVariable, setNodes])
 
     const onChangeName = (e: any) => {
+        // @TODO: apply timer to error logging
         const newName = e.target.value
-        if (newName == '')
-            showNodeError(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'name is empty')
-
+        if (newName == '') {
+            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'name is empty')
+            NodeError.applyErrorStyle(nameInputRef)
+        } else {
+            NodeError.clearErrorStyle(nameInputRef)
+        }
         setCurrentVariable({ ...currentVariable, name: newName })
     }
 
     const onChangeValue = (e: any) => {
         const newValue = e.target.value
-        if (newValue == '')
-            showNodeError(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
-
+        if (newValue == '') {
+            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
+            NodeError.applyErrorStyle(valueInputRef)
+        } else {
+            NodeError.clearErrorStyle(valueInputRef)
+        }
         setCurrentVariable({ ...currentVariable, value: newValue })
     }
 
@@ -85,6 +96,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
             <Handle type='target' position={Position.Top} />
             <div className='_input_wrapper'>
                 <input
+                    ref={nameInputRef}
                     id='_input_variable_name'
                     name='_input_text_name'
                     onChange={onChangeName}
@@ -92,6 +104,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
                 />
                 <span>=</span>
                 <input
+                    ref={valueInputRef}
                     id='_input_variable_value'
                     name='_input_text_value'
                     onChange={onChangeValue}
