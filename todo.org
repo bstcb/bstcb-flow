@@ -1,0 +1,6 @@
+* TODO [33%]
+
+- [X] fix the way of passing ids of new nodes
+- [ ] fix adding node in between
+- [ ] fix =setTimeout= in =ErrorToast= 
+- [ ] implement =tree-sitter= stuff
