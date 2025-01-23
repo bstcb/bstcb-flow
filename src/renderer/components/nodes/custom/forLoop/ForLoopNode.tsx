@@ -32,7 +32,7 @@ const ForLoopNode = ({ data: props }: NodeProps<ForLoopNodeProps>) => {
             NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
             NodeError.applyErrorStyle(inputRef)
         }
-        else if (!value.test(forLoopRegex)) {
+        else if (!forLoopRegex.test(value)) {
             NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'wrong value format')
             NodeError.applyErrorStyle(inputRef)
         } else {
