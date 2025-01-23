@@ -3,7 +3,7 @@ import './App.scss'
 import CodeEditor from './components/code/CodeEditor'
 import Nodes from './components/nodes/Nodes'
 import { useEffect, useState } from 'react'
-import ErrorToast from './components/toasts/ErrorToast'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
     return (
@@ -11,8 +11,8 @@ const App = () => {
             <div className='main__wrapper'>
                 <Nodes />
                 <CodeEditor />
-                <ErrorToast />
             </div>
+            <ToastContainer />
         </ReactFlowProvider>
     )
 }

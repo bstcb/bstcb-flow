@@ -1,16 +1,42 @@
 import { MutableRefObject } from "react"
-import { NODE_ERROR_CLASSNAME } from "../constants"
+import { NODE_ERROR_CLASSNAME, TIMER_DURATION } from "../constants"
 import { useErrorStore } from "../store/ErrorStore"
+import { toast, Bounce } from "react-toastify";
 
 export enum NodeErrorKind {
   NEK_WRONG_DATA_FORMAT = "wrong data format"
 }
 
 export class NodeError {
-  // @NOTE: forced to accept all the parameters here 'cause of React Hook rules
+  // Typescript dosen't have proper overloads :(
+  static showShort(errorMessage: string) {
+    toast.error(errorMessage, {
+      position: "bottom-right",
+      autoClose: TIMER_DURATION,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  }
+
   static show(nodeType: string, nodeIndex: number, errorKind: NodeErrorKind, errorMessage: string) {
-    const errorString = `[ERROR]: ${errorKind}: ${errorMessage} in ${nodeType} node at position ${nodeIndex}`
-    useErrorStore.getState().setIsNodeDataFormatError(errorString)
+    const errorString = `${errorMessage} in ${nodeType} node at position ${nodeIndex}`
+    toast.error(errorString, {
+      position: "bottom-right",
+      autoClose: TIMER_DURATION,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+
   }
 
   static applyErrorStyle(ref: MutableRefObject<HTMLInputElement>) {
@@ -18,13 +44,8 @@ export class NodeError {
       ref.current.className = NODE_ERROR_CLASSNAME
   }
 
-
   static clearErrorStyle(ref: MutableRefObject<HTMLInputElement>) {
     if (ref.current.className.includes(NODE_ERROR_CLASSNAME))
       ref.current.className = ''
   }
-
 }
-
-
-
