@@ -1,6 +1,18 @@
-* TODO [33%]
+* TODO [11%]
 
 - [X] fix the way of passing ids of new nodes
 - [ ] fix adding node in between
 - [ ] fix =setTimeout= in =ErrorToast= 
 - [ ] implement =tree-sitter= stuff
+- [ ] implement "learn more" button on error pop up
+- [ ] implement modal window with docs
+- [ ] implement md(x) parser for docs
+- [ ] implement =getNodeInfo= helper to avoid repeating this code in every node
+  #+begin_src typescript
+    const node = getNode(props.id)
+    const nodes = getNodes()
+    const nodeIndex = nodes.indexOf(nodes.find(n => n.id == props.id))!
+  #+end_src
+- [ ] fix error of =ForLoopRegex=
+    
+

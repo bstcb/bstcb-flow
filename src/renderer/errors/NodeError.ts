@@ -24,7 +24,7 @@ export class NodeError {
   }
 
   static show(nodeType: string, nodeIndex: number, errorKind: NodeErrorKind, errorMessage: string) {
-    const errorString = `${errorMessage} in ${nodeType} node at position ${nodeIndex}`
+    const errorString = `${errorMessage} in ${nodeType.replace('_', '')} node at position ${nodeIndex}`
     toast.error(errorString, {
       position: "bottom-right",
       autoClose: TIMER_DURATION,
