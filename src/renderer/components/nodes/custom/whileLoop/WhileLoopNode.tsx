@@ -31,7 +31,7 @@ const WhileLoopNode = ({ data: props }: NodeProps<WhileLoopNodeProps>) => {
             NodeError.clearErrorStyle(inputRef)
         }
         SetCurrentVariable(
-            VariableParser.parse(value, NodeTokenKind.NTK_IF_CONDITION),
+            VariableParser.parse(value, NodeTokenKind.NTK_WHILE_LOOP),
         )
     }, [])
 

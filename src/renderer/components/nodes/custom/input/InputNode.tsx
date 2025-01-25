@@ -77,6 +77,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         } else {
             NodeError.clearErrorStyle(nameInputRef)
         }
+        // @TODO: parse
         setCurrentVariable({ ...currentVariable, name: newName })
     }
 
