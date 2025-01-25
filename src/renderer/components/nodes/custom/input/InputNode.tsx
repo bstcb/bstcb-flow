@@ -70,7 +70,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
 
     const onChangeName = (e: any) => {
         // @TODO: apply timer to error logging
-        const newName = e.target.value
+        const newName: string = e.target.value
         if (newName == '') {
             NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'name is empty')
             NodeError.applyErrorStyle(nameInputRef)
@@ -81,7 +81,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
     }
 
     const onChangeValue = (e: any) => {
-        const newValue = e.target.value
+        const newValue: string = e.target.value
         if (newValue == '') {
             NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
             NodeError.applyErrorStyle(valueInputRef)
