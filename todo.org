@@ -1,8 +1,8 @@
-* TODO [11%]
+* TODO [36%]
 
 - [X] fix the way of passing ids of new nodes
-- [ ] fix adding node in between
-- [ ] fix =setTimeout= in =ErrorToast= 
+- [X] fix adding node in between
+- [X] fix =setTimeout= in =ErrorToast=
 - [ ] implement =tree-sitter= stuff
 - [ ] implement "learn more" button on error pop up
 - [ ] implement modal window with docs
@@ -13,6 +13,6 @@
     const nodes = getNodes()
     const nodeIndex = nodes.indexOf(nodes.find(n => n.id == props.id))!
   #+end_src
-- [ ] fix error of =ForLoopRegex=
-    
-
+- [X] fix error of =ForLoopRegex=
+- [ ] implement save/load
+- [ ] fix node shapes
