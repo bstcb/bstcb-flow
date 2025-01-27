@@ -1,36 +1,63 @@
-import { getConnectedEdges, useReactFlow } from 'reactflow'
+import { Node, Edge, getConnectedEdges, useReactFlow } from 'reactflow'
 import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useCodeStore } from '../../../store/CodeStore'
-import ErrorToast from '../../ui/ErrorToast'
+import { NodeError } from '../../../errors/NodeError'
 
 const Debug = () => {
-   const { getNodes, getEdges, getNode } = useReactFlow()
-   const tryParseNodes = () => {
-      console.log('trying to parse nodes')
+    const { getNodes, getEdges, getNode } = useReactFlow()
 
-      let currentNodes = getNodes()
-      let currentEdges = getEdges()
+    const getActiveNodes = (connectedEdges: Edge[]) => {
+
+        let startEdge = connectedEdges.find(e => e.source === '_start')
+        let endEdge = connectedEdges.find(e => e.target === '_end')
+
+        if (!startEdge || !endEdge) {
+            // @TODO: clarify the error
+            NodeError.showShort("you need to complete the flowchart first")
+            return []
+        }
+
+        let activeNodes: Node[] = []
+
+        for (let i = 0; i < connectedEdges.length; i++) {
+            let edge = connectedEdges[i]
+            if (getNode(edge.target))
+                // omitting the initials, because they are not doing anything anyway
+                if (edge.target !== '_end')
+                    activeNodes.push(getNode(edge.target)!)
+        }
+        // debugger
+        return activeNodes
+    }
+    const tryParseNodes = () => {
+        console.log('trying to parse nodes')
+
+        let currentNodes = getNodes()
+        let currentEdges = getEdges()
 
 
 
-      // actual connected nodes that need to be transpiled
-      let activeNodes = getConnectedEdges(currentNodes, currentEdges)
-         .map(e => getNode(e.source))
+        // actual connected nodes that need to be transpiled
+        let connectedEdges: Edge[] = getConnectedEdges(currentNodes, currentEdges)
+        console.log('[DEBUG]: connected edges are:')
+        console.log(connectedEdges)
 
-      console.log('[DEBUG]: active nodes are:')
-      console.log(activeNodes)
+        let activeNodes: Node[] = getActiveNodes(connectedEdges)
 
-      useCodeStore.getState().clearCodeChunks()
+        console.log('[DEBUG]: active nodes are:')
+        console.log(activeNodes)
 
-      let transpiler = new NodeTranspiler(activeNodes)
-      transpiler.transpile()
+        useCodeStore.getState().clearCodeChunks()
 
-   }
-   return (
-      <div className='debug'>
-         <button onClick={tryParseNodes}>Try Parse Nodes</button>
-      </div>
-   )
+        let transpiler = new NodeTranspiler(activeNodes)
+        transpiler.transpile()
+
+    }
+    return (
+        <div className='debug'>
+            <button onClick={tryParseNodes}>Try Parse Nodes</button>
+        </div>
+    )
 }
 
 export default Debug
