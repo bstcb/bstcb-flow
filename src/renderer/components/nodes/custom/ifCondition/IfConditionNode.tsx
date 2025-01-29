@@ -73,9 +73,8 @@ const IfConditionNode = ({ data: props }: NodeProps<IfConditionNodeProps>) => {
 
     return (
         <>
-            <Handle type='target' position={Position.Top} />
+            <Handle type='target' position={Position.Top} style={{ zIndex: 999 }} />
             <div className='_if_cond_wrapper'>
-                <span>True</span>
                 <input
                     ref={inputRef}
                     type='text'
@@ -84,7 +83,6 @@ const IfConditionNode = ({ data: props }: NodeProps<IfConditionNodeProps>) => {
                     value={currentVariable.value}
                     onChange={onChange}
                 />
-                <span>False</span>
             </div>
             <Handle type='source' id='h_true' position={Position.Left} />
             <Handle type='source' id='h_false' position={Position.Right} />
