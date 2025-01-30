@@ -73,7 +73,7 @@ const IfConditionNode = ({ data: props }: NodeProps<IfConditionNodeProps>) => {
 
     return (
         <>
-            <Handle type='target' position={Position.Top} style={{ zIndex: 999 }} />
+            <Handle type='target' position={Position.Top} style={{ zIndex: 999, transform: 'translate(-3px, -90%)' }} />
             <div className='_if_cond_wrapper'>
                 <input
                     ref={inputRef}
