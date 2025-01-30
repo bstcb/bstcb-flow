@@ -84,8 +84,8 @@ const IfConditionNode = ({ data: props }: NodeProps<IfConditionNodeProps>) => {
                     onChange={onChange}
                 />
             </div>
-            <Handle type='source' id='h_true' position={Position.Left} />
-            <Handle type='source' id='h_false' position={Position.Right} />
+            <Handle type='source' id='h_true' position={Position.Left} style={{ zIndex: 999, transform: 'translate(-30px, -3px)' }} />
+            <Handle type='source' id='h_false' position={Position.Right} style={{ zIndex: 999, transform: 'translate(30px, -3px)' }} />
         </>
     )
 }
