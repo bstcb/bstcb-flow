@@ -72,9 +72,8 @@ const WhileLoopNode = ({ data: props }: NodeProps<WhileLoopNodeProps>) => {
 
     return (
         <>
-            <Handle type='target' position={Position.Top} />
+            <Handle type='target' position={Position.Top} style={{ zIndex: 999, transform: 'translate(-3px, -90%)' }} />
             <div className='_while_lp_wrapper'>
-                <span>No</span>
                 <input
                     ref={inputRef}
                     type='text'
@@ -83,10 +82,9 @@ const WhileLoopNode = ({ data: props }: NodeProps<WhileLoopNodeProps>) => {
                     value={currentVariable.value}
                     onChange={onChange}
                 />
-                <span>Yes</span>
             </div>
-            <Handle type='source' id='h_yes' position={Position.Left} />
-            <Handle type='source' id='h_no' position={Position.Right} />
+            <Handle type='source' id='h_true' position={Position.Left} style={{ zIndex: 999, transform: 'translate(-30px, -3px)' }} />
+            <Handle type='source' id='h_false' position={Position.Right} style={{ zIndex: 999, transform: 'translate(30px, -3px)' }} />
         </>
     )
 }
