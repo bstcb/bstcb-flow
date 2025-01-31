@@ -1,4 +1,4 @@
-* TODO [36%]
+* TODO [45%]
 
 - [X] fix the way of passing ids of new nodes
 - [X] fix adding node in between
@@ -15,4 +15,4 @@
   #+end_src
 - [X] fix error of =ForLoopRegex=
 - [ ] implement save/load
-- [ ] fix node shapes
+- [X] fix node shapes
