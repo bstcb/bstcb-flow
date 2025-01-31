@@ -3,7 +3,7 @@ import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useCodeStore } from '../../../store/CodeStore'
 import { NodeError } from '../../../errors/NodeError'
 
-const Debug = () => {
+const DebugNodes = () => {
     const { getNodes, getEdges, getNode } = useReactFlow()
 
     const getActiveNodes = (connectedEdges: Edge[]) => {
@@ -60,4 +60,4 @@ const Debug = () => {
     )
 }
 
-export default Debug
+export default DebugNodes
