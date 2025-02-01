@@ -2,8 +2,10 @@ import { enumFromString } from "../helpers/helpers"
 import { useCodeStore } from "../renderer/store/CodeStore"
 import { Variable } from "../renderer/types/variable"
 import { CodeLanguage } from "./CodeLanguage"
-import { Node, ReactFlowInstance } from 'reactflow'
+import { Edge, Node, ReactFlowInstance } from 'reactflow'
 import { NodeTokenKind } from "./Token"
+import { v4 as uuid } from 'uuid'
+import { getRandomInt } from "../renderer/utils/random"
 
 export class NodeGen {
   static activeLanguage: CodeLanguage
@@ -17,6 +19,7 @@ export class NodeGen {
     console.log(
       `input node generation in with variable: ${variable.name}: ${variable.value}`,
     )
+    // creating node
     let newNode: Node = {
       id: `_${NodeTokenKind.NTK_INPUT}_${uuid()}`,
       type: NodeTokenKind.NTK_INPUT,
@@ -27,12 +30,26 @@ export class NodeGen {
       },
       data: {
         id: null,
-        label: variable.name,
-        value: variable.value,
+        label: variable,
+        value: variable,
       },
     }
     newNode.data.id = newNode.id
-
+    // inserting node
     rfInstance.setNodes(nds => nds.concat(newNode))
+    // @TODO: get neighbour nodes to create edges
+    // creating edge
+    let newEdgeSource = `_start`
+    let newEdgeTarget = `_end`
+    let newEdgeId = `reactflow__edge-${newEdgeSource}-${newEdgeTarget}`
+    let newEdge: Edge = {
+      id: newEdgeId,
+      source: '_start',
+      sourceHandle: null,
+      target: newNode.id,
+      targetHandle: null
+    }
+    // inserting edge
+    rfInstance.setEdges(edges => [newEdge])
   }
 }

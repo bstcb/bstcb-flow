@@ -1,5 +1,23 @@
-import { Node } from 'reactflow'
+import { Node, ReactFlowInstance } from 'reactflow'
+import { NodeGen } from './NodeGen'
+import { VariableParser } from './VariableParser'
+import { NodeTokenKind } from './Token'
+import { Variable } from '../renderer/types/variable'
 
-export function parse(nodes: Node[]) {
-  console.log(nodes[0])
+export class CodeTranspiler {
+  rfInstance: ReactFlowInstance
+  codeChunks: string[]
+  constructor(codeChunks: string[], rfInstance: ReactFlowInstance) {
+    this.codeChunks = codeChunks
+    this.rfInstance = rfInstance
+  }
+  transpile() {
+    this.parse()
+  }
+  private parse() {
+    // test
+    let variable: Variable = { name: 'x', value: '0' }
+    NodeGen.genInput(variable, this.rfInstance)
+  }
 }
+
