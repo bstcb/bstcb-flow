@@ -1,7 +1,7 @@
 import { Node, Edge, getConnectedEdges, useReactFlow } from 'reactflow'
-import { NodeTranspiler } from '../../../../transpilers/node/NodeTranspiler'
 import { useCodeStore } from '../../../store/CodeStore'
 import { NodeError } from '../../../errors/NodeError'
+import { NodeTranspiler } from '../../../../transpilers/NodeTranspiler'
 
 const DebugNodes = () => {
     const { getNodes, getEdges, getNode } = useReactFlow()
