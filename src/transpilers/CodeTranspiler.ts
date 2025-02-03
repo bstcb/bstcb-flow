@@ -17,7 +17,7 @@ export class CodeTranspiler {
   private parse() {
     // test
     let variable: Variable = { name: 'x', value: '0' }
-    NodeGen.genInput(variable, this.rfInstance)
+    NodeGen.genInput(variable, 1, this.rfInstance)
   }
 }
 
