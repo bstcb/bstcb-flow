@@ -39,21 +39,28 @@ export class NodeGen {
         console.log(rfInstance.getNodes())
         rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, newNode))
         requestAnimationFrame(() => {
-            console.log(rfInstance.getNodes())
+            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
+            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
             // @TODO: get neighbour nodes to create edges
             // creating edge
-            let newEdgeSource = `_start`
-            let newEdgeTarget = `_end`
-            let newEdgeId = `reactflow__edge-${newEdgeSource}-${newEdgeTarget}`
-            let newEdge: Edge = {
-                id: newEdgeId,
-                source: '_start',
+            let sourceEdgeId = prevNode.id
+            let targetEdgeId = nextNode.id
+            let sourceEdge: Edge = {
+                id: `reactflow__edge-${sourceEdgeId}-${newNode.id}`,
+                source: sourceEdgeId,
                 sourceHandle: null,
                 target: newNode.id,
                 targetHandle: null
             }
+            let targetEdge: Edge = {
+                id: `reactflow__edge-${newNode.id}-${targetEdgeId}`,
+                source: newNode.id,
+                sourceHandle: null,
+                target: targetEdgeId,
+                targetHandle: null
+            }
             // inserting edge
-            rfInstance.setEdges(edges => [newEdge])
+            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
         })
 
     }

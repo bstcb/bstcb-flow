@@ -5,19 +5,18 @@ import { NodeTokenKind } from './Token'
 import { Variable } from '../renderer/types/variable'
 
 export class CodeTranspiler {
-  rfInstance: ReactFlowInstance
-  codeChunks: string[]
-  constructor(codeChunks: string[], rfInstance: ReactFlowInstance) {
-    this.codeChunks = codeChunks
-    this.rfInstance = rfInstance
-  }
-  transpile() {
-    this.parse()
-  }
-  private parse() {
-    // test
-    let variable: Variable = { name: 'x', value: '0' }
-    NodeGen.genInput(variable, 1, this.rfInstance)
-  }
+    rfInstance: ReactFlowInstance
+    codeChunks: string[]
+    constructor(codeChunks: string[], rfInstance: ReactFlowInstance) {
+        this.codeChunks = codeChunks
+        this.rfInstance = rfInstance
+    }
+    transpile() {
+        this.parse()
+    }
+    private parse() {
+        // test
+        NodeGen.genInput({ name: 'x', value: '0' }, 1, this.rfInstance)
+    }
 }
 
