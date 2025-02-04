@@ -64,4 +64,197 @@ export class NodeGen {
         })
 
     }
+    static genOutput(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        console.log(
+            `output node generation in with variable: ${variable.value}`,
+        )
+        // creating node
+        let newNode: Node = {
+            id: `_${NodeTokenKind.NTK_OUTPUT}_${uuid()}`,
+            type: NodeTokenKind.NTK_OUTPUT,
+            position: {
+                // @TODO: count position relative to neighbour nodes 
+                x: getRandomInt(100, 150),
+                y: getRandomInt(100, 300),
+            },
+            data: {
+                id: null,
+                label: variable,
+                value: variable,
+            },
+        }
+        newNode.data.id = newNode.id
+        // inserting node
+        console.log(rfInstance.getNodes())
+        rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, newNode))
+        requestAnimationFrame(() => {
+            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
+            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
+            // @TODO: get neighbour nodes to create edges
+            // creating edge
+            let sourceEdgeId = prevNode.id
+            let targetEdgeId = nextNode.id
+            let sourceEdge: Edge = {
+                id: `reactflow__edge-${sourceEdgeId}-${newNode.id}`,
+                source: sourceEdgeId,
+                sourceHandle: null,
+                target: newNode.id,
+                targetHandle: null
+            }
+            let targetEdge: Edge = {
+                id: `reactflow__edge-${newNode.id}-${targetEdgeId}`,
+                source: newNode.id,
+                sourceHandle: null,
+                target: targetEdgeId,
+                targetHandle: null
+            }
+            // inserting edge
+            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
+        })
+
+    }
+    static genIf(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        console.log(
+            `if condition node generation in with variable: ${variable.value}`,
+        )
+        // creating node
+        let newNode: Node = {
+            id: `_${NodeTokenKind.NTK_IF_CONDITION}_${uuid()}`,
+            type: NodeTokenKind.NTK_IF_CONDITION,
+            position: {
+                // @TODO: count position relative to neighbour nodes 
+                x: getRandomInt(100, 150),
+                y: getRandomInt(100, 300),
+            },
+            data: {
+                id: null,
+                label: variable,
+                value: variable,
+            },
+        }
+        newNode.data.id = newNode.id
+        // inserting node
+        console.log(rfInstance.getNodes())
+        rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, newNode))
+        requestAnimationFrame(() => {
+            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
+            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
+            // @TODO: get neighbour nodes to create edges
+            // creating edge
+            let sourceEdgeId = prevNode.id
+            let targetEdgeId = nextNode.id
+            let sourceEdge: Edge = {
+                id: `reactflow__edge-${sourceEdgeId}-${newNode.id}`,
+                source: sourceEdgeId,
+                sourceHandle: null,
+                target: newNode.id,
+                targetHandle: null
+            }
+            let targetEdge: Edge = {
+                id: `reactflow__edge-${newNode.id}-${targetEdgeId}`,
+                source: newNode.id,
+                sourceHandle: 'h_true',
+                target: targetEdgeId,
+                targetHandle: null
+            }
+            // inserting edge
+            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
+        })
+    }
+    static genFor(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        console.log(
+            `for loop node generation in with variable: ${variable.value}`,
+        )
+        // creating node
+        let newNode: Node = {
+            id: `_${NodeTokenKind.NTK_FOR_LOOP}_${uuid()}`,
+            type: NodeTokenKind.NTK_FOR_LOOP,
+            position: {
+                // @TODO: count position relative to neighbour nodes 
+                x: getRandomInt(100, 150),
+                y: getRandomInt(100, 300),
+            },
+            data: {
+                id: null,
+                label: variable,
+                value: variable,
+            },
+        }
+        newNode.data.id = newNode.id
+        // inserting node
+        console.log(rfInstance.getNodes())
+        rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, newNode))
+        requestAnimationFrame(() => {
+            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
+            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
+            // @TODO: get neighbour nodes to create edges
+            // creating edge
+            let sourceEdgeId = prevNode.id
+            let targetEdgeId = nextNode.id
+            let sourceEdge: Edge = {
+                id: `reactflow__edge-${sourceEdgeId}-${newNode.id}`,
+                source: sourceEdgeId,
+                sourceHandle: null,
+                target: newNode.id,
+                targetHandle: null
+            }
+            let targetEdge: Edge = {
+                id: `reactflow__edge-${newNode.id}-${targetEdgeId}`,
+                source: newNode.id,
+                sourceHandle: 'h_true',
+                target: targetEdgeId,
+                targetHandle: null
+            }
+            // inserting edge
+            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
+        })
+    }
+    static genWhile(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        console.log(
+            `while loop node generation in with variable: ${variable.value}`,
+        )
+        // creating node
+        let newNode: Node = {
+            id: `_${NodeTokenKind.NTK_IF_CONDITION}_${uuid()}`,
+            type: NodeTokenKind.NTK_IF_CONDITION,
+            position: {
+                // @TODO: count position relative to neighbour nodes 
+                x: getRandomInt(100, 150),
+                y: getRandomInt(100, 300),
+            },
+            data: {
+                id: null,
+                label: variable,
+                value: variable,
+            },
+        }
+        newNode.data.id = newNode.id
+        // inserting node
+        console.log(rfInstance.getNodes())
+        rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, newNode))
+        requestAnimationFrame(() => {
+            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
+            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
+            // @TODO: get neighbour nodes to create edges
+            // creating edge
+            let sourceEdgeId = prevNode.id
+            let targetEdgeId = nextNode.id
+            let sourceEdge: Edge = {
+                id: `reactflow__edge-${sourceEdgeId}-${newNode.id}`,
+                source: sourceEdgeId,
+                sourceHandle: null,
+                target: newNode.id,
+                targetHandle: null
+            }
+            let targetEdge: Edge = {
+                id: `reactflow__edge-${newNode.id}-${targetEdgeId}`,
+                source: newNode.id,
+                sourceHandle: 'h_true',
+                target: targetEdgeId,
+                targetHandle: null
+            }
+            // inserting edge
+            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
+        })
+    }
 }
