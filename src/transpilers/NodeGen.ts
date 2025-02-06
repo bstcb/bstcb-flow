@@ -35,6 +35,7 @@ export class NodeGen {
         return result.map(indexedNode => indexedNode.node)
     }
     private static genNode(node: Node, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        // @TODO: handle node positions
         node.position.y += this.positionOffset * nodeIndex
         // debugger
         let newIndexedNode: IndexedNode = { node, nodeIndex }
@@ -51,11 +52,14 @@ export class NodeGen {
             let prevNode = rfInstance.getNodes()[nodeIndex - 1]
             let nextNode = rfInstance.getNodes()[nodeIndex + 1]
             const edges = [];
+            const conditionalTypes = ['_if_cond', '_for_lp', '_while_lp']
             for (let i = 0; i < nodes.length - 1; i++) {
                 edges.push({
                     id: `e${nodes[i].id}-${nodes[i + 1].id}`,
                     source: nodes[i].id,
+                    sourceHandle: conditionalTypes.includes([i + 1].type) && 'h_true', // @TODO: use condiotions from CST
                     target: nodes[i + 1].id,
+                    targetHandle: conditionalTypes.includes([i + 1].type) && 'h_true', // @TODO: use condiotions from CST
                 });
             }
             rfInstance.setEdges(edges)
