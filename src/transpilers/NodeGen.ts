@@ -50,26 +50,15 @@ export class NodeGen {
             console.log(rfInstance.getNodes())
             let prevNode = rfInstance.getNodes()[nodeIndex - 1]
             let nextNode = rfInstance.getNodes()[nodeIndex + 1]
-            // @TODO: get neighbour nodes to create edges
-            // creating edge
-            let sourceEdgeId = prevNode.id
-            let targetEdgeId = nextNode.id
-            let sourceEdge: Edge = {
-                id: `reactflow__edge-${sourceEdgeId}-${node.id}`,
-                source: sourceEdgeId,
-                sourceHandle: null,
-                target: node.id,
-                targetHandle: null
+            const edges = [];
+            for (let i = 0; i < nodes.length - 1; i++) {
+                edges.push({
+                    id: `e${nodes[i].id}-${nodes[i + 1].id}`,
+                    source: nodes[i].id,
+                    target: nodes[i + 1].id,
+                });
             }
-            let targetEdge: Edge = {
-                id: `reactflow__edge-${node.id}-${targetEdgeId}`,
-                source: node.id,
-                sourceHandle: null,
-                target: targetEdgeId,
-                targetHandle: null
-            }
-            // inserting edge
-            rfInstance.setEdges(edges => edges.concat([sourceEdge, targetEdge]))
+            rfInstance.setEdges(edges)
         })
 
 
