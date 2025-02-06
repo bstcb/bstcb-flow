@@ -6,20 +6,48 @@ import { Edge, Node, ReactFlowActions, ReactFlowInstance } from 'reactflow'
 import { NodeTokenKind } from "./Token"
 import { v4 as uuid } from 'uuid'
 import { getRandomInt } from "../renderer/utils/random"
+import { initialNodes } from "../renderer/components/nodes/initialNodes"
+
+type IndexedNode = {
+    node: Node,
+    index: number
+}
 
 export class NodeGen {
+    static indexedNodes: IndexedNode[] = []
     static activeLanguage: CodeLanguage
+    static positionOffset: number = 30
     static getActiveLang() {
         this.activeLanguage = enumFromString(
             CodeLanguage,
             useCodeStore.getState().activeLanguage,
         )!
     }
+    private static getNodesSorted(): Node[] {
+        let sortedNodes = this.indexedNodes.sort((a, b) => a.index - b.index)
+
+        let result: IndexedNode[] = [
+            { node: initialNodes[0], index: 0 },
+            ...sortedNodes,
+            { node: initialNodes[1], index: sortedNodes.length },
+        ]
+        console.log(result)
+        return result.map(indexedNode => indexedNode.node)
+    }
     private static genNode(node: Node, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        node.position.y += this.positionOffset * nodeIndex
+        // debugger
+        let newIndexedNode: IndexedNode = { node, nodeIndex }
+        console.log('newIndexedNode')
+        console.log(newIndexedNode)
+        this.indexedNodes.push(newIndexedNode)
         // inserting node
         console.log(rfInstance.getNodes())
-        rfInstance.setNodes(nds => arrayInsert(nds, nodeIndex, node))
+        let nodes = this.getNodesSorted()
+        rfInstance.setNodes(nodes)
         requestAnimationFrame(() => {
+            console.log('nodes from sorted nodes')
+            console.log(rfInstance.getNodes())
             let prevNode = rfInstance.getNodes()[nodeIndex - 1]
             let nextNode = rfInstance.getNodes()[nodeIndex + 1]
             // @TODO: get neighbour nodes to create edges
