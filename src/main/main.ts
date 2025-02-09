@@ -15,6 +15,8 @@ import path from 'path'
 import MenuBuilder from './menu'
 import { resolveHtmlPath } from './util'
 import { NodeParser } from '../fcParser/NodeParser'
+import { exec } from 'child_process'
+import { ParsableCode } from '../transpilers/CodeTranspiler'
 
 class AppUpdater {
     constructor() {
@@ -35,6 +37,16 @@ ipcMain.on('ipc-example', async (event, arg) => {
 ipcMain.on('parse-code', async (event, parsableCode: ParsableCode) => {
     console.log('code')
     console.log(parsableCode)
+    console.log('exec')
+    // @TODO: realpath or something
+    exec(` python src/parser/parser.py ${parsableCode.language} ${JSON.stringify(parsableCode.codeChunks)}`, (error, stdout, stderr) => {
+        console.log('log error')
+        console.log(error)
+        console.log('log stdout')
+        console.log(stdout)
+        console.log('log stderr')
+        console.log(stderr)
+    })
     event.reply('parse-code', 'parsed code from `main.ts`')
 })
 
