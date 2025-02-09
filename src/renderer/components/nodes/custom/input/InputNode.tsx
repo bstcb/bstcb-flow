@@ -16,7 +16,7 @@ import { Variable } from '../../../../types/variable'
 import { VariableParser } from '../../../../../transpilers/VariableParser'
 import { NodeTokenKind } from '../../../../../transpilers/Token'
 import { describeNodePosition } from '../../../../utils/nodeUtils'
-import { NodeError, NodeErrorKind } from '../../../../errors/NodeError'
+import { ErrorKind, ErrorReporter } from '../../../../errors/ErrorReporter'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
@@ -72,10 +72,10 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         // @TODO: apply timer to error logging
         const newName: string = e.target.value
         if (newName == '') {
-            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'name is empty')
-            NodeError.applyErrorStyle(nameInputRef)
+            ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'name is empty')
+            ErrorReporter.applyErrorStyle(nameInputRef)
         } else {
-            NodeError.clearErrorStyle(nameInputRef)
+            ErrorReporter.clearErrorStyle(nameInputRef)
         }
         // @TODO: parse
         setCurrentVariable({ ...currentVariable, name: newName })
@@ -84,10 +84,10 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
     const onChangeValue = (e: any) => {
         const newValue: string = e.target.value
         if (newValue == '') {
-            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
-            NodeError.applyErrorStyle(valueInputRef)
+            ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
+            ErrorReporter.applyErrorStyle(valueInputRef)
         } else {
-            NodeError.clearErrorStyle(valueInputRef)
+            ErrorReporter.clearErrorStyle(valueInputRef)
         }
         setCurrentVariable({ ...currentVariable, value: newValue })
     }

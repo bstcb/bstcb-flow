@@ -3,8 +3,8 @@ import { useReactFlow } from 'reactflow'
 import { NodeContextMenu } from '../types/nodeContextMenu'
 import './ContextMenu.scss'
 import { useErrorStore } from '../store/ErrorStore'
-import { NodeError } from '../errors/NodeError'
 import { DELETE_INITIAL_NODE_ERROR } from '../constants'
+import { ErrorReporter } from '../errors/ErrorReporter'
 
 export default function ContextMenu({
     id,
@@ -22,7 +22,7 @@ export default function ContextMenu({
             setNodes(nodes => nodes.filter(node => node.id !== id))
             setEdges(edges => edges.filter(edge => edge.source !== id))
         } else {
-            NodeError.showShort(DELETE_INITIAL_NODE_ERROR)
+            ErrorReporter.showShort(DELETE_INITIAL_NODE_ERROR)
         }
     }, [id, setNodes, setEdges])
 

@@ -5,7 +5,7 @@ import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import { NodeTokenKind } from '../../../../../transpilers/Token'
 import { VariableParser } from '../../../../../transpilers/VariableParser'
 import { Variable } from '../../../../types/variable'
-import { NodeError, NodeErrorKind } from '../../../../errors/NodeError'
+import { ErrorReporter, ErrorKind } from '../../../../errors/ErrorReporter'
 
 
 interface ForLoopNodeProps extends DefaultNodeProps {}
@@ -29,14 +29,14 @@ const ForLoopNode = ({ data: props }: NodeProps<ForLoopNodeProps>) => {
         console.log(value, typeof value)
         console.log(forLoopRegex)
         if (value == '') {
-            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
-            NodeError.applyErrorStyle(inputRef)
+            ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
+            ErrorReporter.applyErrorStyle(inputRef)
         }
         else if (!forLoopRegex.test(value)) {
-            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'wrong value format')
-            NodeError.applyErrorStyle(inputRef)
+            ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'wrong value format')
+            ErrorReporter.applyErrorStyle(inputRef)
         } else {
-            NodeError.clearErrorStyle(inputRef)
+            ErrorReporter.clearErrorStyle(inputRef)
         }
 
         SetCurrentVariable(

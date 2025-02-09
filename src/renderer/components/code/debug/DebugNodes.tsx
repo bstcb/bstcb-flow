@@ -1,7 +1,7 @@
 import { Node, Edge, getConnectedEdges, useReactFlow } from 'reactflow'
 import { useCodeStore } from '../../../store/CodeStore'
-import { NodeError } from '../../../errors/NodeError'
 import { NodeTranspiler } from '../../../../transpilers/NodeTranspiler'
+import { ErrorReporter } from '../../../errors/ErrorReporter'
 
 const DebugNodes = () => {
     const { getNodes, getEdges, getNode } = useReactFlow()
@@ -13,7 +13,7 @@ const DebugNodes = () => {
 
         if (!startEdge || !endEdge) {
             // @TODO: clarify the error
-            NodeError.showShort("you need to complete the flowchart first")
+            ErrorReporter.showShort("you need to complete the flowchart first")
             return []
         }
 

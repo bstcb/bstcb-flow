@@ -5,7 +5,7 @@ import { DefaultNodeProps } from '../../../../types/defaultNodeProps'
 import { NodeTokenKind } from '../../../../../transpilers/Token'
 import { VariableParser } from '../../../../../transpilers/VariableParser'
 import { Variable } from '../../../../types/variable'
-import { NodeError, NodeErrorKind } from '../../../../errors/NodeError'
+import { ErrorReporter, ErrorKind } from '../../../../errors/ErrorReporter'
 
 interface IfConditionNodeProps extends DefaultNodeProps {}
 
@@ -25,10 +25,10 @@ const IfConditionNode = ({ data: props }: NodeProps<IfConditionNodeProps>) => {
     const onChange = useCallback((e: any) => {
         const value: string = e.target.value
         if (value == '') {
-            NodeError.show(node.type, nodeIndex, NodeErrorKind.NEK_WRONG_DATA_FORMAT, 'value is empty')
-            NodeError.applyErrorStyle(inputRef)
+            ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
+            ErrorReporter.applyErrorStyle(inputRef)
         } else {
-            NodeError.clearErrorStyle(inputRef)
+            ErrorReporter.clearErrorStyle(inputRef)
         }
         SetCurrentVariable(
             VariableParser.parse(value, NodeTokenKind.NTK_IF_CONDITION),
