@@ -14,7 +14,6 @@ import { autoUpdater } from 'electron-updater'
 import path from 'path'
 import MenuBuilder from './menu'
 import { resolveHtmlPath } from './util'
-import { NodeParser } from '../fcParser/NodeParser'
 import { exec } from 'child_process'
 import { ParsableCode } from '../transpilers/CodeTranspiler'
 
