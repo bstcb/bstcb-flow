@@ -3,24 +3,11 @@ import sys
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
 
+from queries import input_query
 
 code_language = {
     "javascript": Language(ts_js.language())
 }
-
-
-def make_input_node(lang: Language, node):
-    query = lang.query(
-        """
-        (variable_declarator
-        name: (identifier) @var.name
-        value: (_) @var.value
-        )
-        """
-    )
-
-    print(query.matches(node)[0][1]['var.name'][0].text.decode('utf8'))
-    print(query.matches(node)[0][1]['var.value'][0].text.decode('utf8'))
 
 
 def return_output(code):
@@ -57,4 +44,4 @@ for chunk in chunks:
     print('chunk:cst')
     print(chunk, ':', cst.root_node)
 
-    make_input_node(code_language[lang], cst.root_node)
+    input_query.make_input_node(code_language[lang], cst.root_node)
