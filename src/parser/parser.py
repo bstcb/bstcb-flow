@@ -3,7 +3,7 @@ import sys
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
 
-from queries import input_query, output_query, if_query
+from queries import input_query, output_query, if_query, for_query, while_query
 
 code_language = {
     "javascript": Language(ts_js.language())
@@ -46,4 +46,5 @@ for chunk in chunks:
 
     # input_query.make_input_node(code_language[lang], cst.root_node)
     # output_query.make_output_node(code_language[lang], cst.root_node)
-    if_query.make_if_node(code_language[lang], cst.root_node)
+    # if_query.make_if_node(code_language[lang], cst.root_node)
+    for_query.make_for_node(code_language[lang], cst.root_node)
