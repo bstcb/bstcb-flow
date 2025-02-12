@@ -47,4 +47,5 @@ for chunk in chunks:
     # input_query.make_input_node(code_language[lang], cst.root_node)
     # output_query.make_output_node(code_language[lang], cst.root_node)
     # if_query.make_if_node(code_language[lang], cst.root_node)
-    for_query.make_for_node(code_language[lang], cst.root_node)
+    # for_query.make_for_node(code_language[lang], cst.root_node)
+    while_query.make_while_node(code_language[lang], cst.root_node)
