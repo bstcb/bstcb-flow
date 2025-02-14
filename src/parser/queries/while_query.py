@@ -11,5 +11,6 @@ def make_while_node(lang: Language, node):
         """
     )
 
-    print(query.matches(node)[0][1]['cond']
-          [0].text.decode('utf8').strip('()'))
+    value = query.matches(node)[0][1]['cond'][0].text.decode('utf8').strip('()')
+
+    return {'_while_lp': value}

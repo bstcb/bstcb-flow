@@ -16,13 +16,11 @@ def make_for_node(lang: Language, node):
         )
         """
     )
+    
     statements = []
 
-    statements.append(query.matches(node)[0][1]['for.init']
-                      [0].text.decode('utf8').strip('()'))
-    statements.append(query.matches(node)[0][1]['for.cond']
-                      [0].text.decode('utf8').strip('()'))
-    statements.append(query.matches(node)[0][1]['for.inc']
-                      [0].text.decode('utf8').strip('()'))
+    statements.append(query.matches(node)[0][1]['for.init'][0].text.decode('utf8').strip('()'))
+    statements.append(query.matches(node)[0][1]['for.cond'][0].text.decode('utf8').strip('()'))
+    statements.append(query.matches(node)[0][1]['for.inc'] [0].text.decode('utf8').strip('()'))
 
-    print(statements)
+    return {'_for_lp': ' '.join(statements)}
