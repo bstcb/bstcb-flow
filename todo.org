@@ -1,9 +1,9 @@
-* TODO [45%]
+* TODO [54%]
 
 - [X] fix the way of passing ids of new nodes
 - [X] fix adding node in between
 - [X] fix =setTimeout= in =ErrorToast=
-- [ ] implement =tree-sitter= stuff
+- [X] implement =tree-sitter= stuff
 - [ ] implement "learn more" button on error pop up
 - [ ] implement modal window with docs
 - [ ] implement md(x) parser for docs
@@ -16,3 +16,4 @@
 - [X] fix error of =ForLoopRegex=
 - [ ] implement save/load
 - [X] fix node shapes
+- [ ] fix connected node deletion brakes the chain
