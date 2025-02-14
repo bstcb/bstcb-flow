@@ -3,6 +3,7 @@ import sys
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
 
+from output import return_output, return_error
 from queries import input_query, output_query, if_query, for_query, while_query
 
 type ParsedChunks = list[dict[str, str]]
@@ -10,15 +11,6 @@ type ParsedChunks = list[dict[str, str]]
 code_language = {
     "javascript": Language(ts_js.language())
 }
-
-
-def return_output(code):
-    print(code)
-
-
-def return_error(error):
-    print(error, file=sys.stderr)
-
 
 # current language
 lang = sys.argv[1]
@@ -74,4 +66,7 @@ for chunk in chunks:
 
 
 print('parsedChunks complete')
-print(parsedChunks)
+
+# print(parsedChunks)
+
+return_output(parsedChunks)
