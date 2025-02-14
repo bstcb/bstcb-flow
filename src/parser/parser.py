@@ -3,6 +3,7 @@ import sys
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
 
+from debug import debug_print
 from output import return_output, return_error
 from queries import input_query, output_query, if_query, for_query, while_query
 
@@ -24,26 +25,26 @@ if lang not in code_language:
     return_error('[Compiler Error]: unknown language passed to compiler')
 
 
-print('lang')
-print(lang)
-print('chunks')
-print(chunks)
+debug_print('lang')
+debug_print(lang)
+debug_print('chunks')
+debug_print(chunks)
 
 parser = Parser(code_language[lang])
 
-print('parser')
+debug_print('parser')
 
 parsedChunks: ParsedChunks = []
 
 for chunk in chunks:
     cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
-    print('chunk:cst')
-    print(chunk, ':', cst.root_node)
+    debug_print('chunk:cst')
+    debug_print(chunk, ':', cst.root_node)
 
     chunk_type = cst.root_node.child(0).type
 
-    print('child 1 type')
-    print(chunk, ':', chunk_type)
+    debug_print('child 1 type')
+    debug_print(chunk, ':', chunk_type)
 
     match chunk_type:
         case 'lexical_declaration':
@@ -62,11 +63,11 @@ for chunk in chunks:
             chunk_data = while_query.make_while_node(code_language[lang], cst.root_node)
             parsedChunks.append(chunk_data)
         case _:
-            print('[Parser error]: unknown node')
+            debug_print('[Parser error]: unknown node')
 
 
-print('parsedChunks complete')
+debug_print('parsedChunks complete')
 
-# print(parsedChunks)
+# debug_print(parsedChunks)
 
 return_output(parsedChunks)

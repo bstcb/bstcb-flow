@@ -1,3 +1,6 @@
+import sys
+
+
 def return_output(code):
     print(code)
 
