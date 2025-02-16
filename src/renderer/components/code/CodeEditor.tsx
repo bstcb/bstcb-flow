@@ -13,7 +13,7 @@ import DebugNodes from './debug/DebugNodes'
 import DebugCode from './debug/DebugCode'
 
 const CodeEditor = () => {
-    const [codeChunks, setCodeChunks] = useState<string[]>([])
+    const [code, setCode] = useState<string>('')
 
     const editorRef = useRef<AceEditor>(null)
     useEffect(() => {
@@ -51,12 +51,12 @@ const CodeEditor = () => {
                     mode='javascript'
                     enableBasicAutocompletion={true}
                     enableLiveAutocompletion={true}
-                    onChange={console.log}
+                    onChange={setCode}
                     name='editor'
                     editorProps={{ $blockScrolling: true }}
                 />
                 <DebugNodes />
-                <DebugCode />
+                <DebugCode code={code} />
             </div>
         </div>
     )

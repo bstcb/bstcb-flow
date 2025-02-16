@@ -51,43 +51,47 @@ export class CodeTranspiler {
             parseResults = JSON.parse(parseResults)
             console.log(parseResults)
 
+            // @TODO: clear nodes
+
+            this.rfInstance.setNodes([])
+
             for (let i = 0; i < parseResults.length; i++) {
                 let pr = parseResults[i]
                 console.log(pr)
                 // parsing results
                 let pro = Object.entries(pr) // parse result object
                 console.log(pro)
-                if (pr.length != 2) {
-                    // @TODO: handle errors or undefined here
-                } else {
-                    let pn: ParsedNode = { // parsedNode
-                        kind: enumFromString(NodeTokenKind, pro[i][0]),
-                        data: pro[i][1]
-                    }
-                    console.log(pr)
-                    console.log(pro)
-                    console.log(pn)
-                    switch (pn.kind) {
-                        case NodeTokenKind.NTK_INPUT:
-                            NodeGen.genInput(pn.data, i, this.rfInstance)
-                            break
-                        case NodeTokenKind.NTK_OUTPUT:
-                            NodeGen.genOutput(pn.data, i, this.rfInstance)
-                            break
-                        case NodeTokenKind.NTK_IF_CONDITION:
-                            NodeGen.genIf(pn.data, i, this.rfInstance)
-                            break
-                        case NodeTokenKind.NTK_FOR_LOOP:
-                            NodeGen.genFor(pn.data, i, this.rfInstance)
-                            break
-                        case NodeTokenKind.NTK_WHILE_LOOP:
-                            NodeGen.genWhile(pn.data, i, this.rfInstance)
-                            break
-                        default:
-                            console.error(`wrong pn.kind ${pn.kind}`)
-
-                    }
+                // if (pr.length != 2) {
+                // @TODO: handle errors or undefined here
+                // } else {
+                let pn: ParsedNode = { // parsedNode
+                    kind: enumFromString(NodeTokenKind, pro[i][0]),
+                    data: pro[i][1]
                 }
+                console.log(pr)
+                console.log(pro)
+                console.log(pn)
+                switch (pn.kind) {
+                    case NodeTokenKind.NTK_INPUT:
+                        NodeGen.genInput(pn.data, i, this.rfInstance)
+                        break
+                    case NodeTokenKind.NTK_OUTPUT:
+                        NodeGen.genOutput(pn.data, i, this.rfInstance)
+                        break
+                    case NodeTokenKind.NTK_IF_CONDITION:
+                        NodeGen.genIf(pn.data, i, this.rfInstance)
+                        break
+                    case NodeTokenKind.NTK_FOR_LOOP:
+                        NodeGen.genFor(pn.data, i, this.rfInstance)
+                        break
+                    case NodeTokenKind.NTK_WHILE_LOOP:
+                        NodeGen.genWhile(pn.data, i, this.rfInstance)
+                        break
+                    default:
+                        console.error(`wrong pn.kind ${pn.kind}`)
+
+                }
+                // }
             }
 
 
