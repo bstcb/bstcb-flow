@@ -6,11 +6,17 @@ import { Variable } from '../renderer/types/variable'
 import { ipcRenderer } from 'electron'
 import { CodeLanguage } from './CodeLanguage'
 import { useCodeStore } from '../renderer/store/CodeStore'
+import { enumFromString } from '../helpers/helpers'
 
 export type ParsableCode = {
     language: CodeLanguage,
     codeChunks: string[]
 }
+export type ParsedNode = {
+    kind: NodeTokenKind,
+    data: string,
+}
+
 
 export class CodeTranspiler {
     rfInstance: ReactFlowInstance
@@ -39,11 +45,54 @@ export class CodeTranspiler {
 
         window.electron.ipcRenderer.sendMessage('parse-code', parsableCode)
 
-        window.electron.ipcRenderer.on('parse-code', async (result) => {
+        window.electron.ipcRenderer.on('parse-code', async (parseResults) => {
             console.log('parsed code returned')
             console.log('result')
-            console.log(result)
+            parseResults = JSON.parse(parseResults)
+            console.log(parseResults)
+
+            for (let i = 0; i < parseResults.length; i++) {
+                let pr = parseResults[i]
+                console.log(pr)
+                // parsing results
+                let pro = Object.entries(pr) // parse result object
+                console.log(pro)
+                if (pr.length != 2) {
+                    // @TODO: handle errors or undefined here
+                } else {
+                    let pn: ParsedNode = { // parsedNode
+                        kind: enumFromString(NodeTokenKind, pro[i][0]),
+                        data: pro[i][1]
+                    }
+                    console.log(pr)
+                    console.log(pro)
+                    console.log(pn)
+                    switch (pn.kind) {
+                        case NodeTokenKind.NTK_INPUT:
+                            NodeGen.genInput(pn.data, i, this.rfInstance)
+                            break
+                        case NodeTokenKind.NTK_OUTPUT:
+                            NodeGen.genOutput(pn.data, i, this.rfInstance)
+                            break
+                        case NodeTokenKind.NTK_IF_CONDITION:
+                            NodeGen.genIf(pn.data, i, this.rfInstance)
+                            break
+                        case NodeTokenKind.NTK_FOR_LOOP:
+                            NodeGen.genFor(pn.data, i, this.rfInstance)
+                            break
+                        case NodeTokenKind.NTK_WHILE_LOOP:
+                            NodeGen.genWhile(pn.data, i, this.rfInstance)
+                            break
+                        default:
+                            console.error(`wrong pn.kind ${pn.kind}`)
+
+                    }
+                }
+            }
+
+
         })
+
     }
 }
 
