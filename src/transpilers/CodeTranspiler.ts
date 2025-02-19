@@ -46,7 +46,7 @@ export class CodeTranspiler {
 
         window.electron.ipcRenderer.sendMessage('parse-code', parsableCode)
 
-        window.electron.ipcRenderer.on('parse-code', async (parseResults) => {
+        window.electron.ipcRenderer.once('parse-code', async (parseResults) => {
             // debugger
             console.log('parsed code returned')
             console.log('result')
@@ -66,9 +66,10 @@ export class CodeTranspiler {
                 // if (pr.length != 2) {
                 // @TODO: handle errors or undefined here
                 // } else {
+                // @TODO: handle error here
                 let pn: ParsedNode = { // parsedNode
-                    kind: enumFromString(NodeTokenKind, pro[i][0]),
-                    data: pro[i][1]
+                    kind: NodeTokenKind.NTK_OUTPUT,
+                    data: 'a,b'
                 }
                 console.log(pr)
                 console.log(pro)
@@ -78,7 +79,7 @@ export class CodeTranspiler {
                         NodeGen.genInput(pn.data, i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_OUTPUT:
-                        NodeGen.genOutput(VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT), i + 1, this.rfInstance)
+                        NodeGen.genOutput(VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT), i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_IF_CONDITION:
                         NodeGen.genIf(pn.data, i, this.rfInstance)
