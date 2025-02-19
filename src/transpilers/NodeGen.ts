@@ -29,7 +29,7 @@ export class NodeGen {
         let result: IndexedNode[] = [
             { node: initialNodes[0], index: 0 },
             ...sortedNodes,
-            { node: initialNodes[1], index: sortedNodes.length },
+            { node: initialNodes[1], index: sortedNodes.length + 1 },
         ]
         console.log(result)
         return result.map(indexedNode => indexedNode.node)
@@ -42,6 +42,8 @@ export class NodeGen {
         console.log('newIndexedNode')
         console.log(newIndexedNode)
         this.indexedNodes.push(newIndexedNode)
+        console.log('allIndexedNodes')
+        console.log(this.indexedNodes)
         // inserting node
         console.log(rfInstance.getNodes())
         let nodes = this.getNodesSorted()

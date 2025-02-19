@@ -12,10 +12,9 @@ const DebugCode = (props: Props) => {
     const tryParseCode = (code: string) => {
         console.log('trying to parse code')
         // @TODO: put code from editor to storage
-        useCodeStore.getState().setCodeChunks(code.split('\n'))
-        let codeChunks = useCodeStore.getState().codeChunks
-        console.log(codeChunks)
-        let transpiler = new CodeTranspiler(codeChunks, rfInstance)
+        let ctu = code.split('\n').map(e => e + '\n')
+        console.log(ctu)
+        let transpiler = new CodeTranspiler(ctu, rfInstance)
         transpiler.transpile()
     }
 

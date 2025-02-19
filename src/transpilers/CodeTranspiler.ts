@@ -41,7 +41,7 @@ export class CodeTranspiler {
 
         let parsableCode: ParsableCode = {
             language: codeStoreState.activeLanguage,
-            codeChunks: codeStoreState.codeChunks
+            codeChunks: this.codeChunks
         }
 
         window.electron.ipcRenderer.sendMessage('parse-code', parsableCode)
@@ -60,7 +60,6 @@ export class CodeTranspiler {
 
             for (let i = 0; i < parseResults.length; i++) {
                 let pr = parseResults[i]
-                console.log(pr)
                 // parsing results
                 let pro = Object.entries(pr) // parse result object
                 console.log(pro)
@@ -79,7 +78,7 @@ export class CodeTranspiler {
                         NodeGen.genInput(pn.data, i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_OUTPUT:
-                        NodeGen.genOutput(pn.data, i, this.rfInstance)
+                        NodeGen.genOutput(VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT), i + 1, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_IF_CONDITION:
                         NodeGen.genIf(pn.data, i, this.rfInstance)
