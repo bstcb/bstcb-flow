@@ -7,6 +7,7 @@ import { ipcRenderer } from 'electron'
 import { CodeLanguage } from './CodeLanguage'
 import { useCodeStore } from '../renderer/store/CodeStore'
 import { enumFromString } from '../helpers/helpers'
+import { initialNodes } from '../renderer/components/nodes/initialNodes'
 
 export type ParsableCode = {
     language: CodeLanguage,
@@ -46,6 +47,7 @@ export class CodeTranspiler {
         window.electron.ipcRenderer.sendMessage('parse-code', parsableCode)
 
         window.electron.ipcRenderer.on('parse-code', async (parseResults) => {
+            // debugger
             console.log('parsed code returned')
             console.log('result')
             parseResults = JSON.parse(parseResults)
@@ -53,7 +55,8 @@ export class CodeTranspiler {
 
             // @TODO: clear nodes
 
-            this.rfInstance.setNodes([])
+            this.rfInstance.setNodes(initialNodes)
+            NodeGen.clearIndexedNodes()
 
             for (let i = 0; i < parseResults.length; i++) {
                 let pr = parseResults[i]

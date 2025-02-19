@@ -67,6 +67,9 @@ export class NodeGen {
 
 
     }
+    static clearIndexedNodes() {
+        this.indexedNodes = []
+    }
     static genInput(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
         console.log(
             `input node generation in with variable: ${variable.name}: ${variable.value}`,
