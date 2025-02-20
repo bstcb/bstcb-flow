@@ -12,9 +12,12 @@ const DebugCode = (props: Props) => {
     const tryParseCode = (code: string) => {
         console.log('trying to parse code')
         // @TODO: put code from editor to storage
-        let ctu = code.split('\n').map(e => e + '\n')
-        console.log(ctu)
-        let transpiler = new CodeTranspiler(ctu, rfInstance)
+        let codeChunks = code.split('\n')
+        // empty line and bracket line check
+        codeChunks = codeChunks.filter(cc => cc.trim().length > 3)
+        codeChunks = codeChunks.map(e => e + "\n")
+        console.log(codeChunks)
+        let transpiler = new CodeTranspiler(codeChunks, rfInstance)
         transpiler.transpile()
     }
 
