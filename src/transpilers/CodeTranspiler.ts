@@ -60,44 +60,38 @@ export class CodeTranspiler {
 
             for (let i = 0; i < parseResults.length; i++) {
                 let pr = parseResults[i]
-                // parsing results
-                let pro = Object.entries(pr) // parse result object
-                console.log(pro)
-                // if (pr.length != 2) {
-                // @TODO: handle errors or undefined here
-                // } else {
-                // @TODO: handle error here
-                let pn: ParsedNode = { // parsedNode
-                    kind: NodeTokenKind.NTK_OUTPUT,
-                    data: 'a,b'
-                }
+                let prk = Object.keys(pr)[0] // parseResult kind
+                let prv = Object.values(pr)[0] // parseResult data
+                console.log('pr')
                 console.log(pr)
-                console.log(pro)
+                // parsing results
+                let pn: ParsedNode = {
+                    kind: enumFromString(NodeTokenKind, prk),
+                    data: prv
+                }
+                console.log('pn')
                 console.log(pn)
                 switch (pn.kind) {
                     case NodeTokenKind.NTK_INPUT:
-                        NodeGen.genInput(pn.data, i, this.rfInstance)
+                        NodeGen.genInput(VariableParser.parse(pn.data, NodeTokenKind.NTK_INPUT), i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_OUTPUT:
                         NodeGen.genOutput(VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT), i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_IF_CONDITION:
-                        NodeGen.genIf(pn.data, i, this.rfInstance)
+                        NodeGen.genIf(VariableParser.parse(pn.data, NodeTokenKind.NTK_IF_CONDITION), i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_FOR_LOOP:
-                        NodeGen.genFor(pn.data, i, this.rfInstance)
+                        NodeGen.genFor(VariableParser.parse(pn.data, NodeTokenKind.NTK_FOR_LOOP), i, this.rfInstance)
                         break
                     case NodeTokenKind.NTK_WHILE_LOOP:
-                        NodeGen.genWhile(pn.data, i, this.rfInstance)
+                        NodeGen.genWhile(VariableParser.parse(pn.data, NodeTokenKind.NTK_WHILE_LOOP), i, this.rfInstance)
                         break
                     default:
                         console.error(`wrong pn.kind ${pn.kind}`)
 
                 }
-                // }
             }
-
-
         })
 
     }
