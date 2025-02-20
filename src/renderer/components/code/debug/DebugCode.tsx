@@ -1,6 +1,7 @@
 import { useReactFlow } from "reactflow"
 import { CodeTranspiler } from "../../../../transpilers/CodeTranspiler"
 import { useCodeStore } from "../../../store/CodeStore"
+import { ErrorReporter } from "../../../errors/ErrorReporter"
 
 type Props = {
     code: string
@@ -14,11 +15,15 @@ const DebugCode = (props: Props) => {
         // @TODO: put code from editor to storage
         let codeChunks = code.split('\n')
         // empty line and bracket line check
-        codeChunks = codeChunks.filter(cc => cc.trim().length > 3)
-        codeChunks = codeChunks.map(e => e + "\n")
-        console.log(codeChunks)
-        let transpiler = new CodeTranspiler(codeChunks, rfInstance)
-        transpiler.transpile()
+        if (codeChunks.length > 1) { // 1 because there is always first empty line
+            codeChunks = codeChunks.filter(cc => cc.trim().length > 3)
+            codeChunks = codeChunks.map(e => e + "\n")
+            console.log(codeChunks)
+            let transpiler = new CodeTranspiler(codeChunks, rfInstance)
+            transpiler.transpile()
+        } else {
+            ErrorReporter.showShort("code editor is empty")
+        }
     }
 
     return (
