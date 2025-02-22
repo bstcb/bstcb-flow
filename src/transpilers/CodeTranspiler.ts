@@ -8,16 +8,16 @@ import { CodeLanguage } from './CodeLanguage'
 import { useCodeStore } from '../renderer/store/CodeStore'
 import { enumFromString } from '../helpers/helpers'
 import { initialNodes } from '../renderer/components/nodes/initialNodes'
+import { ErrorReporter } from '../renderer/errors/ErrorReporter'
 
 export type ParsableCode = {
-    language: CodeLanguage,
+    language: CodeLanguage
     codeChunks: string[]
 }
 export type ParsedNode = {
-    kind: NodeTokenKind,
-    data: string,
+    kind: NodeTokenKind
+    data: string
 }
-
 
 export class CodeTranspiler {
     rfInstance: ReactFlowInstance
@@ -41,59 +41,80 @@ export class CodeTranspiler {
 
         let parsableCode: ParsableCode = {
             language: codeStoreState.activeLanguage,
-            codeChunks: this.codeChunks
+            codeChunks: this.codeChunks,
         }
 
         window.electron.ipcRenderer.sendMessage('parse-code', parsableCode)
 
-        window.electron.ipcRenderer.once('parse-code', async (parseResults) => {
+        window.electron.ipcRenderer.once('parse-code', async parseResults => {
             // debugger
             console.log('parsed code returned')
             console.log('result')
-            parseResults = JSON.parse(parseResults)
             console.log(parseResults)
+            parseResults: parseResults = JSON.parse(parseResults)
+            console.log(parseResults)
+            console.log(typeof parseResults)
+            // error handle
+            if (typeof parseResults == 'string') {
+                ErrorReporter.showShort(parseResults)
+            } else {
+                this.rfInstance.setNodes(initialNodes)
+                NodeGen.clearIndexedNodes()
 
-            // @TODO: clear nodes
-
-            this.rfInstance.setNodes(initialNodes)
-            NodeGen.clearIndexedNodes()
-
-            for (let i = 0; i < parseResults.length; i++) {
-                let pr = parseResults[i]
-                let prk = Object.keys(pr)[0] // parseResult kind
-                let prv = Object.values(pr)[0] // parseResult data
-                console.log('pr')
-                console.log(pr)
-                // parsing results
-                let pn: ParsedNode = {
-                    kind: enumFromString(NodeTokenKind, prk),
-                    data: prv
-                }
-                console.log('pn')
-                console.log(pn)
-                switch (pn.kind) {
-                    case NodeTokenKind.NTK_INPUT:
-                        NodeGen.genInput(VariableParser.parse(pn.data, NodeTokenKind.NTK_INPUT), i, this.rfInstance)
-                        break
-                    case NodeTokenKind.NTK_OUTPUT:
-                        NodeGen.genOutput(VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT), i, this.rfInstance)
-                        break
-                    case NodeTokenKind.NTK_IF_CONDITION:
-                        NodeGen.genIf(VariableParser.parse(pn.data, NodeTokenKind.NTK_IF_CONDITION), i, this.rfInstance)
-                        break
-                    case NodeTokenKind.NTK_FOR_LOOP:
-                        NodeGen.genFor(VariableParser.parse(pn.data, NodeTokenKind.NTK_FOR_LOOP), i, this.rfInstance)
-                        break
-                    case NodeTokenKind.NTK_WHILE_LOOP:
-                        NodeGen.genWhile(VariableParser.parse(pn.data, NodeTokenKind.NTK_WHILE_LOOP), i, this.rfInstance)
-                        break
-                    default:
-                        console.error(`wrong pn.kind ${pn.kind}`)
-
+                for (let i = 0; i < parseResults.length; i++) {
+                    let pr = parseResults[i]
+                    let prk = Object.keys(pr)[0] // parseResult kind
+                    let prv = Object.values(pr)[0] // parseResult data
+                    console.log('pr')
+                    console.log(pr)
+                    // parsing results
+                    let pn: ParsedNode = {
+                        kind: enumFromString(NodeTokenKind, prk),
+                        data: prv,
+                    }
+                    console.log('pn')
+                    console.log(pn)
+                    switch (pn.kind) {
+                        case NodeTokenKind.NTK_INPUT:
+                            NodeGen.genInput(
+                                VariableParser.parse(pn.data, NodeTokenKind.NTK_INPUT),
+                                i,
+                                this.rfInstance,
+                            )
+                            break
+                        case NodeTokenKind.NTK_OUTPUT:
+                            NodeGen.genOutput(
+                                VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT),
+                                i,
+                                this.rfInstance,
+                            )
+                            break
+                        case NodeTokenKind.NTK_IF_CONDITION:
+                            NodeGen.genIf(
+                                VariableParser.parse(pn.data, NodeTokenKind.NTK_IF_CONDITION),
+                                i,
+                                this.rfInstance,
+                            )
+                            break
+                        case NodeTokenKind.NTK_FOR_LOOP:
+                            NodeGen.genFor(
+                                VariableParser.parse(pn.data, NodeTokenKind.NTK_FOR_LOOP),
+                                i,
+                                this.rfInstance,
+                            )
+                            break
+                        case NodeTokenKind.NTK_WHILE_LOOP:
+                            NodeGen.genWhile(
+                                VariableParser.parse(pn.data, NodeTokenKind.NTK_WHILE_LOOP),
+                                i,
+                                this.rfInstance,
+                            )
+                            break
+                        default:
+                            console.error(`wrong pn.kind ${pn.kind}`)
+                    }
                 }
             }
         })
-
     }
 }
-

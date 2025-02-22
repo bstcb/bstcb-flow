@@ -13,6 +13,7 @@ code_language = {
     "javascript": Language(ts_js.language())
 }
 
+
 # current language
 lang = sys.argv[1]
 # code chunks as array
@@ -36,7 +37,9 @@ debug_print('parser')
 
 parsedChunks: ParsedChunks = []
 
-for chunk in chunks:
+error = None
+
+for i, chunk in enumerate(chunks):
     cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
     debug_print('chunk:cst')
     debug_print(chunk, ':', cst.root_node)
@@ -63,11 +66,13 @@ for chunk in chunks:
             chunk_data = while_query.make_while_node(code_language[lang], cst.root_node)
             parsedChunks.append(chunk_data)
         case _:
-            debug_print('[Parser error]: unknown node')
+            error = f'[Parser error]: unknown or incomplete expression at line {i}'
 
 
 debug_print('parsedChunks complete')
 
 # debug_print(parsedChunks)
-
-return_output(parsedChunks)
+if error:
+    return_error(error)
+else:
+    return_output(parsedChunks)
