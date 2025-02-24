@@ -35,13 +35,18 @@ const CodeEditor = () => {
     }
 
     useCodeStore.subscribe(state => {
-        editorRef.current?.editor.setValue('')
-        state.codeChunks.forEach(c => {
-            console.log(isBlockScope(c))
-            editorRef.current?.editor.insert(c)
-            // need to know amount of lines (probuably implement end[If|For|While]) as nodes
-            if (isBlockScope(c)) editorRef.current?.editor.insert('}\n')
-        })
+        if (state.codeError) {
+            editorRef.current?.editor.selection.moveCursorTo(state.codeError.position, 0, true)
+            editorRef.current?.editor.selection.selectLine()
+        } else {
+            editorRef.current?.editor.setValue('')
+            state.codeChunks.forEach(c => {
+                console.log(isBlockScope(c))
+                editorRef.current?.editor.insert(c)
+                // need to know amount of lines (probuably implement end[If|For|While]) as nodes
+                if (isBlockScope(c)) editorRef.current?.editor.insert('}\n')
+            })
+        }
     })
 
     return (
