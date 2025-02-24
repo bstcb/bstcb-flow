@@ -1,46 +1,54 @@
-import { create } from 'zustand'
+import { createStore } from 'zustand/vanilla'
 import { CodeError } from '../types/codeError'
-
-type State = {
-  codeChunks: string[]
-  activeLanguage: string
-  codeError?: CodeError
-  setCodeError: (ce: CodeError) => void
-  clearCodeError: () => void
-  setActiveLanguage: (al: string) => void
-  setCodeChunks: (cc: string[]) => void
-  clearCodeChunks: () => void
-}
+import { subscribeWithSelector } from 'zustand/middleware'
 
 const INITIAL_LANGUAGE = 'javascript'
 
-export const useCodeStore = create<State>(set => ({
-  activeLanguage: INITIAL_LANGUAGE,
-  codeChunks: [],
-  codeError: null,
-  
-  clearCodeError: () => {
-    set(() => ({ codeError: null }))
-    console.log('[STORE]: code error updated:', ce)
-  },
+type State = {
+    codeChunks: string[]
+    activeLanguage: string
+    codeError?: CodeError
+}
 
-  setCodeError: (ce: CodeError) => {
-    set(() => ({ codeEditor: ce }))
-    console.log('[STORE]: code error updated:', ce)
-  },
+type Actions = {
+    setCodeError: (ce: CodeError) => void
+    clearCodeError: () => void
+    setActiveLanguage: (al: string) => void
+    setCodeChunks: (cc: string[]) => void
+    clearCodeChunks: () => void
+}
 
-  setActiveLanguage: (al: string) => {
-    set(() => ({ activeLanguage: al }))
-    console.log('[STORE]: active langugage updated:', al)
-  },
+type Store = State & Actions
 
-  setCodeChunks: (cc: string[]) => {
-    set(() => ({ codeChunks: cc }))
-    console.log('[STORE]: code chunks updated:', cc)
-  },
+export const useCodeStore = createStore<Store>()(
+    subscribeWithSelector((set) => ({
+        activeLanguage: INITIAL_LANGUAGE,
+        codeChunks: [],
+        codeError: null,
 
-  clearCodeChunks: () => {
-    set(() => ({ codeChunks: [] }))
-    console.log('[STORE]: code chunks cleared')
-  },
-}))
+        clearCodeError: () => {
+            set((state) => ({ codeError: null }))
+            console.log('[STORE]: code error cleared')
+        },
+
+        setCodeError: (ce: CodeError) => {
+            set((state) => ({ codeError: ce }))
+            console.log('[STORE]: code error updated:', ce)
+        },
+
+        setActiveLanguage: (al: string) => {
+            set((state) => ({ activeLanguage: al }))
+            console.log('[STORE]: active language updated:', al)
+        },
+
+        setCodeChunks: (cc: string[]) => {
+            set((state) => ({ codeChunks: cc }))
+            console.log('[STORE]: code chunks updated:', cc)
+        },
+
+        clearCodeChunks: () => {
+            set((state) => ({ codeChunks: [] }))
+            console.log('[STORE]: code chunks cleared')
+        },
+    }))
+)
