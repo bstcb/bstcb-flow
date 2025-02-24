@@ -11,6 +11,7 @@ import { useCodeStore } from '../../store/CodeStore'
 import { NodeToken, NodeTokenKind } from '../../../transpilers/Token'
 import DebugNodes from './debug/DebugNodes'
 import DebugCode from './debug/DebugCode'
+import CompilerWindow from '../CompilerWindow'
 
 const CodeEditor = () => {
     const [code, setCode] = useState<string>('')
@@ -57,6 +58,7 @@ const CodeEditor = () => {
                 />
                 <DebugNodes />
                 <DebugCode code={code} />
+                <CompilerWindow />
             </div>
         </div>
     )

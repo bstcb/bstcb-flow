@@ -6,25 +6,8 @@
 }
 
 body {
-  // TODO: come up with better background
+  // @TODO: come up with better background
   background-color: #cccccc;
-}
-
-
-.toast__alert {
-   position: absolute;
-   right: 5%;
-   bottom: 5%;
-   pointer-events: none;
-   opacity: 0;
-   transform: translateY(100%);
-   transition: .5s ease all;
-   &.active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: all;
-
-   }
 }
 
 .node__error {

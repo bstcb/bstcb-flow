@@ -56,7 +56,6 @@ export class CodeTranspiler {
       console.log(typeof parseResults)
       // error handle
       if (typeof parseResults == 'string') {
-        ErrorReporter.showShort(parseResults)
         let message = parseResults
         let position = Number(parseResults.split('').at(-1))
         useCodeStore.getState().setCodeError({ message, position })
