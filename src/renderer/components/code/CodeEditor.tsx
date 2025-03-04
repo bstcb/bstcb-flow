@@ -63,7 +63,6 @@ const CodeEditor = () => {
                 />
                 <DebugNodes />
                 <DebugCode code={code} />
-                <CompilerWindow />
             </div>
         </div>
     )

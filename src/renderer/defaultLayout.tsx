@@ -1,6 +1,7 @@
 import { LayoutData } from "rc-dock";
 import CodeEditor from "./components/code/CodeEditor";
 import Nodes from "./components/nodes/Nodes";
+import CompilerWindow from "./components/CompilerWindow";
 
 export const defaultLayout: LayoutData = {
     dockbox: {
@@ -33,6 +34,22 @@ export const defaultLayout: LayoutData = {
                                 title: 'code editor',
                                 content: <CodeEditor />,
                                 closable: false
+                            }
+                        ]
+                    },
+                    {
+                        mode: 'horizontal',
+                        size: 120,
+                        children: [
+                            {
+                                tabs: [
+                                    {
+                                        id: 'compilerWindow',
+                                        title: 'compiler window',
+                                        content: <CompilerWindow />,
+                                        closable: false
+                                    }
+                                ]
                             }
                         ]
                     }
