@@ -35,14 +35,14 @@ export default class MenuBuilder {
                         label: 'Save',
                         accelerator: "Ctrl+S",
                         click: () => {
-                            console.log('this will save state to file')
+                            console.log('[MENU]: File/Save triggered')
                         },
                     },
                     {
                         label: 'Open',
                         accelerator: "Ctrl+O",
                         click: () => {
-                            console.log('this will open state from file')
+                            console.log('[MENU]: File/Open triggered')
                         },
                     }
                 ]
@@ -54,14 +54,14 @@ export default class MenuBuilder {
                         label: 'Undo',
                         accelerator: "Ctrl+Z",
                         click: () => {
-                            console.log('this will undo')
+                            console.log('[MENU]: Edit/Undo triggered')
                         },
                     },
                     {
                         label: 'Redo',
                         accelerator: "Ctrl+Shift+Z",
                         click: () => {
-                            console.log('this will redo')
+                            console.log('[MENU]: Edit/Redo triggered')
                         },
                     }
                 ]
@@ -73,7 +73,7 @@ export default class MenuBuilder {
                         label: 'Preferences',
                         accelerator: 'Alt+K',
                         click: () => {
-                            console.log('this will open preferences')
+                            console.log('[MENU]: View/Preferences triggered')
                         }
                     }
                 ]
@@ -85,9 +85,9 @@ export default class MenuBuilder {
                         label: 'Add Node',
                         submenu: [
                             {
-                                label: 'if branch',
+                                label: 'If Branch',
                                 click: () => {
-                                    console.log('if clicked')
+                                    console.log('[MENU]: Nodes/If Branch triggered')
                                     this.mainWindow.webContents.send(
                                         'add-node',
                                         '_if_cond',
@@ -96,9 +96,9 @@ export default class MenuBuilder {
                                 },
                             },
                             {
-                                label: 'for loop',
+                                label: 'For Loop',
                                 click: () => {
-                                    console.log('for clicked')
+                                    console.log('[MENU]: Nodes/For Loop triggered')
                                     this.mainWindow.webContents.send(
                                         'add-node',
                                         '_for_lp',
@@ -107,9 +107,9 @@ export default class MenuBuilder {
                                 },
                             },
                             {
-                                label: 'while loop',
+                                label: 'While Loop',
                                 click: () => {
-                                    console.log('while clicked')
+                                    console.log('[MENU]: Nodes/While Loop triggered')
                                     this.mainWindow.webContents.send(
                                         'add-node',
                                         '_while_lp',
@@ -118,9 +118,9 @@ export default class MenuBuilder {
                                 },
                             },
                             {
-                                label: 'input',
+                                label: 'Input',
                                 click: () => {
-                                    console.log('input clicked')
+                                    console.log('[MENU]: Nodes/Input triggered')
                                     this.mainWindow.webContents.send(
                                         'add-node',
                                         '_input',
@@ -131,7 +131,7 @@ export default class MenuBuilder {
                             {
                                 label: 'output',
                                 click: () => {
-                                    console.log('output clicked')
+                                    console.log('[MENU]: Nodes/Output triggered')
                                     this.mainWindow.webContents.send('add-node', '_output', 'x,y')
                                 },
                             },
