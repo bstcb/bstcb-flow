@@ -48,6 +48,25 @@ export default class MenuBuilder {
                 ]
             },
             {
+                label: 'Edit',
+                submenu: [
+                    {
+                        label: 'Undo',
+                        accelerator: "Ctrl+Z",
+                        click: () => {
+                            console.log('this will undo')
+                        },
+                    },
+                    {
+                        label: 'Redo',
+                        accelerator: "Ctrl+Shift+Z",
+                        click: () => {
+                            console.log('this will redo')
+                        },
+                    }
+                ]
+            },
+            {
                 label: 'Nodes',
                 submenu: [
                     {
