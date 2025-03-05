@@ -29,6 +29,25 @@ export default class MenuBuilder {
 
         const template: Electron.MenuItem[] = [
             {
+                label: 'File',
+                submenu: [
+                    {
+                        label: 'Save',
+                        accelerator: "Ctrl+S",
+                        click: () => {
+                            console.log('this will save state to file')
+                        },
+                    },
+                    {
+                        label: 'Open',
+                        accelerator: "Ctrl+O",
+                        click: () => {
+                            console.log('this will open state from file')
+                        },
+                    }
+                ]
+            },
+            {
                 label: 'Nodes',
                 submenu: [
                     {
