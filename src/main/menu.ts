@@ -67,6 +67,18 @@ export default class MenuBuilder {
                 ]
             },
             {
+                label: 'View',
+                submenu: [
+                    {
+                        label: 'Preferences',
+                        accelerator: 'Alt+K',
+                        click: () => {
+                            console.log('this will open preferences')
+                        }
+                    }
+                ]
+            },
+            {
                 label: 'Nodes',
                 submenu: [
                     {
