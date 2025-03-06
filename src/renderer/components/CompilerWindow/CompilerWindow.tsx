@@ -15,8 +15,8 @@ const CompilerWindow = () => {
             }
         })
 
-        return unsubscribe // Cleanup subscription
-    }, []) // Empty dependency array means this runs once on mount
+        return unsubscribe
+    }, [])
 
     return <div className="window">
         <div className="window__wrapper">

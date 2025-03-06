@@ -11,16 +11,29 @@ import './rc-dock-custom.scss'
 // @TODO: dynamically choose (import) theme
 // import 'rc-dock/dist/rc-dock-dark.css';
 import { defaultLayout } from './layouts/defaultLayout'
+import { preferencesWindowLayout } from './layouts/preferencesWindowLayout.tsx'
 import { useLayoutStore } from './store/LayoutStore'
+import { usePreferencesStore } from './store/PreferencesStore'
+import { setupMenuEventHandler } from './menuHandler'
 
 const App = () => {
     const dockLayoutRef = useRef(null)
     useEffect(() => {
         const dock: DockLayout = dockLayoutRef.current!
+        useLayoutStore.getState().setLayout(dock.getLayout()) // put the default layout to the store when it is loaded
+        // menu event handler
+        setupMenuEventHandler()
+        // layout store listener
         useLayoutStore.subscribe(state => {
             if (state.currentLayout)
                 dock.setLayout(state.currentLayout)
         })
+        // preferences store listener
+        usePreferencesStore.subscribe(state => {
+            if (state.isPreferencesOpened)
+                alert('preferences is opened')
+        })
+
         return () => {}
     },
         []
