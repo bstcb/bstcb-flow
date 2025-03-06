@@ -1,3 +1,5 @@
+import Preferences from "../components/Preferences/Preferences";
+
 export const preferencesWindowLayout = {
     mode: 'float',
     children: [
