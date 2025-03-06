@@ -79,8 +79,6 @@ export default class MenuBuilder {
                 'menu-event',
                 MenuEvent.NENU_VIEW_PREFERENCES
               )
-
-
             }
           }
         ]

@@ -57,4 +57,8 @@ export const defaultLayout: LayoutData = {
             }
         ]
     },
+    floatbox: {
+        mode: 'float',
+        children: [],
+    }
 };

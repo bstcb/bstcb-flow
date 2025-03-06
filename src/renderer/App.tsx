@@ -4,20 +4,27 @@ import CodeEditor from './components/code/CodeEditor'
 import Nodes from './components/nodes/Nodes'
 import { useEffect, useRef, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
-import DockLayout from 'rc-dock'
+import DockLayout, { DropDirection, LayoutBase } from 'rc-dock'
 // light theme and custom file must go together, because dark theme remains unchanged 
 import 'rc-dock/dist/rc-dock.css';
 import './rc-dock-custom.scss'
 // @TODO: dynamically choose (import) theme
 // import 'rc-dock/dist/rc-dock-dark.css';
 import { defaultLayout } from './layouts/defaultLayout'
-import { preferencesWindowLayout } from './layouts/preferencesWindowLayout.tsx'
+import { applyPreferencesLayout, preferencesWindowLayout } from './layouts/preferencesWindowLayout.tsx'
 import { useLayoutStore } from './store/LayoutStore'
 import { usePreferencesStore } from './store/PreferencesStore'
 import { setupMenuEventHandler } from './menuHandler'
+import { dockHasTabById } from './utils/dockUtils'
 
 const App = () => {
     const dockLayoutRef = useRef(null)
+    function onLayoutChange(newLayout: LayoutBase, currentTabId?: string, direction?: DropDirection) {
+        // preferences
+        if (currentTabId == 'preferences' && direction == 'remove') {
+            usePreferencesStore.getState().closePreferences()
+        }
+    }
     useEffect(() => {
         const dock: DockLayout = dockLayoutRef.current!
         useLayoutStore.getState().setLayout(dock.getLayout()) // put the default layout to the store when it is loaded
@@ -25,13 +32,19 @@ const App = () => {
         setupMenuEventHandler()
         // layout store listener
         useLayoutStore.subscribe(state => {
-            if (state.currentLayout)
+            if (state.currentLayout) {
                 dock.setLayout(state.currentLayout)
+                dock.loadLayout(dock.getLayout())
+            }
         })
         // preferences store listener
         usePreferencesStore.subscribe(state => {
-            if (state.isPreferencesOpened)
-                alert('preferences is opened')
+            const isPreferencesTabDisplayed = dockHasTabById(dock.getLayout(), 'preferences', true)
+            console.log(isPreferencesTabDisplayed)
+            if (state.isPreferencesOpened && !isPreferencesTabDisplayed) {
+                dock.setLayout(applyPreferencesLayout(dock.getLayout()))
+                dock.loadLayout(dock.getLayout())
+            }
         })
 
         return () => {}
@@ -43,6 +56,7 @@ const App = () => {
             <DockLayout
                 ref={dockLayoutRef}
                 defaultLayout={defaultLayout}
+                onLayoutChange={onLayoutChange}
                 style={{
                     position: "absolute",
                     left: 0,
