@@ -1,7 +1,7 @@
 import { LayoutData } from "rc-dock";
-import CodeEditor from "./components/code/CodeEditor";
-import Nodes from "./components/nodes/Nodes";
-import CompilerWindow from "./components/CompilerWindow/CompilerWindow";
+import Nodes from "../components/nodes/Nodes";
+import CodeEditor from "../components/code/CodeEditor";
+import CompilerWindow from "../components/CompilerWindow/CompilerWindow";
 
 export const defaultLayout: LayoutData = {
     dockbox: {
@@ -56,5 +56,5 @@ export const defaultLayout: LayoutData = {
                 ]
             }
         ]
-    }
+    },
 };

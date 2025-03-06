@@ -10,7 +10,7 @@ import 'rc-dock/dist/rc-dock.css';
 import './rc-dock-custom.scss'
 // @TODO: dynamically choose (import) theme
 // import 'rc-dock/dist/rc-dock-dark.css';
-import { defaultLayout } from './defaultLayout'
+import { defaultLayout } from './layouts/defaultLayout'
 
 const App = () => {
     return (
