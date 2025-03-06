@@ -20,9 +20,9 @@ import { initialEdges, initialNodes } from './initialNodes'
 import ForLoopNode from './custom/forLoop/ForLoopNode'
 import WhileLoopNode from './custom/whileLoop/WhileLoopNode'
 import OutputNode from './custom/output/OutputNode'
-import ContextMenu from '../ContextMenu'
 import './Nodes.scss'
 import { NodeContextMenu } from '../../types/nodeContextMenu'
+import ContextMenu from '../ContextMenu/ContextMenu'
 
 const Nodes = () => {
     // variables

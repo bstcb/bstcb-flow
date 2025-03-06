@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useCodeStore } from '../store/CodeStore'
 import './CompilerWindow.scss'
+import { useCodeStore } from '../../store/CodeStore'
 
 const CompilerWindow = () => {
     const [error, setError] = useState<string>('')

@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react'
 import { useReactFlow } from 'reactflow'
-import { NodeContextMenu } from '../types/nodeContextMenu'
 import './ContextMenu.scss'
-import { useErrorStore } from '../store/ErrorStore'
-import { DELETE_INITIAL_NODE_ERROR } from '../constants'
-import { ErrorReporter } from '../errors/ErrorReporter'
+import { NodeContextMenu } from '../../types/nodeContextMenu'
+import { ErrorReporter } from '../../errors/ErrorReporter'
 
 export default function ContextMenu({
     id,
