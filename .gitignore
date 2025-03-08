@@ -28,3 +28,6 @@ npm-debug.log.*
 *.sass.d.ts
 *.scss.d.ts
 *.pyc
+
+# build-only assets
+assets/icons
