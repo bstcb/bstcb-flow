@@ -20,9 +20,9 @@ const Preferences = () => {
     };
 
     return <>
-        <SettingsPane items={preferencesMenu} index={preferencesMenu[0].url} onPaneLeave={leavePaneHandler}>
+        <SettingsPane items={preferencesMenu} index={preferencesMenu[0].url} settings={preferences} onPaneLeave={leavePaneHandler}>
             <SettingsMenu headline="Appearance Settings" />
-            <SettingsContent closeButtonClass="secondary" saveButtonClass="primary" header={true}>
+            <SettingsContent closeButtonClass="btn btn-danger" saveButtonClass="btn btn-primary" header={true}>
                 <SettingsPage handler={preferencesMenu[0].url}>
                     <fieldset className="form-group">
                         <label htmlFor="colorTheme">Color-Theme: </label>
