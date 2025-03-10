@@ -10,10 +10,29 @@ const Preferences = () => {
     const savedPrefs = usePreferencesStore.getState().preferences
     const [newPrefs, setNewPrefs] = useState<Preferences>(savedPrefs)
 
-    // Save settings after close
-    const leavePaneHandler = (_wasSaved, _newSettings, _oldSettings) => {
-        // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
+    function savePrefs() {
+        console.log('savePrefs triggered')
+    }
 
+    // Save settings after close
+    const leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
+        console.log('leave handler triggered')
+        newSettings = newPrefs // for now it is mapped like this because package can't internally update `newSettings`
+
+        if (wasSaved && newSettings !== oldSettings) {
+            console.log('save and quit')
+        }
+
+        if (!wasSaved && newSettings !== oldSettings) {
+            if (confirm("Save Changes?")) {
+                console.log('confirm save and quit')
+            } else {
+                console.log('confirm discard and quit')
+
+            }
+        }
+        // finally close the prefs window
+        usePreferencesStore.getState().closePreferences()
     };
 
     const settingsChanged = (e) => {
@@ -29,6 +48,11 @@ const Preferences = () => {
             changedPrefSelector.classList.remove('settings-changed')
 
         }
+        setNewPrefs({
+            ...newPrefs,
+            [changedPrefName]: changedPrefValue
+        })
+        console.log('Updated preferences:', newPrefs);
     };
 
     return <>
@@ -38,7 +62,7 @@ const Preferences = () => {
                 <SettingsPage handler={preferencesMenu[0].url}>
                     <fieldset className="form-group">
                         <label htmlFor="colorTheme">Color-Theme: </label>
-                        <select name={Object.keys(preferences)[0]} onChange={settingsChanged} id="colorTheme" className="form-control" defaultValue={preferences['preferences.appearance.colorTheme']}>
+                        <select name={Object.keys(preferences)[0]} onChange={settingsChanged} id="colorTheme" className="form-control" value={newPrefs['preferences.appearance.colorTheme']}>
                             <option value={'light'}>Light</option>
                             <option value={'dark'}>Dark</option>
                         </select>
