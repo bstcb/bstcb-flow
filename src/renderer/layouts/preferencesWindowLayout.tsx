@@ -17,7 +17,8 @@ export function applyPreferencesLayout(layout: LayoutData) {
     layout.floatbox!.children.push({
         tabs: [
             preferencesTab
-        ]
+        ],
+        w: 800, h: 600
     })
     console.log('[PREFERENCES WINDOW DEBUG]: layout after')
     console.log(layout)

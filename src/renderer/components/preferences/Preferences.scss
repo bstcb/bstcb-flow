@@ -48,6 +48,10 @@
   margin: 0 auto;
 }
 
+.settings-pane, .settings {
+    height: 100%;
+}
+
 .show .settings-pane {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
