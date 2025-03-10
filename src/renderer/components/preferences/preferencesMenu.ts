@@ -6,6 +6,6 @@ export type PreferencesMenuItem = {
 export const preferencesMenu: PreferencesMenuItem[] = [
   {
     title: 'Appearance',
-    url: '/settings/appearance'
+    url: '/preferences/appearance'
   }
 ]
