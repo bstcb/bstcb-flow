@@ -11,11 +11,11 @@ import './rc-dock-custom.scss'
 // @TODO: dynamically choose (import) theme
 // import 'rc-dock/dist/rc-dock-dark.css';
 import { defaultLayout } from './layouts/defaultLayout'
-import { applyPreferencesLayout, preferencesWindowLayout } from './layouts/preferencesWindowLayout.tsx'
 import { useLayoutStore } from './store/LayoutStore'
 import { usePreferencesStore } from './store/PreferencesStore'
 import { setupMenuEventHandler } from './menuHandler'
 import { dockHasTabById } from './utils/dockUtils'
+import { applyPreferencesLayout } from './layouts/preferencesWindowLayout'
 
 const App = () => {
     const dockLayoutRef = useRef(null)

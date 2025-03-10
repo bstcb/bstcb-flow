@@ -1,5 +1,5 @@
 import { LayoutData, TabData } from "rc-dock";
-import Preferences from "../components/Preferences/Preferences";
+import Preferences from "../components/preferences/Preferences";
 
 const preferencesTab: TabData = {
     id: 'preferences',
@@ -14,7 +14,7 @@ const preferencesTab: TabData = {
 export function applyPreferencesLayout(layout: LayoutData) {
     console.log('[PREFERENCES WINDOW DEBUG]: layout before')
     console.log(layout)
-    layout.floatbox?.children.push({
+    layout.floatbox!.children.push({
         tabs: [
             preferencesTab
         ]
