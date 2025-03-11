@@ -39,7 +39,6 @@ const App = () => {
         // preferences store listener
         usePreferencesStore.subscribe(state => {
             const isPreferencesTabDisplayed = dock.find('preferences')
-            console.log(isPreferencesTabDisplayed)
             // display preferences
             if (state.isPreferencesOpened && !isPreferencesTabDisplayed) {
                 dock.dockMove(preferencesPanel, null, 'float')
