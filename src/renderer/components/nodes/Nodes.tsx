@@ -25,6 +25,7 @@ import { NodeContextMenu } from '../../types/nodeContextMenu'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import IfConditionEndNode from './custom/ifConditionEnd/IfConditionEndNode'
 import ForLoopEndNode from './custom/forLoopEnd/ForLoopEndNode'
+import WhileLoopEndNode from './custom/whileLoopEnd/WhileLoopEndNode'
 
 const Nodes = () => {
     // variables
@@ -123,6 +124,7 @@ const Nodes = () => {
             _for_lp: ForLoopNode,
             _for_lp_end: ForLoopEndNode,
             _while_lp: WhileLoopNode,
+            _while_lp_end: WhileLoopEndNode,
         }),
         [],
     )

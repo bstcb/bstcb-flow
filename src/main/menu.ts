@@ -149,6 +149,17 @@ export default class MenuBuilder {
                                     )
                                 },
                             },
+                          {
+                                label: 'While Loop End',
+                                click: () => {
+                                    console.log('[MENU]: Nodes/While Loop End triggered')
+                                    this.mainWindow.webContents.send(
+                                        'add-node',
+                                        '_while_lp_end',
+                                        '',
+                                    )
+                                },
+                          },
                             {
                                 label: 'Input',
                                 click: () => {
