@@ -127,6 +127,17 @@ export default class MenuBuilder {
                                     )
                                 },
                             },
+                          {
+                                label: 'For Loop End',
+                                click: () => {
+                                    console.log('[MENU]: Nodes/For Loop triggered')
+                                    this.mainWindow.webContents.send(
+                                        'add-node',
+                                        '_for_lp_end',
+                                        '',
+                                    )
+                                },
+                          },
                             {
                                 label: 'While Loop',
                                 click: () => {

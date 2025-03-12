@@ -24,6 +24,7 @@ import './Nodes.scss'
 import { NodeContextMenu } from '../../types/nodeContextMenu'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import IfConditionEndNode from './custom/ifConditionEnd/IfConditionEndNode'
+import ForLoopEndNode from './custom/forLoopEnd/ForLoopEndNode'
 
 const Nodes = () => {
     // variables
@@ -120,6 +121,7 @@ const Nodes = () => {
             _if_cond: IfConditionNode,
             _if_cond_end: IfConditionEndNode,
             _for_lp: ForLoopNode,
+            _for_lp_end: ForLoopEndNode,
             _while_lp: WhileLoopNode,
         }),
         [],
