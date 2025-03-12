@@ -105,6 +105,17 @@ export default class MenuBuilder {
                                     )
                                 },
                             },
+                          {
+                                label: 'If Branch End',
+                                click: () => {
+                                    console.log('[MENU]: Nodes/If Branch End triggered')
+                                    this.mainWindow.webContents.send(
+                                        'add-node',
+                                        '_if_cond_end',
+                                        '',
+                                    )
+                                },
+                          },
                             {
                                 label: 'For Loop',
                                 click: () => {
