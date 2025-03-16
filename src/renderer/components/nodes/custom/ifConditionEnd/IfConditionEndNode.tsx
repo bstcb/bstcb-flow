@@ -4,11 +4,11 @@ import './IfConditionEndNode.scss'
 const IfConditionEndNode = () => {
     return <>
         <Handle type='target' position={Position.Top} style={{ zIndex: 999, transform: 'translate(-3px, -90%)' }} />
-        <div className='_if_cond_wrapper'>
+        <div className='_if_cond_end_wrapper'>
             <input
                 type='text'
-                className='_if_cond_input'
-                id='_if_cond_value'
+                className='_if_cond_end_input'
+                id='_if_cond_end_value'
                 value={'If Condition End'}
                 readOnly
             />
