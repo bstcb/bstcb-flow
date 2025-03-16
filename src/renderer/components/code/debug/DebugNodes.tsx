@@ -80,7 +80,16 @@ const DebugNodes = () => {
             }
             // brackets (ends)
             else if (blockEndTypes.includes(n.data.type)) {
-
+                let arrayHead = activeNodes.slice(0, activeNodes.indexOf(n))
+                let correspondingStart = arrayHead.find(tn => tn.data.type == blockTypePairs[n.data.type])
+                if (!correspondingStart) {
+                    // report error
+                    ErrorReporter.showUnbalancedBlock('start', n.data.type, activeNodes.indexOf(n))
+                    let nodeSelectorString = `div[data-id=${n.id}]>div.${n.data.type}_wrapper`
+                    let nodeSelector = document.querySelector(nodeSelectorString)
+                    ErrorReporter.applyErrorStyle(nodeSelector)
+                    break
+                }
             }
         }
 
