@@ -9,6 +9,7 @@ import {
     updateEdge,
     useEdgesState,
     useNodesState,
+    useReactFlow,
 } from 'reactflow'
 import { v4 as uuid } from 'uuid'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -26,8 +27,11 @@ import ContextMenu from '../ContextMenu/ContextMenu'
 import IfConditionEndNode from './custom/ifConditionEnd/IfConditionEndNode'
 import ForLoopEndNode from './custom/forLoopEnd/ForLoopEndNode'
 import WhileLoopEndNode from './custom/whileLoopEnd/WhileLoopEndNode'
+import { enumFromString } from '../../../helpers/helpers'
+import { NodeTokenKind } from '../../../transpilers/Token'
 
 const Nodes = () => {
+    const { addNodes } = useReactFlow()
     // variables
     const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
     const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
@@ -73,7 +77,8 @@ const Nodes = () => {
                     },
                 }
                 newNode.data.id = newNode.id
-                setNodes(nds => nds.concat(newNode))
+                newNode.data.type = enumFromString(NodeTokenKind, nodeType)
+                addNodes(newNode)
             },
         )
         return () => {}
