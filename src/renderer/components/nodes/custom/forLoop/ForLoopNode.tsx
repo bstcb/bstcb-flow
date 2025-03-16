@@ -30,13 +30,13 @@ const ForLoopNode = ({ data: props }: NodeProps<ForLoopNodeProps>) => {
         console.log(forLoopRegex)
         if (value == '') {
             ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
-            ErrorReporter.applyErrorStyle(inputRef)
+            ErrorReporter.applyErrorStyle(inputRef.current)
         }
         else if (!forLoopRegex.test(value)) {
             ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'wrong value format')
-            ErrorReporter.applyErrorStyle(inputRef)
+            ErrorReporter.applyErrorStyle(inputRef.current)
         } else {
-            ErrorReporter.clearErrorStyle(inputRef)
+            ErrorReporter.clearErrorStyle(inputRef.current)
         }
 
         SetCurrentVariable(

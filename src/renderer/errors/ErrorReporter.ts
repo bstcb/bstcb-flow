@@ -55,13 +55,13 @@ export class ErrorReporter {
 
   }
 
-  static applyErrorStyle(ref: MutableRefObject<HTMLInputElement>) {
-    if (!ref.current.className.includes(NODE_ERROR_CLASSNAME))
-      ref.current.className = NODE_ERROR_CLASSNAME
+  static applyErrorStyle(el: HTMLInputElement) {
+    if (!el.classList.contains(NODE_ERROR_CLASSNAME))
+      el.classList.add(NODE_ERROR_CLASSNAME)
   }
 
-  static clearErrorStyle(ref: MutableRefObject<HTMLInputElement>) {
-    if (ref.current.className.includes(NODE_ERROR_CLASSNAME))
-      ref.current.className = ''
+  static clearErrorStyle(el: HTMLInputElement) {
+    if (el.classList.contains(NODE_ERROR_CLASSNAME))
+      el.classList.remove(NODE_ERROR_CLASSNAME)
   }
 }

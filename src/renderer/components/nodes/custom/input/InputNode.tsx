@@ -73,9 +73,9 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         const newName: string = e.target.value
         if (newName == '') {
             ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'name is empty')
-            ErrorReporter.applyErrorStyle(nameInputRef)
+            ErrorReporter.applyErrorStyle(nameInputRef.current)
         } else {
-            ErrorReporter.clearErrorStyle(nameInputRef)
+            ErrorReporter.clearErrorStyle(nameInputRef.current)
         }
         // @TODO: parse
         setCurrentVariable({ ...currentVariable, name: newName })
@@ -85,9 +85,9 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         const newValue: string = e.target.value
         if (newValue == '') {
             ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
-            ErrorReporter.applyErrorStyle(valueInputRef)
+            ErrorReporter.applyErrorStyle(valueInputRef.current)
         } else {
-            ErrorReporter.clearErrorStyle(valueInputRef)
+            ErrorReporter.clearErrorStyle(valueInputRef.current)
         }
         setCurrentVariable({ ...currentVariable, value: newValue })
     }

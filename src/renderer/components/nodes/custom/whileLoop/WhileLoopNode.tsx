@@ -26,9 +26,9 @@ const WhileLoopNode = ({ data: props }: NodeProps<WhileLoopNodeProps>) => {
         const value: string = e.target.value
         if (value == '') {
             ErrorReporter.show(node.type, nodeIndex, ErrorKind.EK_WRONG_DATA_FORMAT, 'value is empty')
-            ErrorReporter.applyErrorStyle(inputRef)
+            ErrorReporter.applyErrorStyle(inputRef.current)
         } else {
-            ErrorReporter.clearErrorStyle(inputRef)
+            ErrorReporter.clearErrorStyle(inputRef.current)
         }
         SetCurrentVariable(
             VariableParser.parse(value, NodeTokenKind.NTK_WHILE_LOOP),
