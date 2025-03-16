@@ -26,14 +26,6 @@ const CodeEditor = () => {
         useCodeStore.getState().setActiveLanguage(currentLang)
     }, [])
 
-    const isBlockScope = (n: string) => {
-        if (n.split('').at(-1) == '{' || n.split('').at(-2) == '{') {
-            return true
-        } else {
-            return false
-        }
-    }
-
     useCodeStore.subscribe(state => {
         if (state.codeError) {
             editorRef.current?.editor.selection.moveCursorTo(state.codeError.position, 0, true)
@@ -41,10 +33,7 @@ const CodeEditor = () => {
         } else {
             editorRef.current?.editor.setValue('')
             state.codeChunks.forEach(c => {
-                console.log(isBlockScope(c))
                 editorRef.current?.editor.insert(c)
-                // need to know amount of lines (probuably implement end[If|For|While]) as nodes
-                if (isBlockScope(c)) editorRef.current?.editor.insert('}\n')
             })
         }
     })
