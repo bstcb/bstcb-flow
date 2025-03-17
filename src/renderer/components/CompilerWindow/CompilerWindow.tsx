@@ -9,7 +9,7 @@ const CompilerWindow = () => {
         const unsubscribe = useCodeStore.subscribe((state) => {
             console.log(state.codeError)
             if (state.codeError) {
-                setError(state.codeError.message)
+                setError(`${state.codeError.line}:${state.codeError.col}: ${state.codeError.message}`)
             } else {
                 setError('') // Clear error when codeError is null
             }

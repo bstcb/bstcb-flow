@@ -71,7 +71,7 @@ const DebugNodes = () => {
                 let correspondingEnd = arrayTail.find(tn => tn.data.type == blockTypePairs[n.data.type])
                 if (!correspondingEnd) {
                     // report error
-                    ErrorReporter.showUnbalancedBlock('end', n.data.type, activeNodes.indexOf(n))
+                    ErrorReporter.showUnbalancedNodeBlock('end', n.data.type, activeNodes.indexOf(n))
                     let nodeSelectorString = `div[data-id=${n.id}]>div.${n.data.type}_wrapper`
                     let nodeSelector = document.querySelector(nodeSelectorString)
                     ErrorReporter.applyErrorStyle(nodeSelector)
@@ -84,7 +84,7 @@ const DebugNodes = () => {
                 let correspondingStart = arrayHead.find(tn => tn.data.type == blockTypePairs[n.data.type])
                 if (!correspondingStart) {
                     // report error
-                    ErrorReporter.showUnbalancedBlock('start', n.data.type, activeNodes.indexOf(n))
+                    ErrorReporter.showUnbalancedNodeBlock('start', n.data.type, activeNodes.indexOf(n))
                     let nodeSelectorString = `div[data-id=${n.id}]>div.${n.data.type}_wrapper`
                     let nodeSelector = document.querySelector(nodeSelectorString)
                     ErrorReporter.applyErrorStyle(nodeSelector)

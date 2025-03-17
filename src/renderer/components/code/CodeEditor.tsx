@@ -28,7 +28,7 @@ const CodeEditor = () => {
 
     useCodeStore.subscribe(state => {
         if (state.codeError) {
-            editorRef.current?.editor.selection.moveCursorTo(state.codeError.position, 0, true)
+            editorRef.current?.editor.selection.moveCursorTo(state.codeError.line, state.codeError.col, true)
             editorRef.current?.editor.selection.selectLine()
         } else {
             editorRef.current?.editor.setValue('')

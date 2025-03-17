@@ -39,7 +39,7 @@ export class ErrorReporter {
 
   }
 
-  static showUnbalancedBlock(missingPart: 'start' | 'end', nodeType: NodeTokenKind, nodeIndex: number) {
+  static showUnbalancedNodeBlock(missingPart: 'start' | 'end', nodeType: NodeTokenKind, nodeIndex: number) {
     const errorString = `unbalacned block: ${nodeType.replace('_', '')} at position ${nodeIndex} missing corresponding ${missingPart} block`
     toast.error(errorString, {
       position: "bottom-right",
@@ -55,6 +55,23 @@ export class ErrorReporter {
 
   }
 
+  static showUnbalancedCodeBlock(delimiter: string, line: number, col: number) {
+    const errorString = `unbalacned delimiter: ${delimiter} at position ${line}:${col}`
+    toast.error(errorString, {
+      position: "bottom-right",
+      autoClose: TIMER_DURATION,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+
+  }
+
+  
   static applyErrorStyle(el: HTMLInputElement) {
     if (!el.classList.contains(NODE_ERROR_CLASSNAME))
       el.classList.add(NODE_ERROR_CLASSNAME)

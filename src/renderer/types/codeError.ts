@@ -1,4 +1,5 @@
 export type CodeError = {
   message: string,
-  position: number
+  line: number,
+  col: number,
 }

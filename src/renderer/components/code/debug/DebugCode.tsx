@@ -2,6 +2,8 @@ import { useReactFlow } from "reactflow"
 import { CodeTranspiler } from "../../../../transpilers/CodeTranspiler"
 import { useCodeStore } from "../../../store/CodeStore"
 import { ErrorReporter } from "../../../errors/ErrorReporter"
+import { codeUheckUnclosedDelimiters } from "../../../utils/codeUtils"
+import { delimiter } from "path"
 
 type Props = {
     code: string
@@ -13,17 +15,22 @@ const DebugCode = (props: Props) => {
     const tryParseCode = (code: string) => {
         console.log('trying to parse code')
         // @TODO: put code from editor to storage
-        let codeChunks = code.split('\n')
-        // empty line and bracket line check
-        // @TODO: fails sometimes; needs fix
-        if (codeChunks.length > 1) { // 1 because there is always first empty line
-            codeChunks = codeChunks.filter(cc => cc.trim().length > 3)
-            codeChunks = codeChunks.map(e => e + "\n")
-            console.log(codeChunks)
-            let transpiler = new CodeTranspiler(codeChunks, rfInstance)
-            transpiler.transpile()
+        // validate blocks
+        let dilimitersErorr = codeUheckUnclosedDelimiters(code)
+        if (dilimitersErorr) {
+            ErrorReporter.showUnbalancedCodeBlock(dilimitersErorr.delimiter, dilimitersErorr.line, dilimitersErorr.col)
+            useCodeStore.getState().setCodeError({ message: `unmatched delimiter: ${dilimitersErorr.delimiter}`, line: dilimitersErorr.line, col: dilimitersErorr.col })
         } else {
-            ErrorReporter.showShort("code editor is empty")
+
+            let codeChunks = code.split('\n')
+            if (code.length > 0) {
+                codeChunks = codeChunks.map(e => e + "\n")
+                console.log(codeChunks)
+                let transpiler = new CodeTranspiler(codeChunks, rfInstance)
+                transpiler.transpile()
+            } else {
+                ErrorReporter.showShort("code editor is empty")
+            }
         }
     }
 
