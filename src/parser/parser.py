@@ -1,4 +1,5 @@
 import sys
+import re
 
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
@@ -40,7 +41,43 @@ parsedChunks: ParsedChunks = []
 error = None
 
 for i, chunk in enumerate(chunks):
+    if chunk_is_lexical():
+        parse_lexical_chunk()
+    else:
+        parse_non_lexical_chunk()
+
+debug_print('parsedChunks complete')
+
+# debug_print(parsedChunks)
+if error:
+    return_error(error)
+else:
+    return_output(parsedChunks)
+
+
+def chunk_is_lexical(chunk: str):
+    # non-letter chunks (backets, spaces, newlines) are not lexical chunks 
+    return bool(re.match(r'[a-z][A-Z]', s))
+    
+def parse_non_lexical_chunk(chunk: str):
+    debug_print('nonlexical chunk')
+
+    match chunk.strip():
+        # closing blocks
+        # @TODO: make definition of closing block more convinient
+        # for different languages
+        case '}':
+
+            # @TODO: define starting token type (by variable)
+            
+            # chunk_data = if_query.make_if_node(code_language[lang], cst.root_node)
+            # chunk_data = for_query.make_for_node(code_language[lang], cst.root_node)
+            # chunk_data = while_query.make_while_node(code_language[lang], cst.root_node)
+
+def parse_lexical_chunk(chunk: str):
+    
     cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
+    debug_print('lexical chunk')
     debug_print('chunk:cst')
     debug_print(chunk, ':', cst.root_node)
 
@@ -67,12 +104,3 @@ for i, chunk in enumerate(chunks):
             parsedChunks.append(chunk_data)
         case _:
             error = f'[Parser error]: unknown or incomplete expression at line {i}'
-
-
-debug_print('parsedChunks complete')
-
-# debug_print(parsedChunks)
-if error:
-    return_error(error)
-else:
-    return_output(parsedChunks)
