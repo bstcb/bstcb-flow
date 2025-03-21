@@ -10,7 +10,7 @@ def chunk_is_lexical(chunk: str):
     return True
 
 
-def parse_lexical_chunk(chunk_type: str, lang: Language, cst: Tree):
+def parse_lexical_chunk(chunk_type: str, chunk_index: int, lang: Language, cst: Tree):
     debug_print('lexical chunk')
 
     match chunk_type:
@@ -25,10 +25,10 @@ def parse_lexical_chunk(chunk_type: str, lang: Language, cst: Tree):
         case 'while_statement':
             return while_query.make_while_node(lang, cst.root_node)
         case _:
-            return f'[Parser error]: unknown or incomplete expression at line {i}'
+            return f'[Parser error]: unknown or incomplete expression at line {chunk_index}'
 
 
-def parse_non_lexical_chunk(chunk: str, lang: Language, cst: Tree):
+def parse_non_lexical_chunk(chunk: str, chunk_index: int, lang: Language, cst: Tree):
     debug_print('nonlexical chunk')
 
     match chunk.strip():

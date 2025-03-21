@@ -30,7 +30,7 @@ const CodeEditor = () => {
         if (state.codeError) {
             // editorRef.current?.editor.selection.moveCursorTo(state.codeError.line, state.codeError.col, true)
             // @TODO: fix braking column definition
-            editorRef.current?.editor.selection.moveCursorTo(state.codeError.line, 0, true)
+            editorRef.current?.editor.selection.moveCursorTo(0, 0, true)
             editorRef.current?.editor.selection.selectLine()
         } else {
             editorRef.current?.editor.setValue('')

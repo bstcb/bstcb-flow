@@ -42,13 +42,13 @@ def parse(lang: str, code: str):
         debug_print(chunk, ':', chunk_type)
     
         if chunk_is_lexical(chunk):
-            parsed_chunk = parse_lexical_chunk(chunk_type, code_language[lang], cst)
+            parsed_chunk = parse_lexical_chunk(chunk_type, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
                 error = parsed_chunk
             else:
                 parsed_chunks.append(parsed_chunk)                  
         else:
-            parsed_chunk = parse_non_lexical_chunk(chunk, code_language[lang], cst)
+            parsed_chunk = parse_non_lexical_chunk(chunk, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
                 error = parsed_chunk
             else:
