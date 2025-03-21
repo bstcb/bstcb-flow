@@ -6,6 +6,7 @@ import tree_sitter_javascript as ts_js
 
 from debug import debug_print
 from output import return_output, return_error
+from chunks import chunk_is_lexical, parse_lexical_chunk, parse_non_lexical_chunk
 from queries import input_query, output_query, if_query, for_query, while_query
 
 type ParsedChunks = list[dict[str, str]]
@@ -14,93 +15,49 @@ code_language = {
     "javascript": Language(ts_js.language())
 }
 
+def parse(lang: str, code: str):
+    if lang not in code_language:
+        return_error('[Parser Error]: unknown language passed to parser')
 
-# current language
-lang = sys.argv[1]
-# code chunks as array
-chunks = sys.argv[2].strip('[]').split('\\n,')
+    chunks = code.split('\n')
 
-chunks = [c.replace('\\n', '') for c in chunks]
+    debug_print('lang')
+    debug_print(lang)
+    debug_print('chunks')
+    debug_print(chunks)
 
+    parser = Parser(code_language[lang])
+    debug_print('parser')
 
-if lang not in code_language:
-    return_error('[Compiler Error]: unknown language passed to compiler')
+    parsed_chunks: ParsedChunks = []
+    error = None
 
+    for i, chunk in enumerate(chunks):
+        cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
+        debug_print('chunk:cst')
+        debug_print(chunk, ':', cst.root_node)
 
-debug_print('lang')
-debug_print(lang)
-debug_print('chunks')
-debug_print(chunks)
+        chunk_type = cst.root_node.child(0).type
+        debug_print('child 1 type')
+        debug_print(chunk, ':', chunk_type)
+    
+        if chunk_is_lexical(chunk):
+            parsed_chunk = parse_lexical_chunk(chunk_type, code_language[lang], cst)
+            if isinstance(parsed_chunk, str):
+                error = parsed_chunk
+            else:
+                parsed_chunks.append(parsed_chunk)                  
+        else:
+            parsed_chunk = parse_non_lexical_chunk(chunk, code_language[lang], cst)
+            if isinstance(parsed_chunk, str):
+                error = parsed_chunk
+            else:
+                parsed_chunks.append(parsed_chunk)
+                  
+    debug_print('parsedChunks complete')
+    debug_print(parsed_chunks)
 
-parser = Parser(code_language[lang])
-
-debug_print('parser')
-
-parsedChunks: ParsedChunks = []
-
-error = None
-
-for i, chunk in enumerate(chunks):
-    if chunk_is_lexical():
-        parse_lexical_chunk()
+    if error:
+        return_error(error)
     else:
-        parse_non_lexical_chunk()
-
-debug_print('parsedChunks complete')
-
-# debug_print(parsedChunks)
-if error:
-    return_error(error)
-else:
-    return_output(parsedChunks)
-
-
-def chunk_is_lexical(chunk: str):
-    # non-letter chunks (backets, spaces, newlines) are not lexical chunks 
-    return bool(re.match(r'[a-z][A-Z]', s))
-    
-def parse_non_lexical_chunk(chunk: str):
-    debug_print('nonlexical chunk')
-
-    match chunk.strip():
-        # closing blocks
-        # @TODO: make definition of closing block more convinient
-        # for different languages
-        case '}':
-
-            # @TODO: define starting token type (by variable)
-            
-            # chunk_data = if_query.make_if_node(code_language[lang], cst.root_node)
-            # chunk_data = for_query.make_for_node(code_language[lang], cst.root_node)
-            # chunk_data = while_query.make_while_node(code_language[lang], cst.root_node)
-
-def parse_lexical_chunk(chunk: str):
-    
-    cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
-    debug_print('lexical chunk')
-    debug_print('chunk:cst')
-    debug_print(chunk, ':', cst.root_node)
-
-    chunk_type = cst.root_node.child(0).type
-
-    debug_print('child 1 type')
-    debug_print(chunk, ':', chunk_type)
-
-    match chunk_type:
-        case 'lexical_declaration':
-            chunk_data = input_query.make_input_node(code_language[lang], cst.root_node)
-            parsedChunks.append(chunk_data)
-        case 'expression_statement':
-            chunk_data = output_query.make_output_node(code_language[lang], cst.root_node)
-            parsedChunks.append(chunk_data)
-        case 'if_statement':
-            chunk_data = if_query.make_if_node(code_language[lang], cst.root_node)
-            parsedChunks.append(chunk_data)
-        case 'for_statement':
-            chunk_data = for_query.make_for_node(code_language[lang], cst.root_node)
-            parsedChunks.append(chunk_data)
-        case 'while_statement':
-            chunk_data = while_query.make_while_node(code_language[lang], cst.root_node)
-            parsedChunks.append(chunk_data)
-        case _:
-            error = f'[Parser error]: unknown or incomplete expression at line {i}'
+        return_output(parsed_chunks)
