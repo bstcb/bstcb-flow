@@ -18,3 +18,7 @@ def make_if_node(lang: Language, node):
     value = query.matches(node)[0][1]['cond'][0].text.decode('utf8').strip('()')
 
     return {'_if_cond': value}
+
+
+def make_if_end_node(lang: Language, node):
+    return {'_if_cond_end': None}

@@ -24,3 +24,6 @@ def make_for_node(lang: Language, node):
     statements.append(query.matches(node)[0][1]['for.inc'] [0].text.decode('utf8').strip('()'))
 
     return {'_for_lp': ' '.join(statements)}
+
+def make_for_end_node():
+    return {'for_lp_end': None}
