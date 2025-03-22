@@ -6,7 +6,7 @@ import { CodeLanguage } from './CodeLanguage'
 function applyChunk(chunk: string) {
     useCodeStore
         .getState()
-        .setCodeChunks([...useCodeStore.getState().codeChunks, chunk])
+        .setCode(useCodeStore.getState().code + chunk)
 }
 
 export class CodeGen {

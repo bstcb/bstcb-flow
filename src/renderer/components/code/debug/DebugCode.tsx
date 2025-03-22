@@ -21,12 +21,8 @@ const DebugCode = (props: Props) => {
             ErrorReporter.showUnbalancedCodeBlock(dilimitersErorr.delimiter, dilimitersErorr.line, dilimitersErorr.col)
             useCodeStore.getState().setCodeError({ message: `unmatched delimiter: ${dilimitersErorr.delimiter}`, line: dilimitersErorr.line, col: dilimitersErorr.col })
         } else {
-
-            let codeChunks = code.split('\n')
             if (code.length > 0) {
-                codeChunks = codeChunks.map(e => e + "\n")
-                console.log(codeChunks)
-                let transpiler = new CodeTranspiler(codeChunks, rfInstance)
+                let transpiler = new CodeTranspiler(code, rfInstance)
                 transpiler.transpile()
             } else {
                 ErrorReporter.showShort("code editor is empty")

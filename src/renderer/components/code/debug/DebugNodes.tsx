@@ -93,7 +93,7 @@ const DebugNodes = () => {
             }
         }
 
-        useCodeStore.getState().clearCodeChunks()
+        useCodeStore.getState().clearCode()
 
         let transpiler = new NodeTranspiler(activeNodes)
         transpiler.transpile()
