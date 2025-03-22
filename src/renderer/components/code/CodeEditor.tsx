@@ -28,13 +28,13 @@ const CodeEditor = () => {
 
     useCodeStore.subscribe(state => {
         if (state.codeError) {
-            // editorRef.current?.editor.selection.moveCursorTo(state.codeError.line, state.codeError.col, true)
-            // @TODO: fix braking column definition
-            editorRef.current?.editor.selection.moveCursorTo(0, 0, true)
+            editorRef.current?.editor.selection.moveCursorTo(state.codeError.line, state.codeError.col, true)
             editorRef.current?.editor.selection.selectLine()
+
         } else {
+            let codeChunks = state.code.split('\n')
             editorRef.current?.editor.setValue('')
-            state.codeChunks.forEach(c => {
+            codeChunks.forEach(c => {
                 editorRef.current?.editor.insert(c)
             })
         }

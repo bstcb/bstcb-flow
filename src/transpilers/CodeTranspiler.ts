@@ -57,8 +57,8 @@ export class CodeTranspiler {
       // error handle
       if (typeof parseResults == 'string') {
         let message = parseResults
-        let position = Number(parseResults.split('').at(-1))
-        useCodeStore.getState().setCodeError({ message, position })
+        let line = Number(parseResults.split('').at(-1))
+        useCodeStore.getState().setCodeError({ message, line, col: 0 })
       } else {
         // cleanup 
         if (useCodeStore.getState().codeError)
