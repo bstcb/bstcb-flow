@@ -16,6 +16,7 @@ code_language = {
 }
 
 def parse(lang: str, code: str):
+    
     if lang not in code_language:
         return_error('[Parser Error]: unknown language passed to parser')
 
