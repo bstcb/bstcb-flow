@@ -20,10 +20,12 @@ def parse(lang: str, code: str):
     if lang not in code_language:
         return_error('[Parser Error]: unknown language passed to parser')
 
-    chunks = code.split('\n')
+    chunks = code.split(r'\n')
 
     debug_print('lang')
     debug_print(lang)
+    debug_print('code')
+    debug_print(code)    
     debug_print('chunks')
     debug_print(chunks)
 
@@ -39,7 +41,7 @@ def parse(lang: str, code: str):
         debug_print(chunk, ':', cst.root_node)
 
         chunk_type = cst.root_node.child(0).type
-        debug_print('child 1 type')
+        debug_print('child type')
         debug_print(chunk, ':', chunk_type)
     
         if chunk_is_lexical(chunk):
@@ -55,7 +57,7 @@ def parse(lang: str, code: str):
             else:
                 parsed_chunks.append(parsed_chunk)
                   
-    debug_print('parsedChunks complete')
+    debug_print('parsed_chunks complete')
     debug_print(parsed_chunks)
 
     if error:
