@@ -19,6 +19,5 @@ def make_if_node(lang: Language, node):
 
     return {'_if_cond': value}
 
-
-def make_if_end_node(lang: Language, node):
+def make_if_end_node(lang: Language):
     return {'_if_cond_end': None}

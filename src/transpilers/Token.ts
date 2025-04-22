@@ -12,6 +12,7 @@ export enum NodeTokenKind {
     NTK_WHILE_LOOP_END = '_while_lp_end',
     NTK_INPUT = '_input',
     NTK_OUTPUT = '_output',
+    NTK_BLOCK_END = '_block_end', // end of blocks (conditions, loops)
     NTK_INITIAL = 'NTK_INITIAL', // does it need a name?
 }
 

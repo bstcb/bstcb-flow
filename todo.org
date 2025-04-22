@@ -17,3 +17,4 @@
 - [ ] implement save/load
 - [X] fix node shapes
 - [ ] fix connected node deletion brakes the chain
+- [ ] add command palette

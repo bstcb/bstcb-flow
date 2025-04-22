@@ -7,6 +7,9 @@ import { NodeTokenKind } from "./Token"
 import { v4 as uuid } from 'uuid'
 import { getRandomInt } from "../renderer/utils/random"
 import { initialNodes } from "../renderer/components/nodes/initialNodes"
+import { ErrorReporter } from "../renderer/errors/ErrorReporter"
+
+// @TODO: huge refactoring of node props definition duplication...
 
 type IndexedNode = {
     node: Node,
@@ -164,6 +167,7 @@ export class NodeGen {
 
         this.genNode(newNode, nodeIndex, rfInstance)
     }
+
     static genWhile(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
         console.log(
             `while loop node generation in with variable: ${variable.value}`,
@@ -181,6 +185,56 @@ export class NodeGen {
                 id: null,
                 label: variable,
                 value: variable,
+            },
+        }
+        newNode.data.id = newNode.id
+
+        this.genNode(newNode, nodeIndex, rfInstance)
+    }
+
+    static genBlockEnd(nodeIndex: number, rfInstance: ReactFlowInstance) {
+        console.log(
+            `block end node generation at position: ${nodeIndex}`,
+        )
+        console.log('nodeIndex')
+        console.log(nodeIndex)
+
+        console.log('this.indexedNodes')
+        console.log(this.indexedNodes)
+        // block nodes list; code repetition?
+        const blockOpenerTypes: NodeTokenKind[] = [NodeTokenKind.NTK_IF_CONDITION, NodeTokenKind.NTK_FOR_LOOP, NodeTokenKind.NTK_WHILE_LOOP]
+        const blockCloserTypes: NodeTokenKind[] = [NodeTokenKind.NTK_IF_CONDITION_END, NodeTokenKind.NTK_FOR_LOOP_END, NodeTokenKind.NTK_WHILE_LOOP_END]
+        let prevNodes = this.indexedNodes.slice(0, nodeIndex)
+        let opener = prevNodes.find(n => blockOpenerTypes.includes(n.node.type)) // closest block node
+        console.log('opener')
+        console.log(opener)
+        if (!opener) {
+            // "unmatched block end" error
+            ErrorReporter.showUnbalancedNodeBlock("start", NodeTokenKind.NTK_BLOCK_END, nodeIndex)
+            // doubt that i need to report node error as code error but i am insane
+            useCodeStore.getState().setCodeError({ message: `unmatched block end at position ${nodeIndex}`, line: nodeIndex, col: 0 })
+            return
+        }
+
+        let blockEndType = blockCloserTypes[blockOpenerTypes.indexOf(opener.node.type)] // getting type of corresponding block end
+
+        // creating node
+        let newNode: Node = {
+            // define the type by getting closest opener
+            id: `_${blockEndType}_${uuid()}`,
+            type: blockEndType,
+            position: {
+                // @TODO: count position relative to neighbour nodes 
+                x: getRandomInt(100, 150),
+                y: getRandomInt(100, 300),
+            },
+            data: {
+                id: null,
+                // unused on block ends, because they have values by default
+
+                // label: variable,
+                // value: variable,
+
             },
         }
         newNode.data.id = newNode.id

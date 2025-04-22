@@ -49,19 +49,18 @@ def parse(lang: str, code: str):
             parsed_chunk = parse_lexical_chunk(chunk_type, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
                 error = parsed_chunk
+                return_error(error)
             else:
                 parsed_chunks.append(parsed_chunk)                  
         else:
             parsed_chunk = parse_non_lexical_chunk(chunk, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
                 error = parsed_chunk
+                return_error(error)
             else:
                 parsed_chunks.append(parsed_chunk)
             
     debug_print('parsed_chunks complete')
     debug_print(parsed_chunks)
 
-    if error:
-        return_error(error)
-    else:
-        return_output(parsed_chunks)
+    return_output(parsed_chunks)
