@@ -36,6 +36,7 @@ def parse(lang: str, code: str):
     error = None
 
     for i, chunk in enumerate(chunks):
+        debug_print(f'========= CHUNK {i}  =========\n\n\n')
         cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
         debug_print('chunk:cst')
         debug_print(chunk, ':', cst.root_node)
@@ -56,7 +57,7 @@ def parse(lang: str, code: str):
                 error = parsed_chunk
             else:
                 parsed_chunks.append(parsed_chunk)
-                  
+            
     debug_print('parsed_chunks complete')
     debug_print(parsed_chunks)
 

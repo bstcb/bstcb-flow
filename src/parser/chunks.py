@@ -5,9 +5,13 @@ from debug import debug_print
 from queries import input_query, output_query, if_query, for_query, while_query
 
 def chunk_is_lexical(chunk: str):
-    # non-letter chunks (backets, spaces, newlines) are not lexical chunks
-    # @TODO: fix `is_lexical` check
-    return True
+    # @MAINTAINING: may require further testing
+    
+    non_lexical_chunks_regex = ['}', ']', '\n']
+    res = chunk not in non_lexical_chunks_regex
+    debug_print(f'[chunk_is_lexical]: {chunk}: {res}')
+    
+    return res
 
 
 def parse_lexical_chunk(chunk_type: str, chunk_index: int, lang: Language, cst: Tree):
