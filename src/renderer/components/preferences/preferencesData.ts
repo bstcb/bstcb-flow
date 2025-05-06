@@ -1,7 +1,7 @@
-export type Preferences = {
+export type PreferencesData = {
   'preferences.appearance.colorTheme': 'light' | 'dark'
 }
 
-export const preferences: Preferences = {
+export const preferencesData: PreferencesData = {
   'preferences.appearance.colorTheme': 'light'
 }
