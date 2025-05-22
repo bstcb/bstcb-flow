@@ -29,9 +29,11 @@ import ForLoopEndNode from './custom/forLoopEnd/ForLoopEndNode'
 import WhileLoopEndNode from './custom/whileLoopEnd/WhileLoopEndNode'
 import { enumFromString } from '../../../helpers/helpers'
 import { NodeTokenKind } from '../../../transpilers/Token'
+import { NODE_POSITION_Y_OFFSET } from '../../constants'
+import { getNextNodeYPositionFromNodes } from '../../utils/nodeUtils'
 
 const Nodes = () => {
-    const { addNodes } = useReactFlow()
+    const { addNodes, getNodes } = useReactFlow()
     // variables
     const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
     const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
@@ -63,12 +65,19 @@ const Nodes = () => {
         window.electron.ipcRenderer.on(
             'add-node',
             (nodeType: string, value: string) => {
+                let newNodeY = getNextNodeYPositionFromNodes(getNodes())
+                console.log('newNodeY: ' + newNodeY)
                 let newNode: Node = {
                     id: `_${nodeType}_${uuid()}`,
                     type: nodeType,
                     position: {
-                        x: getRandomInt(100, 150),
-                        y: getRandomInt(100, 300),
+                        // center x position relative
+                        // to position of first node (`Start`)
+                        x: nodes[0].position.x,
+                        // use dedicated function to calculate
+                        // new node's position
+                        // because of unsorted nodes
+                        y: newNodeY
                     },
                     data: {
                         id: null,
