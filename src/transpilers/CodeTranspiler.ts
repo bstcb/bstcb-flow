@@ -9,6 +9,7 @@ import { useCodeStore } from '../renderer/store/CodeStore'
 import { enumFromString } from '../helpers/helpers'
 import { initialNodes } from '../renderer/components/nodes/initialNodes'
 import { ErrorReporter } from '../renderer/errors/ErrorReporter'
+import { NodeCreationData } from '../renderer/types/nodeCreationData'
 
 export type ParsableCode = {
     language: CodeLanguage
@@ -79,51 +80,11 @@ export class CodeTranspiler {
                     }
                     console.log('pn')
                     console.log(pn)
-                    switch (pn.kind) {
-                        case NodeTokenKind.NTK_INPUT:
-                            NodeGen.genInput(
-                                VariableParser.parse(pn.data, NodeTokenKind.NTK_INPUT),
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-                        case NodeTokenKind.NTK_OUTPUT:
-                            NodeGen.genOutput(
-                                VariableParser.parse(pn.data, NodeTokenKind.NTK_OUTPUT),
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-                        case NodeTokenKind.NTK_IF_CONDITION:
-                            NodeGen.genIf(
-                                VariableParser.parse(pn.data, NodeTokenKind.NTK_IF_CONDITION),
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-                        case NodeTokenKind.NTK_FOR_LOOP:
-                            NodeGen.genFor(
-                                VariableParser.parse(pn.data, NodeTokenKind.NTK_FOR_LOOP),
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-                        case NodeTokenKind.NTK_WHILE_LOOP:
-                            NodeGen.genWhile(
-                                VariableParser.parse(pn.data, NodeTokenKind.NTK_WHILE_LOOP),
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-                        case NodeTokenKind.NTK_BLOCK_END:
-                            NodeGen.genBlockEnd(
-                                i,
-                                this.rfInstance,
-                            )
-                            break
-
-                        default:
-                            console.error(`wrong pn.kind ${pn.kind}`)
+                    if (pn.kind == NodeTokenKind.NTK_BLOCK_END) {
+                        NodeGen.genBlockEnd(i, this.rfInstance)
+                    } else {
+                        let nodeCreationData: NodeCreationData = { type: pn.kind, variable: pn.data } 
+                        NodeGen.genNode(nodeCreationData, i, this.rfInstance)
                     }
                 }
             }

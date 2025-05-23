@@ -8,8 +8,8 @@ import { v4 as uuid } from 'uuid'
 import { getRandomInt } from "../renderer/utils/random"
 import { initialNodes } from "../renderer/components/nodes/initialNodes"
 import { ErrorReporter } from "../renderer/errors/ErrorReporter"
-
-// @TODO: huge refactoring of node props definition duplication...
+import { getNextNodeYPositionFromNodes } from "../renderer/utils/nodeUtils"
+import { NodeCreationData } from "../renderer/types/nodeCreationData"
 
 type IndexedNode = {
     node: Node,
@@ -19,13 +19,14 @@ type IndexedNode = {
 export class NodeGen {
     static indexedNodes: IndexedNode[] = []
     static activeLanguage: CodeLanguage
-    static positionOffset: number = 30
+
     static getActiveLang() {
         this.activeLanguage = enumFromString(
             CodeLanguage,
             useCodeStore.getState().activeLanguage,
         )!
     }
+
     private static getNodesSorted(): Node[] {
         let sortedNodes = this.indexedNodes.sort((a, b) => a.index - b.index)
 
@@ -37,25 +38,59 @@ export class NodeGen {
         console.log(result)
         return result.map(indexedNode => indexedNode.node)
     }
-    private static genNode(node: Node, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        // @TODO: handle node positions
-        node.position.y += this.positionOffset * nodeIndex
+
+    static genNode(nodeCreationData: NodeCreationData, nodeIndex: number, rfInstance: ReactFlowInstance) {
+        
+        console.log(
+            `${nodeCreationData.type} node generation in with variable: ${nodeCreationData.variable.value}`,
+        )
+        
+        let nodes: Node[] = rfInstance.getNodes()
+
+        // creating node
+        debugger
+        console.log(rfInstance.getNodes())
+        let node: Node = {
+            id: `_${nodeCreationData.type}_${uuid()}`,
+            type: nodeCreationData.type,
+            position: {
+                x: nodes[0].position.x,
+                y: getNextNodeYPositionFromNodes(rfInstance.getNodes())
+            },
+            data: {
+                id: null,
+                label: nodeCreationData.variable,
+                value: nodeCreationData.variable,
+            },
+        }
+        node.data.id = node.id
+
+        
+        this.insertNode(node, nodeIndex, rfInstance)
+        
+        debugger
+        console.log(rfInstance.getNodes())
+    }
+
+    static insertNode(node: Node, nodeIndex: number, rfInstance: ReactFlowInstance) {
         // debugger
-        let newIndexedNode: IndexedNode = { node, nodeIndex }
-        console.log('newIndexedNode')
-        console.log(newIndexedNode)
-        this.indexedNodes.push(newIndexedNode)
+        // let nodes: Node[] = rfInstance.getNodes()
+        
+        let indexedNode: IndexedNode = { node, index: nodeIndex }
+        console.log('indexedNode')
+        console.log(indexedNode)
+        this.indexedNodes.push(indexedNode)
         console.log('allIndexedNodes')
         console.log(this.indexedNodes)
         // inserting node
-        console.log(rfInstance.getNodes())
         let nodes = this.getNodesSorted()
+        console.log(nodes)
         rfInstance.setNodes(nodes)
         requestAnimationFrame(() => {
             console.log('nodes from sorted nodes')
-            console.log(rfInstance.getNodes())
-            let prevNode = rfInstance.getNodes()[nodeIndex - 1]
-            let nextNode = rfInstance.getNodes()[nodeIndex + 1]
+            console.log(nodes)
+            let prevNode = nodes[nodeIndex - 1]
+            let nextNode = nodes[nodeIndex + 1]
             const edges = [];
             const conditionalTypes = ['_if_cond', '_for_lp', '_while_lp']
             for (let i = 0; i < nodes.length - 1; i++) {
@@ -70,127 +105,15 @@ export class NodeGen {
             rfInstance.setEdges(edges)
         })
 
-
     }
+    
     static clearIndexedNodes() {
         this.indexedNodes = []
     }
-    static genInput(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        console.log(
-            `input node generation in with variable: ${variable.name}: ${variable.value}`,
-        )
-        // creating node
-        let newNode: Node = {
-            id: `_${NodeTokenKind.NTK_INPUT}_${uuid()}`,
-            type: NodeTokenKind.NTK_INPUT,
-            position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
-            },
-            data: {
-                id: null,
-                label: variable,
-                value: variable,
-            },
-        }
-        newNode.data.id = newNode.id
 
-        this.genNode(newNode, nodeIndex, rfInstance)
-    }
-    static genOutput(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        console.log(
-            `output node generation in with variable: ${variable.value}`,
-        )
-        // creating node
-        let newNode: Node = {
-            id: `_${NodeTokenKind.NTK_OUTPUT}_${uuid()}`,
-            type: NodeTokenKind.NTK_OUTPUT,
-            position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
-            },
-            data: {
-                id: null,
-                label: variable,
-                value: variable,
-            },
-        }
-        newNode.data.id = newNode.id
 
-        this.genNode(newNode, nodeIndex, rfInstance)
-    }
-    static genIf(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        console.log(
-            `if condition node generation in with variable: ${variable.value}`,
-        )
-        // creating node
-        let newNode: Node = {
-            id: `_${NodeTokenKind.NTK_IF_CONDITION}_${uuid()}`,
-            type: NodeTokenKind.NTK_IF_CONDITION,
-            position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
-            },
-            data: {
-                id: null,
-                label: variable,
-                value: variable,
-            },
-        }
-        newNode.data.id = newNode.id
-
-        this.genNode(newNode, nodeIndex, rfInstance)
-    }
-    static genFor(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        console.log(
-            `for loop node generation in with variable: ${variable.value}`,
-        )
-        // creating node
-        let newNode: Node = {
-            id: `_${NodeTokenKind.NTK_FOR_LOOP}_${uuid()}`,
-            type: NodeTokenKind.NTK_FOR_LOOP,
-            position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
-            },
-            data: {
-                id: null,
-                label: variable,
-                value: variable,
-            },
-        }
-        newNode.data.id = newNode.id
-
-        this.genNode(newNode, nodeIndex, rfInstance)
-    }
-
-    static genWhile(variable: Variable, nodeIndex: number, rfInstance: ReactFlowInstance) {
-        console.log(
-            `while loop node generation in with variable: ${variable.value}`,
-        )
-        // creating node
-        let newNode: Node = {
-            id: `_${NodeTokenKind.NTK_IF_CONDITION}_${uuid()}`,
-            type: NodeTokenKind.NTK_IF_CONDITION,
-            position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
-            },
-            data: {
-                id: null,
-                label: variable,
-                value: variable,
-            },
-        }
-        newNode.data.id = newNode.id
-
-        this.genNode(newNode, nodeIndex, rfInstance)
-    }
+    // block end will remain as a separate function for now
+    // because of some extra logic required
 
     static genBlockEnd(nodeIndex: number, rfInstance: ReactFlowInstance) {
         console.log(
@@ -198,7 +121,6 @@ export class NodeGen {
         )
         console.log('nodeIndex')
         console.log(nodeIndex)
-
         console.log('this.indexedNodes')
         console.log(this.indexedNodes)
         // block nodes list; code repetition?
@@ -218,27 +140,27 @@ export class NodeGen {
 
         let blockEndType = blockCloserTypes[blockOpenerTypes.indexOf(opener.node.type)] // getting type of corresponding block end
 
+        let nodes: Node[] = rfInstance.getNodes()
         // creating node
-        let newNode: Node = {
+        let node: Node = {
             // define the type by getting closest opener
             id: `_${blockEndType}_${uuid()}`,
             type: blockEndType,
             position: {
-                // @TODO: count position relative to neighbour nodes 
-                x: getRandomInt(100, 150),
-                y: getRandomInt(100, 300),
+                x: nodes[0].position.x,
+                y: getNextNodeYPositionFromNodes(nodes)
             },
             data: {
                 id: null,
-                // unused on block ends, because they have values by default
+                // unused on block end, because it have constant value
 
                 // label: variable,
                 // value: variable,
 
             },
         }
-        newNode.data.id = newNode.id
+        node.data.id = node.id
 
-        this.genNode(newNode, nodeIndex, rfInstance)
+        this.insertNode(node, nodeIndex)
     }
 }
