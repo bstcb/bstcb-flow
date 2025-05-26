@@ -1,4 +1,4 @@
 root = true
 
-[*.tsx]
-indent_size = 2
+[*.ts, *.tsx]
+indent_size = 3
