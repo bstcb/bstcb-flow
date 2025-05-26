@@ -1,21 +1,21 @@
 ._while_lp_end_wrapper {
-	width: 100px;
-	height: 100px;
-	transform: rotate(-45deg) skew(10deg, 10deg);
-	background: #fff;
-    border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    input {
-        width: 100%;
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        border: none;
-        text-align: center;
-        background: none;
-        transform: translate(-50%, -50%) rotate(45deg) skew(0deg); // very wierd but works
-        font-size: 12px;
-    }
+  width: 100px;
+  height: 100px;
+  transform: rotate(-45deg) skew(10deg, 10deg);
+  background: #fff;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    border: none;
+    text-align: center;
+    background: none;
+    transform: translate(-50%, -50%) rotate(45deg) skew(0deg); // very wierd but works
+    font-size: 12px;
+  }
 }

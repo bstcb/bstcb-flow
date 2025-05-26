@@ -1,6 +1,8 @@
-import { UnclosedDelimiterError } from "../types/unclosedDelimiterError";
+import { UnclosedDelimiterError } from '../types/unclosedDelimiterError';
 
-export function codeUheckUnclosedDelimiters(str: string): UnclosedDelimiterError | boolean {
+export function codeUheckUnclosedDelimiters(
+  str: string,
+): UnclosedDelimiterError | boolean {
   const stack = [];
   const opening = '({[';
   const closing = ')}]';
@@ -27,14 +29,22 @@ export function codeUheckUnclosedDelimiters(str: string): UnclosedDelimiterError
       }
       const lastOpening = stack.pop(); // Pop the last opening delimiter
       if (matching[lastOpening.char] !== char) {
-        return { delimiter: lastOpening.char, line: lastOpening.line, col: lastOpening.column }; // Mismatched delimiter
+        return {
+          delimiter: lastOpening.char,
+          line: lastOpening.line,
+          col: lastOpening.column,
+        }; // Mismatched delimiter
       }
     }
   }
 
   if (stack.length > 0) {
     const unmatched = stack[stack.length - 1];
-    return { delimiter: unmatched.char, line: unmatched.line, col: unmatched.column }; // Unclosed delimiter
+    return {
+      delimiter: unmatched.char,
+      line: unmatched.line,
+      col: unmatched.column,
+    }; // Unclosed delimiter
   }
 
   return false; // All delimiters are properly closed

@@ -48,12 +48,13 @@
   margin: 0 auto;
 }
 
-.settings-pane, .settings {
-    height: 100%;
+.settings-pane,
+.settings {
+  height: 100%;
 }
 
 .settings-changed {
-    background: #ff0;
+  background: #ff0;
 }
 
 .show .settings-pane {
@@ -101,7 +102,9 @@ form.settings {
   background-color: #3f3f3f;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   width: 190px;
   flex-shrink: 0;
@@ -228,7 +231,9 @@ ul.settings-menu li.headline {
   padding-top: 20px;
   padding-left: 18px;
   padding-bottom: 20px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   white-space: normal;
 }
@@ -267,7 +272,7 @@ ul.settings-menu li.menu-item.active a {
 
 ul.settings-menu li.menu-item a:hover:before {
   opacity: 0.3;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=30)';
   filter: alpha(opacity=30);
 }
 
@@ -276,10 +281,10 @@ ul.settings-menu li.menu-item a:before {
   top: 0;
   left: 0;
   height: 100%;
-  content: " ";
+  content: ' ';
   border-left: 4px solid #5f7187;
   opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
   filter: alpha(opacity=0);
 }
 

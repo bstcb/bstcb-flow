@@ -1,5 +1,5 @@
 export enum CodeLanguage {
-    LANG_JS = 'javascript',
+  LANG_JS = 'javascript',
 
-    // TODO: fill up with languages
+  // TODO: fill up with languages
 }

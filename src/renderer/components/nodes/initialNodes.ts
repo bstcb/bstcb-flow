@@ -1,4 +1,4 @@
-import { Edge, Node } from 'reactflow'
+import { Edge, Node } from 'reactflow';
 
 export const initialNodes: Node[] = [
   {
@@ -13,5 +13,5 @@ export const initialNodes: Node[] = [
     type: 'output',
     data: { label: 'End' },
   },
-]
-export const initialEdges: Edge[] = []
+];
+export const initialEdges: Edge[] = [];

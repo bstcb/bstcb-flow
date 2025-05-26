@@ -1,5 +1,5 @@
 export type CodeError = {
-  message: string,
-  line: number,
-  col: number,
-}
+  message: string;
+  line: number;
+  col: number;
+};

@@ -1,8 +1,8 @@
 export interface NodeContextMenu {
-	id: string
-	top: number
-	left: number
-	right: number
-	bottom: number
-	onClick: () => void
+  id: string;
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
+  onClick: () => void;
 }
