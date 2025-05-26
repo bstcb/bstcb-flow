@@ -9,10 +9,17 @@ def return_error(error):
 
 
 def print_usage():
-    print("""
-          USAGE: parser language code [flags]
+    print(r"""
+           USAGE: parser parsableCodeJsonString [flags]
+          
+          parsableCodeJsonString example:
+          
+          {
+              "language": "javascript",
+              "code": "let x = 0\nconsole.log(1)"
+          }
           
           flags:
               -h     print this help
-              -d     print debug lines
+              -d     print debug info
           """)

@@ -1,5 +1,6 @@
 import sys
 import re
+import json
 
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
@@ -14,13 +15,17 @@ type ParsedChunks = list[dict[str, str]]
 code_language = {
     "javascript": Language(ts_js.language())
 }
-
-def parse(lang: str, code: str):
+# `parsable_code` is a json string
+# with `language` and `code` props
+def parse(parsable_code_str: str):
+    parsable_code_json = json.loads(parsable_code_str)
+    lang = parsable_code_json['language']
+    code = parsable_code_json['code']
     
     if lang not in code_language:
         return_error('[Parser Error]: unknown language passed to parser')
 
-    chunks = code.split(r'\n')
+    chunks = code.split('\n')
 
     debug_print('lang')
     debug_print(lang)
