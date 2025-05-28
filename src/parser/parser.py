@@ -18,11 +18,13 @@ code_language = {
 }
 # `parsable_code` is a json string
 # with `language` and `code` props
+
+
 def parse(parsable_code_str: str):
     parsable_code_json = json.loads(parsable_code_str)
     lang = parsable_code_json['language']
     code = parsable_code_json['code']
-    
+
     if lang not in code_language:
         return_error('[Parser Error]: unknown language passed to parser')
 
@@ -31,7 +33,7 @@ def parse(parsable_code_str: str):
     debug_print('lang')
     debug_print(lang)
     debug_print('code')
-    debug_print(code)    
+    debug_print(code)
     debug_print('chunks')
     debug_print(chunks)
 
@@ -46,21 +48,21 @@ def parse(parsable_code_str: str):
         cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
         debug_print('chunk:cst')
         debug_print(chunk, ':', cst.root_node)
-        
+
         # @FIX: the most dangerous string
         check_error(cst.root_node, code_language[lang])
         chunk_type = cst.root_node.child(0).type
-        
+
         debug_print('child type')
         debug_print(chunk, ':', chunk_type)
-    
+
         if chunk_is_lexical(chunk):
             parsed_chunk = parse_lexical_chunk(chunk_type, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
                 error = parsed_chunk
                 return_error(error)
             else:
-                parsed_chunks.append(parsed_chunk)                  
+                parsed_chunks.append(parsed_chunk)
         else:
             parsed_chunk = parse_non_lexical_chunk(chunk, i, code_language[lang], cst)
             if isinstance(parsed_chunk, str):
@@ -68,7 +70,7 @@ def parse(parsable_code_str: str):
                 return_error(error)
             else:
                 parsed_chunks.append(parsed_chunk)
-            
+
     debug_print('parsed_chunks complete')
     debug_print(parsed_chunks)
 

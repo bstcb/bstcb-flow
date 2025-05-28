@@ -17,7 +17,7 @@ def main():
         exit(0)
     elif '-d' in args:
         print('debug enabled; running verbose...')
-        
+
     parser.parse(args[0])
 
 

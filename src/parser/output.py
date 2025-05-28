@@ -1,9 +1,11 @@
 import sys
 import json
 
+
 def return_output(code):
     print(json.dumps(code))
     exit(0)
+
 
 def return_error(error):
     print(json.dumps(error))

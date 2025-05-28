@@ -16,5 +16,5 @@ def make_output_node(lang: Language, node):
     )
 
     value = query.matches(node)[0][1]['func.args'][0].text.decode('utf8').strip('()')
-    
+
     return {'_output': value}
