@@ -1,13 +1,19 @@
 import sys
 import json
 
+type Error = {
+    "line": int,
+    "col": int,
+    "message": str
+}
+
 
 def return_output(code):
     print(json.dumps(code))
     exit(0)
 
 
-def return_error(error):
+def return_error(error: Error):
     print(json.dumps(error))
     exit(0)
 
