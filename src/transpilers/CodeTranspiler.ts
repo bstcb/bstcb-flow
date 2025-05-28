@@ -10,6 +10,7 @@ import { enumFromString } from '../helpers/helpers';
 import { initialNodes } from '../renderer/components/nodes/initialNodes';
 import { ErrorReporter } from '../renderer/errors/ErrorReporter';
 import { NodeCreationData } from '../renderer/types/nodeCreationData';
+import { useErrorStore } from '../renderer/store/ErrorStore';
 
 export type ParsableCode = {
   language: CodeLanguage;
@@ -52,14 +53,23 @@ export class CodeTranspiler {
       console.log('parsed code returned');
       console.log('result');
       console.log(parseResults);
-      parseResults: parseResults = JSON.parse(parseResults);
+      parseResults = JSON.parse(parseResults);
       console.log(parseResults);
       console.log(typeof parseResults);
-      // error handle
+      // error handling
+
+      // unknown error case
       if (typeof parseResults == 'string') {
         let message = parseResults;
         let line = Number(parseResults.split('').at(-1));
         useCodeStore.getState().setCodeError({ message, line, col: 0 });
+        // known error case
+      } else if (typeof parseResults == 'object') {
+        // `CodeError` object
+        // @TODO: ensure that this object is of type CodeError
+        console.log(parseResults);
+        console.log(typeof parseResults);
+        useCodeStore.getState().setCodeError(parseResults);
       } else {
         // cleanup
         if (useCodeStore.getState().codeError)

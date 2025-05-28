@@ -8,6 +8,7 @@ import tree_sitter_javascript as ts_js
 from debug import debug_print
 from output import return_output, return_error
 from chunks import chunk_is_lexical, parse_lexical_chunk, parse_non_lexical_chunk
+from error import check_error
 from queries import input_query, output_query, if_query, for_query, while_query
 
 type ParsedChunks = list[dict[str, str]]
@@ -45,8 +46,11 @@ def parse(parsable_code_str: str):
         cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
         debug_print('chunk:cst')
         debug_print(chunk, ':', cst.root_node)
-
+        
+        # @FIX: the most dangerous string
+        check_error(cst.root_node, code_language[lang])
         chunk_type = cst.root_node.child(0).type
+        
         debug_print('child type')
         debug_print(chunk, ':', chunk_type)
     
