@@ -1,6 +1,8 @@
 import { createStore } from 'zustand/vanilla';
 import { subscribeWithSelector } from 'zustand/middleware';
 
+// @TODO: refactor
+
 type State = {
   // general field to check error existence
   isError: boolean;

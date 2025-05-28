@@ -51,7 +51,7 @@ export class NodeGen {
     let nodes: Node[] = rfInstance.getNodes();
 
     // creating node
-    debugger;
+    // debugger;
     console.log(rfInstance.getNodes());
     let node: Node = {
       id: `_${nodeCreationData.type}_${uuid()}`,
@@ -70,7 +70,7 @@ export class NodeGen {
 
     this.insertNode(node, nodeIndex, rfInstance);
 
-    debugger;
+    // debugger;
     console.log(rfInstance.getNodes());
   }
 

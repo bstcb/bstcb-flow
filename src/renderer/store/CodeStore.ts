@@ -7,6 +7,7 @@ const INITIAL_LANGUAGE = 'javascript';
 type State = {
   code: string;
   activeLanguage: string;
+  // @TODO: move to `ErrorStore`
   codeError?: CodeError;
 };
 
