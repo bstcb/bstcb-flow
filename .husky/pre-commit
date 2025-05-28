@@ -1,2 +1,21 @@
-prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+#!/bin/sh
+
+# Get all changed files (Added, Copied, Modified, Renamed) staged for commit
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+
+# Exit if no files changed
+[ -z "$FILES" ] && exit 0
+
+# Run Prettier on all changed files (ignoring unknown file types)
+prettier $FILES --write --ignore-unknown
+
+# Find all changed Python files only
+PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep '\.py$' | sed 's| |\\ |g')
+
+# If there are Python files, run autopep8 on them in-place with desired options
+if [ -n "$PYTHON_FILES" ]; then
+  autopep8 --in-place --ignore E501 $PYTHON_FILES
+fi
+
+# Update git index to include formatting changes
 git update-index --again
