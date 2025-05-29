@@ -12,6 +12,7 @@ import { NodeToken, NodeTokenKind } from '../../../transpilers/Token'
 import DebugNodes from './debug/DebugNodes'
 import DebugCode from './debug/DebugCode'
 import CompilerWindow from '../CompilerWindow'
+import LanguageSelector from './LanguageSelector/LanguageSelector'
 
 const CodeEditor = () => {
   const [code, setCode] = useState<string>('')
@@ -55,6 +56,7 @@ const CodeEditor = () => {
           name='editor'
           editorProps={{ $blockScrolling: true }}
         />
+        <LanguageSelector />
         <DebugNodes />
         <DebugCode code={code} />
       </div>
