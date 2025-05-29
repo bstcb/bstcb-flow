@@ -13,6 +13,7 @@ const DebugCode = (props: Props) => {
   console.log(props.code);
   const rfInstance = useReactFlow();
   const tryParseCode = (code: string) => {
+    // debugger
     console.log('trying to parse code');
     // @TODO: put code from editor to storage
     // validate blocks

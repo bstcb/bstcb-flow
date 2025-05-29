@@ -49,8 +49,10 @@ def parse(parsable_code_str: str):
         debug_print('chunk:cst')
         debug_print(chunk, ':', cst.root_node)
 
-        # @FIX: the most dangerous string
-        check_error(cst.root_node, code_language[lang])
+        if chunk_is_lexical(chunk):
+            check_error(cst.root_node, code_language[lang])
+
+        # @FIX: the most dangerous line
         chunk_type = cst.root_node.child(0).type
 
         debug_print('child type')

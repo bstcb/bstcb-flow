@@ -59,14 +59,17 @@ export class CodeTranspiler {
       // error handling
 
       // unknown error case
+      // @TODO: remove it as it will never happen again
+      // because `CodeError` type is used
       if (typeof parseResults == 'string') {
         let message = parseResults;
         let line = Number(parseResults.split('').at(-1));
         useCodeStore.getState().setCodeError({ message, line, col: 0 });
         // known error case
-      } else if (typeof parseResults == 'object') {
         // `CodeError` object
         // @TODO: ensure that this object is of type CodeError
+        // @FIX: breif check for satisfying `CodeError` type
+      } else if (typeof parseResults == 'object' && parseResults['line']) {
         console.log(parseResults);
         console.log(typeof parseResults);
         useCodeStore.getState().setCodeError(parseResults);

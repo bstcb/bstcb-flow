@@ -91,6 +91,7 @@ export class NodeGen {
     // inserting node
     let nodes = this.getNodesSorted();
     console.log(nodes);
+    console.log(rfInstance);
     rfInstance.setNodes(nodes);
     requestAnimationFrame(() => {
       console.log('nodes from sorted nodes');
@@ -179,6 +180,6 @@ export class NodeGen {
     };
     node.data.id = node.id;
 
-    this.insertNode(node, nodeIndex);
+    this.insertNode(node, nodeIndex, rfInstance);
   }
 }
