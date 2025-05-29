@@ -21,14 +21,19 @@ def parse_lexical_chunk(chunk_type: str, chunk_index: int, lang: Language, cst: 
     try:
         match chunk_type:
             case 'lexical_declaration':
+                debug_print(input_query.make_input_node(lang, cst.root_node))
                 return input_query.make_input_node(lang, cst.root_node)
             case 'expression_statement':
+                debug_print(output_query.make_output_node(lang, cst.root_node))
                 return output_query.make_output_node(lang, cst.root_node)
             case 'if_statement':
+                debug_print(if_query.make_if_node(lang, cst.root_node))
                 return if_query.make_if_node(lang, cst.root_node)
             case 'for_statement':
+                debug_print(for_query.make_for_node(lang, cst.root_node))
                 return for_query.make_for_node(lang, cst.root_node)
             case 'while_statement':
+                debug_print(while_query.make_while_node(lang, cst.root_node))
                 return while_query.make_while_node(lang, cst.root_node)
             case _:
                 pass
