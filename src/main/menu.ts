@@ -35,7 +35,7 @@ export default class MenuBuilder {
         submenu: [
           {
             id: MenuEvent.MENU_FILE_SAVE,
-            label: 'Save',
+            label: i18n.t('MENU_FILE_SAVE'),
             accelerator: 'Ctrl+S',
             click: () => {
               console.log('[MENU]: File/Save triggered')
@@ -43,7 +43,7 @@ export default class MenuBuilder {
           },
           {
             id: MenuEvent.MENU_FILE_OPEN,
-            label: 'Open',
+            label: i18n.t('MENU_FILE_OPEN'),
             accelerator: 'Ctrl+O',
             click: () => {
               console.log('[MENU]: File/Open triggered')
@@ -52,11 +52,11 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: 'Edit',
+        label: i18n.t('MENU_EDIT'),
         submenu: [
           {
             id: MenuEvent.MENU_EDIT_UNDO,
-            label: 'Undo',
+            label: i18n.t('MENU_EDIT_UNDO'),
             accelerator: 'Ctrl+Z',
             click: () => {
               console.log('[MENU]: Edit/Undo triggered')
@@ -64,7 +64,7 @@ export default class MenuBuilder {
           },
           {
             id: MenuEvent.MENU_EDIT_REDO,
-            label: 'Redo',
+            label: i18n.t('MENU_EDIT_REDO'),
             accelerator: 'Ctrl+Shift+Z',
             click: () => {
               console.log('[MENU]: Edit/Redo triggered')
@@ -73,11 +73,11 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: 'View',
+        label: i18n.t('MENU_VIEW'),
         submenu: [
           {
             id: MenuEvent.NENU_VIEW_PREFERENCES,
-            label: 'Preferences',
+            label: i18n.t('NENU_VIEW_PREFERENCES'),
             accelerator: 'Alt+K',
             click: () => {
               console.log('[MENU]: View/Preferences triggered')
@@ -90,13 +90,13 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: 'Nodes',
+        label: i18n.t('MENU_NODES'),
         submenu: [
           {
-            label: 'Add Node',
+            label: i18n.t('MENU_NODES_ADD'),
             submenu: [
               {
-                label: 'If Branch',
+                label: i18n.t('MENU_NODES_IF'),
                 click: () => {
                   console.log('[MENU]: Nodes/If Branch triggered')
                   this.mainWindow.webContents.send(
@@ -107,7 +107,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'If Branch End',
+                label: i18n.t('MENU_NODES_IF_END'),
                 click: () => {
                   console.log('[MENU]: Nodes/If Branch End triggered')
                   this.mainWindow.webContents.send(
@@ -118,7 +118,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'For Loop',
+                label: i18n.t('MENU_NODES_FOR'),
                 click: () => {
                   console.log('[MENU]: Nodes/For Loop triggered')
                   this.mainWindow.webContents.send(
@@ -129,7 +129,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'For Loop End',
+                label: i18n.t('MENU_NODES_FOR_END'),
                 click: () => {
                   console.log('[MENU]: Nodes/For Loop triggered')
                   this.mainWindow.webContents.send(
@@ -140,7 +140,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'While Loop',
+                label: i18n.t('MENU_NODES_WHILE'),
                 click: () => {
                   console.log('[MENU]: Nodes/While Loop triggered')
                   this.mainWindow.webContents.send(
@@ -151,7 +151,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'While Loop End',
+                label: i18n.t('MENU_NODES_WHILE_END'),
                 click: () => {
                   console.log('[MENU]: Nodes/While Loop End triggered')
                   this.mainWindow.webContents.send(
@@ -162,7 +162,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'Input',
+                label: i18n.t('MENU_NODES_INPUT'),
                 click: () => {
                   console.log('[MENU]: Nodes/Input triggered')
                   this.mainWindow.webContents.send(
@@ -173,7 +173,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'Output',
+                label: i18n.t('MENU_NODES_OUTPUT'),
                 click: () => {
                   console.log('[MENU]: Nodes/Output triggered')
                   this.mainWindow.webContents.send('add-node', '_output', 'x,y')

@@ -1,6 +1,24 @@
 {
   "MENU_FILE": "File",
+  "MENU_FILE_SAVE": "Save",
+  "MENU_FILE_OPEN": "Open",
+  "MENU_EDIT": "Edit",
+  "MENU_EDIT_UNDO": "Undo",
+  "MENU_EDIT_REDO": "Redo",
+  "MENU_VIEW": "View",
+  "NENU_VIEW_PREFERENCES": "Preferences",
+  "MENU_NODES": "Flowchart",
+  "MENU_NODES_ADD": "Add Node",
+  "MENU_NODES_IF": "If Branch",
+  "MENU_NODES_IF_END": "If Branch End",
+  "MENU_NODES_FOR": "For Loop",
+  "MENU_NODES_FOR_END": "For Loop End",
+  "MENU_NODES_WHILE": "While Loop",
+  "MENU_NODES_WHILE_END": "While Loop End",
+  "MENU_NODES_INPUT": "Input",
+  "MENU_NODES_OUTPUT": "Output",
   "INIT_NODE_START": "Start",
   "INIT_NODE_END": "End",
-  "TRY_PARSE_NODES_BTN": "Try Parse Nodes"
+  "TRY_PARSE_NODES_BTN": "Parse Nodes to Code",
+  "TRY_PARSE_CODE_BTN": "Parse Code to Nodes"
 }

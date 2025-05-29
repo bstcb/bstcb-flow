@@ -4,6 +4,7 @@ import { useCodeStore } from '../../../store/CodeStore'
 import { ErrorReporter } from '../../../errors/ErrorReporter'
 import { codeUheckUnclosedDelimiters } from '../../../utils/codeUtils'
 import { delimiter } from 'path'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   code: string
@@ -12,6 +13,7 @@ type Props = {
 const DebugCode = (props: Props) => {
   console.log(props.code)
   const rfInstance = useReactFlow()
+  const { t } = useTranslation()
   const tryParseCode = (code: string) => {
     // debugger
     console.log('trying to parse code')
@@ -41,7 +43,9 @@ const DebugCode = (props: Props) => {
 
   return (
     <div className='debug'>
-      <button onClick={() => tryParseCode(props.code)}>Try Parse Code</button>
+      <button onClick={() => tryParseCode(props.code)}>
+        {t('TRY_PARSE_CODE_BTN')}
+      </button>
     </div>
   )
 }

@@ -1,6 +1,24 @@
 {
   "MENU_FILE": "Файл",
+  "MENU_FILE_SAVE": "Сохранить",
+  "MENU_FILE_OPEN": "Открыть",
+  "MENU_EDIT": "Редактировать",
+  "MENU_EDIT_UNDO": "Отменить",
+  "MENU_EDIT_REDO": "Повторить",
+  "MENU_VIEW": "Вид",
+  "NENU_VIEW_PREFERENCES": "Настройки",
+  "MENU_NODES": "Блок-схема",
+  "MENU_NODES_ADD": "Добавить фигуру",
+  "MENU_NODES_IF": "Ветвление (Условие)",
+  "MENU_NODES_IF_END": "Конец Ветвления",
+  "MENU_NODES_FOR": "Цикл For",
+  "MENU_NODES_FOR_END": "Конец Цикла For",
+  "MENU_NODES_WHILE": "Цикл While",
+  "MENU_NODES_WHILE_END": "Конец Цикла End",
+  "MENU_NODES_INPUT": "Ввод",
+  "MENU_NODES_OUTPUT": "Вывод",
   "INIT_NODE_START": "Начало",
   "INIT_NODE_END": "Конец",
-  "TRY_PARSE_NODES_BTN": "Попробуй распарсить фигуры"
+  "TRY_PARSE_NODES_BTN": "Преобразовать блок-схему в код",
+  "TRY_PARSE_CODE_BTN": "Преобразовать код в блок-схему"
 }
