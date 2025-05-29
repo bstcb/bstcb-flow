@@ -7,6 +7,7 @@ import {
 } from 'electron'
 import { VariableParser } from '../transpilers/VariableParser'
 import { MenuEvent } from '../common/menuEvent'
+import i18next from 'i18next'
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string
@@ -348,7 +349,7 @@ export default class MenuBuilder {
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: '&File',
+        label: '&' + i18next.t('MENU_FILE'),
         submenu: [
           {
             label: '&Open',

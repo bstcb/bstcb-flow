@@ -17,6 +17,8 @@ import './App.scss'
 import 'rc-dock/dist/rc-dock.css'
 import './rc-dock-custom.scss'
 
+import '../../i18config.ts'
+
 // @TODO: implement
 function changeTheme(
   theme: Pick<Preferences, 'preferences.appearance.colorTheme'>,

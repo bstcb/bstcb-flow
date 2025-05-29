@@ -4,10 +4,11 @@ import { NodeTranspiler } from '../../../../transpilers/NodeTranspiler'
 import { ErrorReporter } from '../../../errors/ErrorReporter'
 import { NodeTokenKind } from '../../../../transpilers/Token'
 import { NODE_ERROR_CLASSNAME } from '../../../constants'
+import { useTranslation } from 'react-i18next'
 
 const DebugNodes = () => {
   const { getNodes, getEdges, getNode } = useReactFlow()
-
+  const { t } = useTranslation()
   const getActiveNodes = (connectedEdges: Edge[]) => {
     let startEdge = connectedEdges.find((e) => e.source === '_start')
     let endEdge = connectedEdges.find((e) => e.target === '_end')
@@ -111,7 +112,7 @@ const DebugNodes = () => {
   }
   return (
     <div className='debug'>
-      <button onClick={tryParseNodes}>Try Parse Nodes</button>
+      <button onClick={tryParseNodes}>{t('TRY_PARSE_NODES_BTN')}</button>
     </div>
   )
 }
