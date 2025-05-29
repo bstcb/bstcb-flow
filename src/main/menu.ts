@@ -172,7 +172,7 @@ export default class MenuBuilder {
                 },
               },
               {
-                label: 'output',
+                label: 'Output',
                 click: () => {
                   console.log('[MENU]: Nodes/Output triggered');
                   this.mainWindow.webContents.send(
