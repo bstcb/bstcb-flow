@@ -9,10 +9,19 @@ import './Preferences.scss'
 import { preferencesMenu } from './preferencesMenu'
 import { Preferences, preferences } from './preferences'
 import { usePreferencesStore } from '../../store/PreferencesStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import i18n from '../../../../i18config'
 
 const Preferences = () => {
+  useEffect(() => {
+    let setttingsCloseDiv = document.querySelector('.settings-close')
+    let closeButton = setttingsCloseDiv!.querySelector('button')
+    let saveButton = document.querySelector('.settings-close+button')
+    saveButton!.textContent = i18n.t('APPEARANCE_SETTINGS_SAVE_BTN')
+    closeButton!.textContent = i18n.t('APPEARANCE_SETTINGS_CLOSE_BTN')
+  }, [])
+
   const { t } = useTranslation()
 
   const savedPrefs = usePreferencesStore.getState().preferences
