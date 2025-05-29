@@ -92,7 +92,7 @@ export class NodeGen {
     let nodes = this.getNodesSorted()
     console.log(nodes)
     console.log(rfInstance)
-    rfInstance.setNodes(nodes)
+    rfInstance.addNodes(nodes)
     requestAnimationFrame(() => {
       console.log('nodes from sorted nodes')
       console.log(nodes)
