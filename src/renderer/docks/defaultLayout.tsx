@@ -40,7 +40,7 @@ export const defaultLayout: LayoutData = {
           },
           {
             mode: 'horizontal',
-            size: 120,
+            size: 50,
             children: [
               {
                 tabs: [
