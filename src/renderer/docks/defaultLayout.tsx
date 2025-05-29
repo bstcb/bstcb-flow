@@ -2,6 +2,7 @@ import { LayoutData } from 'rc-dock'
 import Nodes from '../components/nodes/Nodes'
 import CodeEditor from '../components/code/CodeEditor'
 import CompilerWindow from '../components/CompilerWindow/CompilerWindow'
+import i18n from '../../../i18config'
 
 export const defaultLayout: LayoutData = {
   dockbox: {
@@ -15,7 +16,7 @@ export const defaultLayout: LayoutData = {
             tabs: [
               {
                 id: 'nodes',
-                title: 'node editor',
+                title: i18n.t('DOCK_NODE_EDITOR'),
                 content: <Nodes />,
                 closable: false,
               },
@@ -31,7 +32,7 @@ export const defaultLayout: LayoutData = {
             tabs: [
               {
                 id: 'codeEditor',
-                title: 'code editor',
+                title: i18n.t('DOCK_CODE_EDITOR'),
                 content: <CodeEditor />,
                 closable: false,
               },
@@ -45,7 +46,7 @@ export const defaultLayout: LayoutData = {
                 tabs: [
                   {
                     id: 'compilerWindow',
-                    title: 'compiler window',
+                    title: i18n.t('DOCK_COMPILER_WINDOW'),
                     content: <CompilerWindow />,
                     closable: false,
                   },
