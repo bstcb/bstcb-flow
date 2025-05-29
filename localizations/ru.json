@@ -24,5 +24,9 @@
   "DOCK_NODE_EDITOR": "Редактор блок-схем",
   "DOCK_CODE_EDITOR": "Редактор кода",
   "DOCK_COMPILER_WINDOW": "Компилятор",
-  "DOCK_PREFERENCES": "Настройки"
+  "DOCK_PREFERENCES": "Настройки",
+  "APPEARANCE_SETTINGS": "Настройки Вида",
+  "APPEARANCE_SETTINGS_COLORTHEME": "Цветовая тема",
+  "APPEARANCE_SETTINGS_COLORTHEME_LIGHT": "Светлая",
+  "APPEARANCE_SETTINGS_COLORTHEME_DARK": "Темная"
 }

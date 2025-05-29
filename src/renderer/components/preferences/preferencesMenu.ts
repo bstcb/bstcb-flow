@@ -1,3 +1,5 @@
+import i18n from '../../../../i18config'
+
 export type PreferencesMenuItem = {
   title: string
   url: string
@@ -5,7 +7,7 @@ export type PreferencesMenuItem = {
 
 export const preferencesMenu: PreferencesMenuItem[] = [
   {
-    title: 'Appearance',
+    title: i18n.t('APPEARANCE_SETTINGS'),
     url: '/preferences/appearance',
   },
 ]

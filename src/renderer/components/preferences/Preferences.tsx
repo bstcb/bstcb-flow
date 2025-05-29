@@ -10,8 +10,11 @@ import { preferencesMenu } from './preferencesMenu'
 import { Preferences, preferences } from './preferences'
 import { usePreferencesStore } from '../../store/PreferencesStore'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Preferences = () => {
+  const { t } = useTranslation()
+
   const savedPrefs = usePreferencesStore.getState().preferences
   const [newPrefs, setNewPrefs] = useState<Preferences>(savedPrefs)
 
@@ -79,22 +82,28 @@ const Preferences = () => {
         index={preferencesMenu[0].url}
         settings={newPrefs}
         onPaneLeave={leavePaneHandler}>
-        <SettingsMenu headline='Appearance Settings' />
+        <SettingsMenu headline={t('APPEARANCE_SETTINGS')} />
         <SettingsContent
           closeButtonClass='btn btn-danger'
           saveButtonClass='btn btn-primary'
           header={true}>
           <SettingsPage handler={preferencesMenu[0].url}>
             <fieldset className='form-group'>
-              <label htmlFor='colorTheme'>Color-Theme: </label>
+              <label htmlFor='colorTheme'>
+                {t('APPEARANCE_SETTINGS_COLORTHEME')}
+              </label>
               <select
                 name={Object.keys(newPrefs)[0]}
                 onChange={settingsChanged}
                 id='colorTheme'
                 className='form-control'
                 value={newPrefs['preferences.appearance.colorTheme']}>
-                <option value={'light'}>Light</option>
-                <option value={'dark'}>Dark</option>
+                <option value={'light'}>
+                  {t('APPEARANCE_SETTINGS_COLORTHEME_LIGHT')}
+                </option>
+                <option value={'dark'}>
+                  {t('APPEARANCE_SETTINGS_COLORTHEME_DARK')}
+                </option>
               </select>
             </fieldset>
           </SettingsPage>

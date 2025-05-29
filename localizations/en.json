@@ -24,5 +24,9 @@
   "DOCK_NODE_EDITOR": "Nodes Editor",
   "DOCK_CODE_EDITOR": "Code Editor",
   "DOCK_COMPILER_WINDOW": "Compiler Window",
-  "DOCK_PREFERENCES": "Preferences"
+  "DOCK_PREFERENCES": "Preferences",
+  "APPEARANCE_SETTINGS": "Appearance Settings",
+  "APPEARANCE_SETTINGS_COLORTHEME": "Color Theme",
+  "APPEARANCE_SETTINGS_COLORTHEME_LIGHT": "Light",
+  "APPEARANCE_SETTINGS_COLORTHEME_DARK": "Dark"
 }
