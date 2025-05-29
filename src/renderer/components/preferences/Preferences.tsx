@@ -116,6 +116,20 @@ const Preferences = () => {
               </select>
             </fieldset>
           </SettingsPage>
+          <SettingsPage handler={preferencesMenu[1].url}>
+            <fieldset className='form-group'>
+              <label htmlFor='Language'>{t('LANGUAGE_SETTINGS')}</label>
+              <select
+                name={Object.keys(newPrefs)[1]}
+                onChange={settingsChanged}
+                id='Language'
+                className='form-control'
+                value={newPrefs['preferences.appearance.language']}>
+                <option value={'en'}>{t('LANGUAGE_ENG')}</option>
+                <option value={'ru'}>{t('LANGUAGE_RU')}</option>
+              </select>
+            </fieldset>
+          </SettingsPage>
         </SettingsContent>
       </SettingsPane>
     </>
