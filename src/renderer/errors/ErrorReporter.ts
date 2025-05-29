@@ -1,7 +1,7 @@
-import { MutableRefObject } from 'react';
-import { NODE_ERROR_CLASSNAME, TIMER_DURATION_MS } from '../constants';
-import { useErrorStore } from '../store/ErrorStore';
-import { toast, Bounce } from 'react-toastify';
+import { MutableRefObject } from 'react'
+import { NODE_ERROR_CLASSNAME, TIMER_DURATION_MS } from '../constants'
+import { useErrorStore } from '../store/ErrorStore'
+import { toast, Bounce } from 'react-toastify'
 
 export enum ErrorKind {
   EK_WRONG_DATA_FORMAT = 'wrong data format',
@@ -20,7 +20,7 @@ export class ErrorReporter {
       progress: undefined,
       theme: 'colored',
       transition: Bounce,
-    });
+    })
   }
 
   static show(
@@ -32,7 +32,7 @@ export class ErrorReporter {
     const errorString = `${errorMessage} in ${nodeType.replace(
       '_',
       '',
-    )} node at position ${nodeIndex}`;
+    )} node at position ${nodeIndex}`
     toast.error(errorString, {
       position: 'bottom-right',
       autoClose: TIMER_DURATION_MS,
@@ -43,7 +43,7 @@ export class ErrorReporter {
       progress: undefined,
       theme: 'colored',
       transition: Bounce,
-    });
+    })
   }
 
   static showUnbalancedNodeBlock(
@@ -54,7 +54,7 @@ export class ErrorReporter {
     const errorString = `unbalacned block: ${nodeType.replace(
       '_',
       '',
-    )} at position ${nodeIndex} missing corresponding ${missingPart} block`;
+    )} at position ${nodeIndex} missing corresponding ${missingPart} block`
     toast.error(errorString, {
       position: 'bottom-right',
       autoClose: TIMER_DURATION_MS,
@@ -65,11 +65,11 @@ export class ErrorReporter {
       progress: undefined,
       theme: 'colored',
       transition: Bounce,
-    });
+    })
   }
 
   static showUnbalancedCodeBlock(delimiter: string, line: number, col: number) {
-    const errorString = `unbalacned delimiter: ${delimiter} at position ${line}:${col}`;
+    const errorString = `unbalacned delimiter: ${delimiter} at position ${line}:${col}`
     toast.error(errorString, {
       position: 'bottom-right',
       autoClose: TIMER_DURATION_MS,
@@ -80,16 +80,16 @@ export class ErrorReporter {
       progress: undefined,
       theme: 'colored',
       transition: Bounce,
-    });
+    })
   }
 
   static applyErrorStyle(el: HTMLInputElement) {
     if (!el.classList.contains(NODE_ERROR_CLASSNAME))
-      el.classList.add(NODE_ERROR_CLASSNAME);
+      el.classList.add(NODE_ERROR_CLASSNAME)
   }
 
   static clearErrorStyle(el: HTMLInputElement) {
     if (el.classList.contains(NODE_ERROR_CLASSNAME))
-      el.classList.remove(NODE_ERROR_CLASSNAME);
+      el.classList.remove(NODE_ERROR_CLASSNAME)
   }
 }

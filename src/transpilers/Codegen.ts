@@ -1,19 +1,19 @@
-import { enumFromString } from '../helpers/helpers';
-import { useCodeStore } from '../renderer/store/CodeStore';
-import { Variable } from '../renderer/types/variable';
-import { CodeLanguage } from './CodeLanguage';
+import { enumFromString } from '../helpers/helpers'
+import { useCodeStore } from '../renderer/store/CodeStore'
+import { Variable } from '../renderer/types/variable'
+import { CodeLanguage } from './CodeLanguage'
 
 function applyChunk(chunk: string) {
-  useCodeStore.getState().setCode(useCodeStore.getState().code + chunk);
+  useCodeStore.getState().setCode(useCodeStore.getState().code + chunk)
 }
 
 export class CodeGen {
-  static activeLanguage: CodeLanguage;
+  static activeLanguage: CodeLanguage
   static getActiveLang() {
     this.activeLanguage = enumFromString(
       CodeLanguage,
       useCodeStore.getState().activeLanguage,
-    )!;
+    )!
   }
 
   static genInput(variable: Variable) {
@@ -21,10 +21,10 @@ export class CodeGen {
       case CodeLanguage.LANG_JS:
         console.log(
           `input generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
-        );
-        const chunk = `let ${variable.name} = ${variable.value}\n`;
-        applyChunk(chunk);
-        break;
+        )
+        const chunk = `let ${variable.name} = ${variable.value}\n`
+        applyChunk(chunk)
+        break
     }
   }
 
@@ -33,10 +33,10 @@ export class CodeGen {
       case CodeLanguage.LANG_JS:
         console.log(
           `output generation in ${this.activeLanguage} with variable: ${expr}`,
-        );
-        const chunk = `console.log(${expr})\n`;
-        applyChunk(chunk);
-        break;
+        )
+        const chunk = `console.log(${expr})\n`
+        applyChunk(chunk)
+        break
     }
   }
 
@@ -45,9 +45,9 @@ export class CodeGen {
       case CodeLanguage.LANG_JS:
         console.log(
           `if condition generation in ${this.activeLanguage} with expression: ${expr}`,
-        );
-        const chunk = `if (${expr}) {\n`;
-        applyChunk(chunk);
+        )
+        const chunk = `if (${expr}) {\n`
+        applyChunk(chunk)
     }
   }
 
@@ -56,9 +56,9 @@ export class CodeGen {
       case CodeLanguage.LANG_JS:
         console.log(
           `while loop generation in ${this.activeLanguage} with expression: ${expr}`,
-        );
-        const chunk = `while (${expr}) {\n`;
-        applyChunk(chunk);
+        )
+        const chunk = `while (${expr}) {\n`
+        applyChunk(chunk)
     }
   }
 
@@ -67,18 +67,18 @@ export class CodeGen {
       case CodeLanguage.LANG_JS:
         console.log(
           `for loop generation in ${this.activeLanguage} with expression: ${expr}`,
-        );
-        const chunk = `for (${expr}) {\n`;
-        applyChunk(chunk);
+        )
+        const chunk = `for (${expr}) {\n`
+        applyChunk(chunk)
     }
   }
 
   static genBlockEnd() {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
-        console.log(`block end generation in ${this.activeLanguage}`);
-        const chunk = `}\n`;
-        applyChunk(chunk);
+        console.log(`block end generation in ${this.activeLanguage}`)
+        const chunk = `}\n`
+        applyChunk(chunk)
     }
   }
 }

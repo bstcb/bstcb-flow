@@ -1,7 +1,7 @@
 export type NodeToken = {
-  type: NodeTokenKind;
-  value: string | null;
-};
+  type: NodeTokenKind
+  value: string | null
+}
 
 export enum NodeTokenKind {
   NTK_IF_CONDITION = '_if_cond',
@@ -19,6 +19,6 @@ export enum NodeTokenKind {
 export function getTokenKind(token: string): NodeTokenKind | undefined {
   const key = Object.keys(NodeTokenKind).find(
     (k) => NodeTokenKind[k as keyof typeof NodeTokenKind] === token,
-  );
-  return key ? NodeTokenKind[key as keyof typeof NodeTokenKind] : undefined;
+  )
+  return key ? NodeTokenKind[key as keyof typeof NodeTokenKind] : undefined
 }

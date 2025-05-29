@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
-import { useReactFlow } from 'reactflow';
-import './ContextMenu.scss';
-import { NodeContextMenu } from '../../types/nodeContextMenu';
-import { ErrorReporter } from '../../errors/ErrorReporter';
-import { NODE_DELETE_INITIAL_ERROR } from '../../constants';
+import React, { useCallback } from 'react'
+import { useReactFlow } from 'reactflow'
+import './ContextMenu.scss'
+import { NodeContextMenu } from '../../types/nodeContextMenu'
+import { ErrorReporter } from '../../errors/ErrorReporter'
+import { NODE_DELETE_INITIAL_ERROR } from '../../constants'
 
 export default function ContextMenu({
   id,
@@ -13,24 +13,24 @@ export default function ContextMenu({
   bottom,
   ...props
 }: NodeContextMenu) {
-  const { getNode, getNodes, setNodes, addNodes, setEdges } = useReactFlow();
+  const { getNode, getNodes, setNodes, addNodes, setEdges } = useReactFlow()
 
   const deleteNode = useCallback(() => {
-    console.log(!getNode(id)!.type!.startsWith('_'));
+    console.log(!getNode(id)!.type!.startsWith('_'))
     if (getNode(id)!.type!.startsWith('_')) {
-      setNodes((nodes) => nodes.filter((node) => node.id !== id));
-      setEdges((edges) => edges.filter((edge) => edge.source !== id));
+      setNodes((nodes) => nodes.filter((node) => node.id !== id))
+      setEdges((edges) => edges.filter((edge) => edge.source !== id))
     } else {
-      ErrorReporter.showShort(NODE_DELETE_INITIAL_ERROR);
+      ErrorReporter.showShort(NODE_DELETE_INITIAL_ERROR)
     }
-  }, [id, setNodes, setEdges]);
+  }, [id, setNodes, setEdges])
 
-  const node = getNode(id);
-  const nodes = getNodes();
+  const node = getNode(id)
+  const nodes = getNodes()
 
-  const nodeIndex = nodes.indexOf(nodes.find((n) => n.id == id)!);
+  const nodeIndex = nodes.indexOf(nodes.find((n) => n.id == id)!)
   return (
-    <div style={{ top, left }} className="context__menu" {...props}>
+    <div style={{ top, left }} className='context__menu' {...props}>
       <p style={{ margin: '0.5em' }}>
         <small>
           node: {node?.type}
@@ -39,5 +39,5 @@ export default function ContextMenu({
       </p>
       <button onClick={deleteNode}>delete</button>
     </div>
-  );
+  )
 }

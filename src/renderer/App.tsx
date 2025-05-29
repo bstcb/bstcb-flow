@@ -1,21 +1,21 @@
-import { ReactFlowProvider } from 'reactflow';
-import CodeEditor from './components/code/CodeEditor';
-import Nodes from './components/nodes/Nodes';
-import { useEffect, useRef, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import DockLayout, { DropDirection, FloatPosition, LayoutBase } from 'rc-dock';
-import { useLayoutStore } from './store/LayoutStore';
-import { usePreferencesStore } from './store/PreferencesStore';
-import { setupMenuEventHandler } from './menuHandler';
-import { preferencesPanel } from './docks/preferencesPanel';
-import { defaultLayout } from './docks/defaultLayout';
-import { Preferences } from './components/preferences/preferences';
+import { ReactFlowProvider } from 'reactflow'
+import CodeEditor from './components/code/CodeEditor'
+import Nodes from './components/nodes/Nodes'
+import { useEffect, useRef, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
+import DockLayout, { DropDirection, FloatPosition, LayoutBase } from 'rc-dock'
+import { useLayoutStore } from './store/LayoutStore'
+import { usePreferencesStore } from './store/PreferencesStore'
+import { setupMenuEventHandler } from './menuHandler'
+import { preferencesPanel } from './docks/preferencesPanel'
+import { defaultLayout } from './docks/defaultLayout'
+import { Preferences } from './components/preferences/preferences'
 
-import './App.scss';
+import './App.scss'
 
 // import 'rc-dock/dist/rc-dock-dark.css';
-import 'rc-dock/dist/rc-dock.css';
-import './rc-dock-custom.scss';
+import 'rc-dock/dist/rc-dock.css'
+import './rc-dock-custom.scss'
 
 // @TODO: implement
 function changeTheme(
@@ -27,7 +27,7 @@ function changeTheme(
 }
 
 const App = () => {
-  const dockLayoutRef = useRef(null);
+  const dockLayoutRef = useRef(null)
   function onLayoutChange(
     newLayout: LayoutBase,
     currentTabId?: string,
@@ -35,41 +35,41 @@ const App = () => {
   ) {
     // preferences
     if (currentTabId == 'preferences' && direction == 'remove') {
-      usePreferencesStore.getState().closePreferences();
+      usePreferencesStore.getState().closePreferences()
     }
   }
   useEffect(() => {
-    const dock: DockLayout = dockLayoutRef.current!;
-    useLayoutStore.getState().setLayout(dock.getLayout()); // put the default layout to the store when it is loaded
+    const dock: DockLayout = dockLayoutRef.current!
+    useLayoutStore.getState().setLayout(dock.getLayout()) // put the default layout to the store when it is loaded
     // menu event handler
-    setupMenuEventHandler();
+    setupMenuEventHandler()
     // layout store listener
     useLayoutStore.subscribe((state) => {
       if (state.currentLayout) {
-        dock.setLayout(state.currentLayout);
-        dock.loadLayout(dock.getLayout());
+        dock.setLayout(state.currentLayout)
+        dock.loadLayout(dock.getLayout())
       }
-    });
+    })
     // preferences store listener
     // @TODO: optimize
     // we don't need to watch all preferences here
     usePreferencesStore.subscribe((state) => {
       // watch theme
-      changeTheme(state.preferences['preferences.appearance.colorTheme']);
+      changeTheme(state.preferences['preferences.appearance.colorTheme'])
 
-      const isPreferencesTabDisplayed = dock.find('preferences');
+      const isPreferencesTabDisplayed = dock.find('preferences')
       // display preferences
       if (state.isPreferencesOpened && !isPreferencesTabDisplayed) {
-        dock.dockMove(preferencesPanel, null, 'float');
+        dock.dockMove(preferencesPanel, null, 'float')
       }
       // close preferences
       if (!state.isPreferencesOpened && isPreferencesTabDisplayed) {
-        dock.dockMove(preferencesPanel, null, 'remove');
+        dock.dockMove(preferencesPanel, null, 'remove')
       }
-    });
+    })
 
-    return () => {};
-  }, []);
+    return () => {}
+  }, [])
   return (
     <ReactFlowProvider>
       <DockLayout
@@ -86,7 +86,7 @@ const App = () => {
       />
       <ToastContainer />
     </ReactFlowProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

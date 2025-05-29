@@ -1,11 +1,11 @@
 export type PreferencesMenuItem = {
-  title: string;
-  url: string;
-};
+  title: string
+  url: string
+}
 
 export const preferencesMenu: PreferencesMenuItem[] = [
   {
     title: 'Appearance',
     url: '/preferences/appearance',
   },
-];
+]

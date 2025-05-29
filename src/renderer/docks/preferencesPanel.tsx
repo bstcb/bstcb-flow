@@ -1,5 +1,5 @@
-import { PanelData } from 'rc-dock';
-import Preferences from '../components/preferences/Preferences';
+import { PanelData } from 'rc-dock'
+import Preferences from '../components/preferences/Preferences'
 
 export const preferencesPanel: PanelData = {
   tabs: [
@@ -12,4 +12,4 @@ export const preferencesPanel: PanelData = {
   ],
   w: 800,
   h: 600,
-};
+}
