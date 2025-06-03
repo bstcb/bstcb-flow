@@ -5,6 +5,7 @@ import { ErrorReporter } from '../../../errors/ErrorReporter'
 import { NodeTokenKind } from '../../../../transpilers/Token'
 import { NODE_ERROR_CLASSNAME } from '../../../constants'
 import { useTranslation } from 'react-i18next'
+import i18n from '../../../../../i18config'
 
 const DebugNodes = () => {
   const { getNodes, getEdges, getNode } = useReactFlow()
@@ -15,7 +16,7 @@ const DebugNodes = () => {
 
     if (!startEdge || !endEdge) {
       // @TODO: clarify the error
-      ErrorReporter.showShort('you need to complete the flowchart first')
+      ErrorReporter.showShort(i18n.t('FLOWCHART_EMPTY_ERROR'))
       return []
     }
 

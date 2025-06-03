@@ -5,6 +5,7 @@ import { ErrorReporter } from '../../../errors/ErrorReporter'
 import { codeUheckUnclosedDelimiters } from '../../../utils/codeUtils'
 import { delimiter } from 'path'
 import { useTranslation } from 'react-i18next'
+import i18n from '../../../../../i18config'
 
 type Props = {
   code: string
@@ -36,7 +37,7 @@ const DebugCode = (props: Props) => {
         let transpiler = new CodeTranspiler(code, rfInstance)
         transpiler.transpile()
       } else {
-        ErrorReporter.showShort('code editor is empty')
+        ErrorReporter.showShort(i18n.t('CODE_EDITOR_EMPTY_ERROR'))
       }
     }
   }
