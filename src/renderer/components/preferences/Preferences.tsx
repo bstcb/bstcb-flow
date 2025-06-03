@@ -12,15 +12,17 @@ import { usePreferencesStore } from '../../store/PreferencesStore'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../../../../i18config'
+import { preferencesData } from './preferencesData'
 
 const Preferences = () => {
-  useEffect(() => {
-    let setttingsCloseDiv = document.querySelector('.settings-close')
-    let closeButton = setttingsCloseDiv!.querySelector('button')
-    let saveButton = document.querySelector('.settings-close+button')
-    saveButton!.textContent = i18n.t('APPEARANCE_SETTINGS_SAVE_BTN')
-    closeButton!.textContent = i18n.t('APPEARANCE_SETTINGS_CLOSE_BTN')
-  }, [])
+  // localizing settings window buttons
+  // useEffect(() => {
+  //   let setttingsCloseDiv = document.querySelector('.settings-close')
+  //   let closeButton = setttingsCloseDiv!.querySelector('button')
+  //   let saveButton = document.querySelector('.settings-close+button')
+  //   saveButton!.textContent = i18n.t('APPEARANCE_SETTINGS_SAVE_BTN')
+  //   closeButton!.textContent = i18n.t('APPEARANCE_SETTINGS_CLOSE_BTN')
+  // }, [])
 
   const { t } = useTranslation()
 
@@ -87,46 +89,25 @@ const Preferences = () => {
   return (
     <>
       <SettingsPane
+        settings={preferencesData}
         items={preferencesMenu}
         index={preferencesMenu[0].url}
-        settings={newPrefs}
         onPaneLeave={leavePaneHandler}>
-        <SettingsMenu headline={t('APPEARANCE_SETTINGS')} />
         <SettingsContent
           closeButtonClass='btn btn-danger'
           saveButtonClass='btn btn-primary'
           header={true}>
           <SettingsPage handler={preferencesMenu[0].url}>
             <fieldset className='form-group'>
-              <label htmlFor='colorTheme'>
-                {t('APPEARANCE_SETTINGS_COLORTHEME')}
-              </label>
+              <label htmlFor='language'>Language</label>
               <select
-                name={Object.keys(newPrefs)[0]}
-                onChange={settingsChanged}
-                id='colorTheme'
+                name={Object.keys(preferencesData)[0]}
+                id='language'
                 className='form-control'
-                value={newPrefs['preferences.appearance.colorTheme']}>
-                <option value={'light'}>
-                  {t('APPEARANCE_SETTINGS_COLORTHEME_LIGHT')}
-                </option>
-                <option value={'dark'}>
-                  {t('APPEARANCE_SETTINGS_COLORTHEME_DARK')}
-                </option>
-              </select>
-            </fieldset>
-          </SettingsPage>
-          <SettingsPage handler={preferencesMenu[1].url}>
-            <fieldset className='form-group'>
-              <label htmlFor='Language'>{t('LANGUAGE_SETTINGS')}</label>
-              <select
-                name={Object.keys(newPrefs)[1]}
                 onChange={settingsChanged}
-                id='Language'
-                className='form-control'
-                value={newPrefs['preferences.appearance.language']}>
-                <option value={'en'}>{t('LANGUAGE_ENG')}</option>
-                <option value={'ru'}>{t('LANGUAGE_RU')}</option>
+                defaultValue={preferencesData['preferences.general.language']}>
+                <option value={'en'}>English</option>
+                <option value={'ru'}>Russian</option>
               </select>
             </fieldset>
           </SettingsPage>

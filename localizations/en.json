@@ -34,6 +34,7 @@
   "LANGUAGE_SETTINGS": "Language",
   "LANGUAGE_ENG": "English",
   "LANGUAGE_RU": "Russian",
+  "GENERAL_SETTINGS": "General",
   "NODE_DELETE_BUTTON": "Delete",
   "CODE_EDITOR_EMPTY_ERROR": "Code editor is empty",
   "FLOWCHART_EMPTY_ERROR": "You need to complete the flowchart first",

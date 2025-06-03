@@ -7,11 +7,11 @@ export type PreferencesMenuItem = {
 
 export const preferencesMenu: PreferencesMenuItem[] = [
   {
-    title: i18n.t('APPEARANCE_SETTINGS'),
-    url: '/preferences/appearance',
+    title: i18n.t('GENRAL_SETTINGS'),
+    url: '/preferences/general',
   },
   {
-    title: i18n.t('LANGUAGE_SETTINGS'),
-    url: '/preferences/language',
+    title: i18n.t('APPEARANCE_SETTINGS'),
+    url: '/preferences/appearance',
   },
 ]
