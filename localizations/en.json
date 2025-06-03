@@ -33,5 +33,7 @@
   "APPEARANCE_SETTINGS_SAVE_BTN": "Save",
   "LANGUAGE_SETTINGS": "Language",
   "LANGUAGE_ENG": "English",
-  "LANGUAGE_RU": "Russian"
+  "LANGUAGE_RU": "Russian",
+  "NODE_DELETE_BUTTON": "Delete"
+
 }

@@ -4,6 +4,7 @@ import './ContextMenu.scss'
 import { NodeContextMenu } from '../../types/nodeContextMenu'
 import { ErrorReporter } from '../../errors/ErrorReporter'
 import { NODE_DELETE_INITIAL_ERROR } from '../../constants'
+import { useTranslation } from 'react-i18next'
 
 export default function ContextMenu({
   id,
@@ -14,6 +15,7 @@ export default function ContextMenu({
   ...props
 }: NodeContextMenu) {
   const { getNode, getNodes, setNodes, addNodes, setEdges } = useReactFlow()
+  const { t } = useTranslation()
 
   const deleteNode = useCallback(() => {
     console.log(!getNode(id)!.type!.startsWith('_'))
@@ -37,7 +39,7 @@ export default function ContextMenu({
           {nodeIndex}
         </small>
       </p>
-      <button onClick={deleteNode}>delete</button>
+      <button onClick={deleteNode}>{t('NODE_DELETE_BUTTON')}</button>
     </div>
   )
 }
