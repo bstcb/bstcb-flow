@@ -2,7 +2,7 @@
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron'
 
-export type Channels = 'add-node' | 'parse-code' | 'menu-event'
+export type Channels = 'add-node' | 'parse-code' | 'menu-event' | 'reload'
 
 const electronHandler = {
   ipcRenderer: {

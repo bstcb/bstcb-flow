@@ -52,6 +52,10 @@ ipcMain.on('parse-code', async (event, parsableCode: ParsableCode) => {
   event.reply('parse-code', parsedResult)
 })
 
+ipcMain.on('reload', () => {
+  mainWindow.webContents.reload()
+})
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support')
   sourceMapSupport.install()

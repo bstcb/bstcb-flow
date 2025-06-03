@@ -40,6 +40,7 @@ const Settings = () => {
     console.log(settings)
     localStorage.setItem('settings', JSON.stringify(settings))
     useSettingsStore.getState().closeSettings()
+    window.electron.ipcRenderer.sendMessage('reload')
   }
 
   // Save settings after close

@@ -10,10 +10,6 @@ import { defaultLayout } from './docks/defaultLayout'
 
 import './App.scss'
 
-// import 'rc-dock/dist/rc-dock-dark.css';
-import 'rc-dock/dist/rc-dock.css'
-import './rc-dock-custom.scss'
-
 import '../../i18config.ts'
 import { useSettingsStore } from './store/SettingsStore'
 import { settingsPanel } from './docks/settingsPanel'
@@ -23,7 +19,10 @@ function changeTheme(
   theme: any, // temporary set to 'any'
 ) {
   if (theme == 'dark') {
+    import('rc-dock/dist/rc-dock-dark.css')
   } else {
+    import('rc-dock/dist/rc-dock.css')
+    import('./rc-dock-custom.scss')
   }
 }
 
@@ -40,6 +39,10 @@ const App = () => {
     }
   }
   useEffect(() => {
+    changeTheme(
+      JSON.parse(localStorage.getItem('settings'))['general.colorTheme'] ||
+        'light',
+    )
     const dock: DockLayout = dockLayoutRef.current!
     useLayoutStore.getState().setLayout(dock.getLayout()) // put the default layout to the store when it is loaded
     // menu event handler
@@ -55,9 +58,6 @@ const App = () => {
     // @TODO: optimize
     // we don't need to watch all settings here
     useSettingsStore.subscribe((state) => {
-      // watch theme
-      changeTheme(localStorage.getItem('appearance.colorTheme'))
-
       const isSettingsTabDisplayed = dock.find('settings')
       // display settings
       if (state.isSettingsOpened && !isSettingsTabDisplayed) {
