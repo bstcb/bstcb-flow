@@ -329,3 +329,7 @@ ul.settings-menu li.menu-item.active a:before {
   text-shadow: 1px 1px #fff;
   color: #3f3f3f;
 }
+
+fieldset:not(:last-child) {
+  margin-bottom: 15px;
+}

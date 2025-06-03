@@ -76,14 +76,14 @@ export default class MenuBuilder {
         label: i18n.t('MENU_VIEW'),
         submenu: [
           {
-            id: MenuEvent.NENU_VIEW_PREFERENCES,
-            label: i18n.t('NENU_VIEW_PREFERENCES'),
+            id: MenuEvent.NENU_VIEW_SETTINGS,
+            label: i18n.t('NENU_VIEW_SETTINGS'),
             accelerator: 'Alt+K',
             click: () => {
-              console.log('[MENU]: View/Preferences triggered')
+              console.log('[MENU]: View/Settings triggered')
               this.mainWindow.webContents.send(
                 'menu-event',
-                MenuEvent.NENU_VIEW_PREFERENCES,
+                MenuEvent.NENU_VIEW_SETTINGS,
               )
             },
           },

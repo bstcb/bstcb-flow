@@ -5,11 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import DockLayout, { DropDirection, FloatPosition, LayoutBase } from 'rc-dock'
 import { useLayoutStore } from './store/LayoutStore'
-import { usePreferencesStore } from './store/PreferencesStore'
 import { setupMenuEventHandler } from './menuHandler'
-import { preferencesPanel } from './docks/preferencesPanel'
 import { defaultLayout } from './docks/defaultLayout'
-import { Preferences } from './components/preferences/preferences'
 
 import './App.scss'
 
@@ -18,10 +15,12 @@ import 'rc-dock/dist/rc-dock.css'
 import './rc-dock-custom.scss'
 
 import '../../i18config.ts'
+import { useSettingsStore } from './store/SettingsStore'
+import { settingsPanel } from './docks/settingsPanel'
 
 // @TODO: implement
 function changeTheme(
-  theme: Pick<Preferences, 'preferences.appearance.colorTheme'>,
+  theme: any, // temporary set to 'any'
 ) {
   if (theme == 'dark') {
   } else {
@@ -35,9 +34,9 @@ const App = () => {
     currentTabId?: string,
     direction?: DropDirection,
   ) {
-    // preferences
-    if (currentTabId == 'preferences' && direction == 'remove') {
-      usePreferencesStore.getState().closePreferences()
+    // settings
+    if (currentTabId == 'settings' && direction == 'remove') {
+      useSettingsStore.getState().closeSettings()
     }
   }
   useEffect(() => {
@@ -52,21 +51,21 @@ const App = () => {
         dock.loadLayout(dock.getLayout())
       }
     })
-    // preferences store listener
+    // settings store listener
     // @TODO: optimize
-    // we don't need to watch all preferences here
-    usePreferencesStore.subscribe((state) => {
+    // we don't need to watch all settings here
+    useSettingsStore.subscribe((state) => {
       // watch theme
-      changeTheme(state.preferences['preferences.appearance.colorTheme'])
+      changeTheme(localStorage.getItem('appearance.colorTheme'))
 
-      const isPreferencesTabDisplayed = dock.find('preferences')
-      // display preferences
-      if (state.isPreferencesOpened && !isPreferencesTabDisplayed) {
-        dock.dockMove(preferencesPanel, null, 'float')
+      const isSettingsTabDisplayed = dock.find('settings')
+      // display settings
+      if (state.isSettingsOpened && !isSettingsTabDisplayed) {
+        dock.dockMove(settingsPanel, null, 'float')
       }
-      // close preferences
-      if (!state.isPreferencesOpened && isPreferencesTabDisplayed) {
-        dock.dockMove(preferencesPanel, null, 'remove')
+      // close settings
+      if (!state.isSettingsOpened && isSettingsTabDisplayed) {
+        dock.dockMove(settingsPanel, null, 'remove')
       }
     })
 
