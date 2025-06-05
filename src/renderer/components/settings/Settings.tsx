@@ -56,16 +56,12 @@ const Settings = () => {
 
     if (wasSaved && newSettings !== oldSettings) {
       console.log(wasSaved && newSettings !== oldSettings)
-      saveSettings(newSettings)
+      if (confirm(i18n.t('RELOAD_WARNING'))) {
+        saveSettings(newSettings)
+      }
     } else {
       useSettingsStore.getState().closeSettings()
     }
-  }
-
-  const settingsChanged = (changedSettings) => {
-    // this is triggered onChange of the inputs
-    console.log('settings changed')
-    console.log(changedSettings)
   }
 
   const settings =
