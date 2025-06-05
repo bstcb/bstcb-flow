@@ -39,5 +39,6 @@
   "NODE_DELETE_BUTTON": "Удалить",
   "CODE_EDITOR_EMPTY_ERROR": "Редактор кода пуст",
   "FLOWCHART_EMPTY_ERROR": "Заполните блок-схему",
-  "NODE_DELETE_INITIAL_ERROR": "Фигуры \"Начало\" и \"Конец\" не могут быть удалены"
+  "NODE_DELETE_INITIAL_ERROR": "Фигуры \"Начало\" и \"Конец\" не могут быть удалены",
+  "RELOAD_WARNING": "Внимание: после сохранения настроек программа будет перезапущена"
 }

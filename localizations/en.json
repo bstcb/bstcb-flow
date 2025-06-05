@@ -39,5 +39,6 @@
   "NODE_DELETE_BUTTON": "Delete",
   "CODE_EDITOR_EMPTY_ERROR": "Code editor is empty",
   "FLOWCHART_EMPTY_ERROR": "You need to complete the flowchart first",
-  "NODE_DELETE_INITIAL_ERROR": "You can't delete initial nodes"
+  "NODE_DELETE_INITIAL_ERROR": "You can't delete initial nodes",
+  "RELOAD_WARNING": "Attention: after saving these settings program will be reloaded"
 }
