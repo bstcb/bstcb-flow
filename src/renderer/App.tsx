@@ -14,19 +14,16 @@ import '../../i18config.ts'
 import { useSettingsStore } from './store/SettingsStore'
 import { settingsPanel } from './docks/settingsPanel'
 
-// @TODO: implement
-function changeTheme(
-  theme: any, // temporary set to 'any'
-) {
-  if (theme == 'dark') {
-    import('rc-dock/dist/rc-dock-dark.css')
-  } else {
-    import('rc-dock/dist/rc-dock.css')
-    import('./rc-dock-custom.scss')
-  }
-}
-
 const App = () => {
+  function changeTheme(theme: string) {
+    if (theme == 'dark') {
+      import('rc-dock/dist/rc-dock-dark.css')
+    } else {
+      import('rc-dock/dist/rc-dock.css')
+      import('./rc-dock-custom.scss')
+    }
+  }
+
   const dockLayoutRef = useRef(null)
   function onLayoutChange(
     newLayout: LayoutBase,
