@@ -44,7 +44,9 @@ const DebugCode = (props: Props) => {
 
   return (
     <div className='debug'>
-      <button onClick={() => tryParseCode(props.code)}>
+      <button
+        className='btn btn-primary'
+        onClick={() => tryParseCode(props.code)}>
         {t('TRY_PARSE_CODE_BTN')}
       </button>
     </div>

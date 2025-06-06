@@ -18,6 +18,7 @@ const App = () => {
   function changeTheme(theme: string) {
     if (theme == 'dark') {
       import('rc-dock/dist/rc-dock-dark.css')
+      import('./rc-dock-dark-custom.scss')
     } else {
       import('rc-dock/dist/rc-dock.css')
       import('./rc-dock-custom.scss')

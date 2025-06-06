@@ -3,6 +3,8 @@ import './CodeEditor.scss'
 import 'ace-builds/src-noconflict/ace'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import 'ace-builds/src-noconflict/mode-javascript'
+import 'ace-builds/src-noconflict/theme-terminal'
+import 'ace-builds/src-noconflict/theme-tomorrow'
 
 import AceEditor from 'react-ace'
 
@@ -27,6 +29,9 @@ const CodeEditor = () => {
     useCodeStore.getState().setActiveLanguage(currentLang)
   }, [])
 
+  const isDarkTheme =
+    JSON.parse(localStorage.getItem('settings'))['general.colorTheme'] == 'dark'
+
   useCodeStore.subscribe((state) => {
     if (state.codeError) {
       editorRef.current?.editor.selection.moveCursorTo(
@@ -50,6 +55,7 @@ const CodeEditor = () => {
         <AceEditor
           ref={editorRef}
           mode='javascript'
+          theme={isDarkTheme ? 'terminal' : ''}
           enableBasicAutocompletion={true}
           enableLiveAutocompletion={true}
           onChange={setCode}

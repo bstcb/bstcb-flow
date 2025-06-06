@@ -113,7 +113,9 @@ const DebugNodes = () => {
   }
   return (
     <div className='debug'>
-      <button onClick={tryParseNodes}>{t('TRY_PARSE_NODES_BTN')}</button>
+      <button className='btn btn-primary' onClick={tryParseNodes}>
+        {t('TRY_PARSE_NODES_BTN')}
+      </button>
     </div>
   )
 }
