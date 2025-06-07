@@ -162,7 +162,6 @@ const Nodes = () => {
           onEdgeUpdate={onEdgeUpdate}
           onEdgeUpdateStart={onEdgeUpdateStart}
           onEdgeUpdateEnd={onEdgeUpdateEnd}>
-          <Controls />
           {menu && <ContextMenu {...menu} />}
         </ReactFlow>
       </div>
