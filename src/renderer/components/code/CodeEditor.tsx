@@ -16,6 +16,7 @@ import DebugNodes from './debug/DebugNodes'
 import DebugCode from './debug/DebugCode'
 import CompilerWindow from '../CompilerWindow'
 import LanguageSelector from './LanguageSelector/LanguageSelector'
+import RunCode from './debug/RunCode'
 
 const CodeEditor = () => {
   const [code, setCode] = useState<string>('')
@@ -67,6 +68,7 @@ const CodeEditor = () => {
         <LanguageSelector />
         <DebugNodes />
         <DebugCode code={code} />
+        <RunCode code={code} />
       </div>
     </div>
   )
