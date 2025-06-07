@@ -13,8 +13,8 @@ const IfConditionEndNode = () => {
         style={{ zIndex: 999, transform: 'translate(-3px, -90%)' }}
       />
       <div className='_if_cond_end_wrapper'>
-        <input
-          type='text'
+        <textarea
+          wrap='soft'
           className='_if_cond_end_input'
           id='_if_cond_end_value'
           value={t('MENU_NODES_IF_END')}
