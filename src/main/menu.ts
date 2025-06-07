@@ -30,48 +30,48 @@ export default class MenuBuilder {
     }
 
     const template: Electron.MenuItem[] = [
-      {
-        label: i18n.t('MENU_FILE'),
-        submenu: [
-          {
-            id: MenuEvent.MENU_FILE_SAVE,
-            label: i18n.t('MENU_FILE_SAVE'),
-            accelerator: 'Ctrl+S',
-            click: () => {
-              console.log('[MENU]: File/Save triggered')
-            },
-          },
-          {
-            id: MenuEvent.MENU_FILE_OPEN,
-            label: i18n.t('MENU_FILE_OPEN'),
-            accelerator: 'Ctrl+O',
-            click: () => {
-              console.log('[MENU]: File/Open triggered')
-            },
-          },
-        ],
-      },
-      {
-        label: i18n.t('MENU_EDIT'),
-        submenu: [
-          {
-            id: MenuEvent.MENU_EDIT_UNDO,
-            label: i18n.t('MENU_EDIT_UNDO'),
-            accelerator: 'Ctrl+Z',
-            click: () => {
-              console.log('[MENU]: Edit/Undo triggered')
-            },
-          },
-          {
-            id: MenuEvent.MENU_EDIT_REDO,
-            label: i18n.t('MENU_EDIT_REDO'),
-            accelerator: 'Ctrl+Shift+Z',
-            click: () => {
-              console.log('[MENU]: Edit/Redo triggered')
-            },
-          },
-        ],
-      },
+      // {
+      //   label: i18n.t('MENU_FILE'),
+      //   submenu: [
+      //     {
+      //       id: MenuEvent.MENU_FILE_SAVE,
+      //       label: i18n.t('MENU_FILE_SAVE'),
+      //       accelerator: 'Ctrl+S',
+      //       click: () => {
+      //         console.log('[MENU]: File/Save triggered')
+      //       },
+      //     },
+      //     {
+      //       id: MenuEvent.MENU_FILE_OPEN,
+      //       label: i18n.t('MENU_FILE_OPEN'),
+      //       accelerator: 'Ctrl+O',
+      //       click: () => {
+      //         console.log('[MENU]: File/Open triggered')
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: i18n.t('MENU_EDIT'),
+      //   submenu: [
+      //     {
+      //       id: MenuEvent.MENU_EDIT_UNDO,
+      //       label: i18n.t('MENU_EDIT_UNDO'),
+      //       accelerator: 'Ctrl+Z',
+      //       click: () => {
+      //         console.log('[MENU]: Edit/Undo triggered')
+      //       },
+      //     },
+      //     {
+      //       id: MenuEvent.MENU_EDIT_REDO,
+      //       label: i18n.t('MENU_EDIT_REDO'),
+      //       accelerator: 'Ctrl+Shift+Z',
+      //       click: () => {
+      //         console.log('[MENU]: Edit/Redo triggered')
+      //       },
+      //     },
+      //   ],
+      // },
       {
         label: i18n.t('MENU_VIEW'),
         submenu: [
