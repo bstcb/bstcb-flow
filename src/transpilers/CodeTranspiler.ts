@@ -75,6 +75,7 @@ export class CodeTranspiler {
         useCodeStore.getState().setCodeError(parseResults)
       } else {
         // cleanup
+        debugger
         if (useCodeStore.getState().codeError)
           useCodeStore.getState().clearCodeError()
         this.rfInstance.setNodes(initialNodes)
@@ -93,7 +94,12 @@ export class CodeTranspiler {
           }
           console.log('pn')
           console.log(pn)
-          if (pn.kind == NodeTokenKind.NTK_BLOCK_END) {
+          const blockEnds = [
+            NodeTokenKind.NTK_IF_CONDITION_END,
+            NodeTokenKind.NTK_FOR_LOOP_END,
+            NodeTokenKind.NTK_WHILE_LOOP_END,
+          ]
+          if (blockEnds.includes(pn.kind)) {
             NodeGen.genBlockEnd(i, this.rfInstance)
           } else {
             let nodeCreationData: NodeCreationData = {
