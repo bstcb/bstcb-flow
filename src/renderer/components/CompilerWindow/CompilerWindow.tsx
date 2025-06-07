@@ -4,7 +4,7 @@ import { useCodeStore } from '../../store/CodeStore'
 
 const CompilerWindow = () => {
   const [error, setError] = useState<string>('')
-  const [compilationResult, setCompilationResult] = useState<string>('')
+  const [runResult, setRunResult] = useState<string>('')
 
   useEffect(() => {
     const unsubscribe = useCodeStore.subscribe((state) => {
@@ -15,6 +15,11 @@ const CompilerWindow = () => {
         )
       } else {
         setError('') // Clear error when codeError is null
+      }
+      if (state.runResult) {
+        setRunResult(state.runResult)
+      } else {
+        setRunResult('')
       }
     })
 
@@ -29,6 +34,7 @@ const CompilerWindow = () => {
             <div className='compiler__error'>{error}</div>
           </div>
         )}
+        {runResult !== '' && <>{runResult}</>}
       </div>
     </div>
   )

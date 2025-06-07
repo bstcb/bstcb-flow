@@ -20,6 +20,7 @@ const RunCode = (props: Props) => {
     console.log('running code')
     const runResult = JSInterpriter.runCode(code)
     console.log(runResult)
+    useCodeStore.getState().setRunResult(runResult)
   }
 
   return (
