@@ -1,7 +1,10 @@
 import { Handle, Position } from 'reactflow'
 import './ForLoopEndNode.scss'
+import { useTranslation } from 'react-i18next'
 
 const ForLoopEndNode = () => {
+  const { t } = useTranslation()
+
   return (
     <>
       <Handle
@@ -14,7 +17,7 @@ const ForLoopEndNode = () => {
           type='text'
           className='_for_lp_end_input'
           id='_for_lp_end_value'
-          value={'For Loop End'}
+          value={t('MENU_NODES_FOR_END')}
           readOnly
         />
       </div>

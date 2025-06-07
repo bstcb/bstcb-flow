@@ -1,7 +1,10 @@
 import { Handle, Position } from 'reactflow'
 import './IfConditionEndNode.scss'
+import { useTranslation } from 'react-i18next'
 
 const IfConditionEndNode = () => {
+  const { t } = useTranslation()
+
   return (
     <>
       <Handle
@@ -14,7 +17,7 @@ const IfConditionEndNode = () => {
           type='text'
           className='_if_cond_end_input'
           id='_if_cond_end_value'
-          value={'If Condition End'}
+          value={t('MENU_NODES_IF_END')}
           readOnly
         />
       </div>

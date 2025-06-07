@@ -1,7 +1,10 @@
 import { Handle, Position } from 'reactflow'
 import './WhileLoopEndNode.scss'
+import { useTranslation } from 'react-i18next'
 
 const WhileLoopEndNode = () => {
+  const { t } = useTranslation()
+
   return (
     <>
       <Handle
@@ -14,7 +17,7 @@ const WhileLoopEndNode = () => {
           type='text'
           className='_while_lp_end_input'
           id='_while_lp_end_value'
-          value={'While Loop End'}
+          value={t('MENU_NODES_WHILE_END')}
           readOnly
         />
       </div>
