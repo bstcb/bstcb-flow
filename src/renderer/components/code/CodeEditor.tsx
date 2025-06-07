@@ -41,11 +41,7 @@ const CodeEditor = () => {
       )
       editorRef.current?.editor.selection.selectLine()
     } else {
-      let codeChunks = state.code.split('\n')
-      editorRef.current?.editor.setValue('')
-      codeChunks.forEach((c) => {
-        editorRef.current?.editor.insert(c)
-      })
+      editorRef.current?.editor.setValue(state.code)
     }
   })
 
