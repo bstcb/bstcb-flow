@@ -4,10 +4,8 @@ import {
   Edge,
   Node,
   OnConnect,
-  OnNodesChange,
   ReactFlow,
   addEdge,
-  applyNodeChanges,
   updateEdge,
   useEdgesState,
   useNodesState,
@@ -37,7 +35,7 @@ import { getNextNodeYPositionFromNodes } from '../../utils/nodeUtils'
 const Nodes = () => {
   const { addNodes, getNodes } = useReactFlow()
   // variables
-  const [nodes, setNodes] = useNodesState<Node[]>(initialNodes)
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
   const [menu, setMenu] = useState<NodeContextMenu | null>(null)
   const edgeUpdateSuccessful = useRef(true)
@@ -98,31 +96,6 @@ const Nodes = () => {
   const onConnect: OnConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges],
-  )
-
-  const onNodesChange: OnNodesChange = useCallback(
-    (changes) => {
-      console.log('custom onNodesChange')
-      console.log(changes)
-      setNodes((nds) => {
-        console.log(nds)
-        changes.forEach((change) => {
-          if (change.type == 'add') {
-            nds
-              .filter((node) => node.type?.startsWith('_'))
-              .forEach((node, i) => {
-                node.position = {
-                  x: nds[0].position.x,
-                  // @FIXME: fix positioning
-                  y: nds[0].position.y + NODE_POSITION_Y_OFFSET * i,
-                }
-              })
-          }
-        })
-        return applyNodeChanges(changes, nds)
-      })
-    },
-    [setNodes],
   )
 
   const onPaneClick = useCallback(() => setMenu(null), [setMenu])
