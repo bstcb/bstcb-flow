@@ -1,5 +1,4 @@
 import sys
-import re
 import json
 
 from tree_sitter import Language, Parser
@@ -7,8 +6,6 @@ import tree_sitter_javascript as ts_js
 
 from debug import debug_print
 from output import return_output, return_error
-from chunks import chunk_is_lexical, parse_lexical_chunk, parse_non_lexical_chunk
-from error import check_error
 from queries import input_query, output_query, if_query, for_query, while_query
 
 type ParsedChunks = list[dict[str, str]]
@@ -16,8 +13,6 @@ type ParsedChunks = list[dict[str, str]]
 code_language = {
     "javascript": Language(ts_js.language())
 }
-# `parsable_code` is a json string
-# with `language` and `code` props
 
 
 def parse(parsable_code_str: str):
@@ -28,50 +23,67 @@ def parse(parsable_code_str: str):
     if lang not in code_language:
         return_error('[Parser Error]: unknown language passed to parser')
 
-    chunks = code.split('\n')
-
     debug_print('lang')
     debug_print(lang)
     debug_print('code')
     debug_print(code)
-    debug_print('chunks')
-    debug_print(chunks)
 
     parser = Parser(code_language[lang])
     debug_print('parser')
 
     parsed_chunks: ParsedChunks = []
-    error = None
 
-    for i, chunk in enumerate(chunks):
-        debug_print(f'========= CHUNK {i}  =========\n\n\n')
-        cst = parser.parse(bytes(chunk, "utf8"), encoding="utf8")
-        debug_print('chunk:cst')
-        debug_print(chunk, ':', cst.root_node)
+    parsed_code = parser.parse(bytes(code, "utf8"), encoding="utf8")
+    debug_print(parsed_code.root_node)
 
-        if chunk_is_lexical(chunk):
-            check_error(cst.root_node, code_language[lang])
+    lang_obj = code_language[lang]
 
-        # @FIX: the most dangerous line
-        chunk_type = cst.root_node.child(0).type
-
-        debug_print('child type')
-        debug_print(chunk, ':', chunk_type)
-
-        if chunk_is_lexical(chunk):
-            parsed_chunk = parse_lexical_chunk(chunk_type, i, code_language[lang], cst)
-            if isinstance(parsed_chunk, str):
-                error = parsed_chunk
-                return_error(error)
+    def handle_node(node):
+        node_type = node.type
+        try:
+            # Variable declaration
+            if node_type == "variable_declarator":
+                parsed_chunks.append(input_query.make_input_node(lang_obj, node))
+            # Output call
+            elif node_type == "call_expression":
+                parsed_chunks.append(output_query.make_output_node(lang_obj, node))
+            # If statement
+            elif node_type == "if_statement":
+                parsed_chunks.append(if_query.make_if_node(lang_obj, node))
+                # Recursively process the body of the if statement
+                for child in node.children:
+                    handle_node(child)
+                parsed_chunks.append(if_query.make_if_end_node(lang_obj))
+            # For loop
+            elif node_type == "for_statement":
+                parsed_chunks.append(for_query.make_for_node(lang_obj, node))
+                for child in node.children:
+                    handle_node(child)
+                parsed_chunks.append(for_query.make_for_end_node())
+            # While loop
+            elif node_type == "while_statement":
+                parsed_chunks.append(while_query.make_while_node(lang_obj, node))
+                for child in node.children:
+                    handle_node(child)
+                parsed_chunks.append(while_query.make_while_end_node())
+            # Block statement (e.g., function bodies, if/else bodies)
+            elif node_type == "statement_block" or node_type == "block":
+                for child in node.children:
+                    handle_node(child)
+            # Expression statement (e.g., a call or assignment as a statement)
+            elif node_type == "expression_statement":
+                for child in node.children:
+                    handle_node(child)
             else:
-                parsed_chunks.append(parsed_chunk)
-        else:
-            parsed_chunk = parse_non_lexical_chunk(chunk, i, code_language[lang], cst)
-            if isinstance(parsed_chunk, str):
-                error = parsed_chunk
-                return_error(error)
-            else:
-                parsed_chunks.append(parsed_chunk)
+                # Recursively process all children for unknown/other node types
+                for child in node.children:
+                    handle_node(child)
+        except Exception as e:
+            debug_print(f"Error handling node {node_type}: {e}")
+
+    # Start recursion from the root node's children
+    for child in parsed_code.root_node.children:
+        handle_node(child)
 
     debug_print('parsed_chunks complete')
     debug_print(parsed_chunks)
