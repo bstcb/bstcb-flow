@@ -75,7 +75,7 @@ export class CodeTranspiler {
         useCodeStore.getState().setCodeError(parseResults)
       } else {
         // cleanup
-        debugger
+        // debugger
         if (useCodeStore.getState().codeError)
           useCodeStore.getState().clearCodeError()
         this.rfInstance.setNodes(initialNodes)

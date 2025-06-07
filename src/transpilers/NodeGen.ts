@@ -10,6 +10,7 @@ import { initialNodes } from '../renderer/components/nodes/initialNodes'
 import { ErrorReporter } from '../renderer/errors/ErrorReporter'
 import { getNextNodeYPositionFromNodes } from '../renderer/utils/nodeUtils'
 import { NodeCreationData } from '../renderer/types/nodeCreationData'
+import { NODE_POSITION_Y_OFFSET } from '../renderer/constants'
 
 type IndexedNode = {
   node: Node
@@ -51,14 +52,14 @@ export class NodeGen {
     let nodes: Node[] = rfInstance.getNodes()
 
     // creating node
-    // debugger;
+    // debugger
     console.log(rfInstance.getNodes())
     let node: Node = {
       id: `_${nodeCreationData.type}_${uuid()}`,
       type: nodeCreationData.type,
       position: {
         x: nodes[0].position.x,
-        y: getNextNodeYPositionFromNodes(rfInstance.getNodes()),
+        y: nodes[0].position.y + (nodeIndex + 1) * NODE_POSITION_Y_OFFSET,
       },
       data: {
         id: null,
@@ -162,13 +163,14 @@ export class NodeGen {
 
     let nodes: Node[] = rfInstance.getNodes()
     // creating node
+    // debugger
     let node: Node = {
       // define the type by getting closest opener
       id: `_${blockEndType}_${uuid()}`,
       type: blockEndType,
       position: {
         x: nodes[0].position.x,
-        y: getNextNodeYPositionFromNodes(nodes),
+        y: nodes[0].position.y + (nodeIndex + 1) * NODE_POSITION_Y_OFFSET,
       },
       data: {
         id: null,
