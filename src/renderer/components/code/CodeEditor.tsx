@@ -3,6 +3,7 @@ import './CodeEditor.scss'
 import 'ace-builds/src-noconflict/ace'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import 'ace-builds/src-noconflict/mode-javascript'
+import 'ace-builds/src-noconflict/mode-csharp'
 import 'ace-builds/src-noconflict/theme-terminal'
 import 'ace-builds/src-noconflict/theme-tomorrow'
 
@@ -20,15 +21,20 @@ const CodeEditor = () => {
   const [code, setCode] = useState<string>('')
 
   const editorRef = useRef<AceEditor>(null)
-  useEffect(() => {
+  const unsubscribe = useCodeStore.subscribe((state) => {
+    const activeLang = state.activeLanguage
     const editor = editorRef.current?.editor
     //@ts-ignore
     const currentLangStr = editor?.getSession().getMode().$id // $id prop exist but not declared in the type
     const currentLang = currentLangStr.split('/').at(-1)
-    console.log(currentLang)
-    useCodeStore.getState().setActiveLanguage(currentLang)
-  }, [])
-
+    console.log('currentLang')
+    console.log(currentLangStr)
+    if (currentLang !== activeLang) {
+      editor?.getSession().setMode(`ace/mode/${activeLang}`)
+      console.log(currentLang)
+    }
+    return unsubscribe
+  })
   const isDarkTheme =
     JSON.parse(localStorage.getItem('settings'))['general.colorTheme'] == 'dark'
 

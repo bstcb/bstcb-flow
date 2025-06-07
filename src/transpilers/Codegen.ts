@@ -17,24 +17,36 @@ export class CodeGen {
   }
 
   static genInput(variable: Variable) {
+    console.log(
+      `input generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
+    )
+
+    let chunk: string
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
-        console.log(
-          `input generation in ${this.activeLanguage} with variable: ${variable.name}: ${variable.value}`,
-        )
-        const chunk = `let ${variable.name} = ${variable.value}\n`
+        chunk = `let ${variable.name} = ${variable.value}\n`
+        applyChunk(chunk)
+        break
+      case CodeLanguage.LANG_CSHARP:
+        chunk = `var ${variable.name} = ${variable.value};\n`
         applyChunk(chunk)
         break
     }
   }
 
   static genOutput(expr: string) {
+    console.log(
+      `output generation in ${this.activeLanguage} with variable: ${expr}`,
+    )
+
+    let chunk: string
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
-        console.log(
-          `output generation in ${this.activeLanguage} with variable: ${expr}`,
-        )
-        const chunk = `console.log(${expr})\n`
+        chunk = `console.log(${expr})\n`
+        applyChunk(chunk)
+        break
+      case CodeLanguage.LANG_CSHARP:
+        chunk = `System.Console.WriteLine(${expr});\n`
         applyChunk(chunk)
         break
     }
@@ -43,6 +55,7 @@ export class CodeGen {
   static genIf(expr: string) {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
+      case CodeLanguage.LANG_CSHARP:
         console.log(
           `if condition generation in ${this.activeLanguage} with expression: ${expr}`,
         )
@@ -54,6 +67,7 @@ export class CodeGen {
   static genWhile(expr: string) {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
+      case CodeLanguage.LANG_CSHARP:
         console.log(
           `while loop generation in ${this.activeLanguage} with expression: ${expr}`,
         )
@@ -65,6 +79,7 @@ export class CodeGen {
   static genFor(expr: string) {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
+      case CodeLanguage.LANG_CSHARP:
         console.log(
           `for loop generation in ${this.activeLanguage} with expression: ${expr}`,
         )
@@ -76,6 +91,7 @@ export class CodeGen {
   static genBlockEnd() {
     switch (this.activeLanguage) {
       case CodeLanguage.LANG_JS:
+      case CodeLanguage.LANG_CSHARP:
         console.log(`block end generation in ${this.activeLanguage}`)
         const chunk = `}\n`
         applyChunk(chunk)

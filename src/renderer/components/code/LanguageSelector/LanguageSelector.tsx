@@ -7,16 +7,25 @@ const LanguageSelector = () => {
   const activeLanguage = useCodeStore.getState().activeLanguage
   const options = [
     { value: CodeLanguage.LANG_JS, label: CodeLanguage.LANG_JS },
-    // @TODO: replace with actual C# mode
-    { value: 'C#', label: 'C#' },
+    { value: CodeLanguage.LANG_CSHARP, label: CodeLanguage.LANG_CSHARP },
   ]
   const defaultOption = options.find((o) => o.value == activeLanguage)
+
+  function languageChanged(e) {
+    console.log(`[LanguageSelector]: language changed to: ${e.value}`)
+    console.log(e)
+    useCodeStore.getState().setActiveLanguage(e.value)
+  }
 
   return (
     <>
       <div className='language__selector'>
         <div className='language__selector__wrapper'>
-          <Select options={options} defaultValue={defaultOption} />
+          <Select
+            onChange={languageChanged}
+            options={options}
+            defaultValue={defaultOption}
+          />
         </div>
       </div>
     </>

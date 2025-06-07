@@ -3,6 +3,7 @@ import json
 
 from tree_sitter import Language, Parser
 import tree_sitter_javascript as ts_js
+import tree_sitter_c_sharp as ts_cs
 
 from debug import debug_print
 from output import return_output, return_error
@@ -11,7 +12,8 @@ from queries import input_query, output_query, if_query, for_query, while_query
 type ParsedChunks = list[dict[str, str]]
 
 code_language = {
-    "javascript": Language(ts_js.language())
+    "javascript": Language(ts_js.language()),
+    "csharp": Language(ts_cs.language()),
 }
 
 
