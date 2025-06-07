@@ -82,17 +82,6 @@ const Settings = () => {
           {/* general */}
           <SettingsPage handler='/general'>
             <fieldset className='form-group'>
-              <label htmlFor='language'>{t('LANGUAGE_SETTINGS')}</label>
-              <select
-                name='general.language'
-                id='language'
-                className='form-control'
-                defaultValue={settings['general.language']}>
-                <option value='en'>{t('LANGUAGE_ENG')}</option>
-                <option value='ru'>{t('LANGUAGE_RU')}</option>
-              </select>
-            </fieldset>
-            <fieldset className='form-group'>
               <label htmlFor='colorTheme'>
                 {t('APPEARANCE_SETTINGS_COLORTHEME')}
               </label>
