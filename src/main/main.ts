@@ -37,9 +37,9 @@ ipcMain.on('parse-code', async (event, parsableCode: ParsableCode) => {
   console.log('code')
   console.log(parsableCode)
   console.log('exec')
-  let command = `python src/parser/main.py '${JSON.stringify(parsableCode)}'`
+  const jsonString = JSON.stringify(parsableCode).replace(/"/g, '\\"')
+  const command = `python src/parser/main.py "${jsonString}"`
   console.log(command)
-  // @TODO: realpath or something
   const parsedResult = execSync(command, { encoding: 'utf-8' })
   console.log('parsedResult')
   console.log(parsedResult)
