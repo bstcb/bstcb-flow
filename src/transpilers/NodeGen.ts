@@ -144,12 +144,12 @@ export class NodeGen {
     console.log(opener)
     if (!opener) {
       // "unmatched block end" error
-      ErrorReporter.showUnbalancedNodeBlock(
-        'start',
-        NodeTokenKind.NTK_BLOCK_END,
-        nodeIndex,
-      )
-      // doubt that i need to report node error as code error but i am insane
+      // ErrorReporter.showUnbalancedNodeBlock(
+      //   'start',
+      //   NodeTokenKind.NTK_BLOCK_END,
+      //   nodeIndex,
+      // )
+      // // doubt that i need to report node error as code error but i am insane
       useCodeStore.getState().setCodeError({
         message: `unmatched block end at position ${nodeIndex}`,
         line: nodeIndex,

@@ -74,14 +74,14 @@ const DebugNodes = () => {
         )
         if (!correspondingEnd) {
           // report error
-          ErrorReporter.showUnbalancedNodeBlock(
-            'end',
-            n.data.type,
-            activeNodes.indexOf(n),
-          )
+          // ErrorReporter.showUnbalancedNodeBlock(
+          //   'end',
+          //   n.data.type,
+          //   activeNodes.indexOf(n),
+          // )
           let nodeSelectorString = `div[data-id=${n.id}]>div.${n.data.type}_wrapper`
           let nodeSelector = document.querySelector(nodeSelectorString)
-          ErrorReporter.applyErrorStyle(nodeSelector)
+          // ErrorReporter.applyErrorStyle(nodeSelector)
           break
         }
       }
@@ -93,14 +93,14 @@ const DebugNodes = () => {
         )
         if (!correspondingStart) {
           // report error
-          ErrorReporter.showUnbalancedNodeBlock(
-            'start',
-            n.data.type,
-            activeNodes.indexOf(n),
-          )
+          // ErrorReporter.showUnbalancedNodeBlock(
+          //   'start',
+          //   n.data.type,
+          //   activeNodes.indexOf(n),
+          // )
           let nodeSelectorString = `div[data-id=${n.id}]>div.${n.data.type}_wrapper`
           let nodeSelector = document.querySelector(nodeSelectorString)
-          ErrorReporter.applyErrorStyle(nodeSelector)
+          // ErrorReporter.applyErrorStyle(nodeSelector)
           break
         }
       }
