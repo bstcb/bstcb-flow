@@ -37,6 +37,7 @@ const CodeEditor = () => {
     return unsubscribe
   })
   const isDarkTheme =
+    localStorage.getItem('settings') &&
     JSON.parse(localStorage.getItem('settings'))['general.colorTheme'] == 'dark'
 
   useCodeStore.subscribe((state) => {

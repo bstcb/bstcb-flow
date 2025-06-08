@@ -38,7 +38,8 @@ const App = () => {
   }
   useEffect(() => {
     changeTheme(
-      JSON.parse(localStorage.getItem('settings'))['general.colorTheme'] ||
+      (localStorage.getItem('settings') &&
+        JSON.parse(localStorage.getItem('settings'))['general.colorTheme']) ||
         'light',
     )
     const dock: DockLayout = dockLayoutRef.current!
