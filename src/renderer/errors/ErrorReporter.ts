@@ -2,6 +2,7 @@ import { MutableRefObject } from 'react'
 import { NODE_ERROR_CLASSNAME, TIMER_DURATION_MS } from '../constants'
 import { useErrorStore } from '../store/ErrorStore'
 import { toast, Bounce } from 'react-toastify'
+import i18n from '../../../i18config'
 
 export enum ErrorKind {
   EK_WRONG_DATA_FORMAT = 'wrong data format',
@@ -29,10 +30,10 @@ export class ErrorReporter {
     errorKind: ErrorKind,
     errorMessage: string,
   ) {
-    const errorString = `${errorMessage} in ${nodeType.replace(
-      '_',
-      '',
-    )} node at position ${nodeIndex}`
+    const nt = nodeType.replace('_', '').toUpperCase()
+    const errorString = `${errorMessage} ${i18n.t('IN')} ${i18n.t(
+      `MENU_NODES_${nt}`,
+    )} ${i18n.t('AT_POSITION')} ${nodeIndex}`
     toast.error(errorString, {
       position: 'bottom-right',
       autoClose: TIMER_DURATION_MS,

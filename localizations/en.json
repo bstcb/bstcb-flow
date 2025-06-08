@@ -41,5 +41,9 @@
   "FLOWCHART_EMPTY_ERROR": "You need to complete the flowchart first",
   "NODE_DELETE_INITIAL_ERROR": "You can't delete initial nodes",
   "RELOAD_WARNING": "Attention: after saving these settings program will be reloaded",
-  "RUN_CODE_BTN": "Run Code"
+  "RUN_CODE_BTN": "Run Code",
+  "INPUT_NODE_NAME_EMPTY_ERROR": "name is empty",
+  "INPUT_NODE_VALUE_EMPTY_ERROR": "value is empty",
+  "IN": "in",
+  "AT_POSITION": "at position"
 }

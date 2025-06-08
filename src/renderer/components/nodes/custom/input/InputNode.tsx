@@ -23,6 +23,8 @@ import { VariableParser } from '../../../../../transpilers/VariableParser'
 import { NodeTokenKind } from '../../../../../transpilers/Token'
 import { describeNodePosition } from '../../../../utils/nodeUtils'
 import { ErrorKind, ErrorReporter } from '../../../../errors/ErrorReporter'
+import { useTranslation } from 'react-i18next'
+import i18n from '../../../../../../i18config'
 
 interface InputNodeProps extends DefaultNodeProps {}
 
@@ -73,6 +75,8 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
     console.log(getNodes())
   }, [currentVariable, setNodes])
 
+  const { t } = useTranslation()
+
   const onChangeName = (e: any) => {
     // @TODO: apply timer to error logging
     const newName: string = e.target.value
@@ -81,7 +85,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         node.type,
         nodeIndex,
         ErrorKind.EK_WRONG_DATA_FORMAT,
-        'name is empty',
+        i18n.t('INPUT_NODE_NAME_EMPTY_ERROR'),
       )
       ErrorReporter.applyErrorStyle(nameInputRef.current)
     } else {
@@ -98,7 +102,7 @@ const InputNode = ({ data: props }: NodeProps<InputNodeProps>) => {
         node.type,
         nodeIndex,
         ErrorKind.EK_WRONG_DATA_FORMAT,
-        'value is empty',
+        i18n.t('INPUT_NODE_VALUE_EMPTY_ERROR'),
       )
       ErrorReporter.applyErrorStyle(valueInputRef.current)
     } else {

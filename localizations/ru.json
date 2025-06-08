@@ -41,5 +41,9 @@
   "FLOWCHART_EMPTY_ERROR": "Заполните блок-схему",
   "NODE_DELETE_INITIAL_ERROR": "Фигуры \"Начало\" и \"Конец\" не могут быть удалены",
   "RELOAD_WARNING": "Внимание: после сохранения настроек программа будет перезапущена",
-  "RUN_CODE_BTN": "Выполнить код"
+  "RUN_CODE_BTN": "Выполнить код",
+  "INPUT_NODE_NAME_EMPTY_ERROR": "Имя переменой не задано",
+  "INPUT_NODE_VALUE_EMPTY_ERROR": "Значение переменой не задано",
+  "IN": "на фигуре",
+  "AT_POSITION": "на позиции"
 }
