@@ -38,11 +38,16 @@ ipcMain.on('parse-code', async (event, parsableCode: ParsableCode) => {
   console.log(parsableCode)
   console.log('exec')
   const jsonString = JSON.stringify(parsableCode)
-  const parsedResult = execFileSync(
-    'python',
-    ['src/parser/main.py', jsonString],
-    { encoding: 'utf-8' },
-  )
+  let parsedResult
+  if (!isDebug && process.platform == 'win32') {
+    parsedResult = execFileSync('parser.exe', [jsonString], {
+      encoding: 'utf-8',
+    })
+  } else {
+    parsedResult = execFileSync('python', ['src/parser/main.py', jsonString], {
+      encoding: 'utf-8',
+    })
+  }
   console.log('parsedResult')
   console.log(parsedResult)
   // console.log('log error')
