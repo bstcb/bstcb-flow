@@ -14,7 +14,7 @@ import { autoUpdater } from 'electron-updater'
 import path from 'path'
 import MenuBuilder from './menu'
 import { resolveHtmlPath } from './util'
-import { exec, execSync } from 'child_process'
+import { exec, execFileSync, execSync } from 'child_process'
 import { ParsableCode } from '../transpilers/CodeTranspiler'
 
 class AppUpdater {
@@ -37,10 +37,12 @@ ipcMain.on('parse-code', async (event, parsableCode: ParsableCode) => {
   console.log('code')
   console.log(parsableCode)
   console.log('exec')
-  const jsonString = JSON.stringify(parsableCode).replace(/"/g, '\\"')
-  const command = `python src/parser/main.py "${jsonString}"`
-  console.log(command)
-  const parsedResult = execSync(command, { encoding: 'utf-8' })
+  const jsonString = JSON.stringify(parsableCode)
+  const parsedResult = execFileSync(
+    'python',
+    ['src/parser/main.py', jsonString],
+    { encoding: 'utf-8' },
+  )
   console.log('parsedResult')
   console.log(parsedResult)
   // console.log('log error')
