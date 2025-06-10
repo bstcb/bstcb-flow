@@ -1,7 +1,7 @@
 import sys
 
 
-import parser
+import code_parser
 
 from output import print_usage
 
@@ -18,7 +18,7 @@ def main():
     elif '-d' in args:
         print('debug enabled; running verbose...')
 
-    parser.parse(args[0])
+    code_parser.parse(args[0])
 
 
 if __name__ == '__main__':
