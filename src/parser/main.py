@@ -11,10 +11,10 @@ def main():
     if len(args) < 1:
         print('[Parser Error]: invalid arguments')
         print_usage()
-        exit(0)
+        sys.exit(0)
     elif '-h' in args:
         print_usage()
-        exit(0)
+        sys.exit(0)
     elif '-d' in args:
         print('debug enabled; running verbose...')
 
