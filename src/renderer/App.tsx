@@ -37,6 +37,8 @@ const App = () => {
     }
   }
   useEffect(() => {
+    console.log(document.querySelector('body>div[style]'))
+    document.querySelector('body>div[style]').style.display = 'none'
     changeTheme(
       (localStorage.getItem('settings') &&
         JSON.parse(localStorage.getItem('settings'))['general.colorTheme']) ||
