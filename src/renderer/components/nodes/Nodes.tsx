@@ -36,6 +36,7 @@ import {
 import { ToolbarComponent } from '@syncfusion/ej2-react-navigations'
 import { DropDownButton } from '@syncfusion/ej2-react-splitbuttons'
 import { UploaderComponent } from '@syncfusion/ej2-react-inputs'
+import i18n from '../../../../i18config'
 
 /**
  * Diagram Default sample
@@ -67,41 +68,8 @@ function createFlowNode(
 
 // Initializing nodes
 let nodes: any = [
-  createFlowNode('NewIdea', 300, 80, 'Terminator', 'Place Order'),
-  createFlowNode('Meeting', 300, 160, 'Process', 'Start Transaction'),
-  createFlowNode('BoardDecision', 300, 240, 'Process', 'Verification'),
-  createFlowNode('Project', 300, 330, 'Decision', 'Credit card valid?'),
-  createFlowNode('End', 300, 430, 'Decision', 'Funds available?'),
-  createFlowNode('Payment_method', 545, 330, 'Process', 'Enter payment method'),
-  createFlowNode(
-    'transaction_entered',
-    300,
-    630,
-    'Terminator',
-    'Log transaction',
-  ),
-  createFlowNode(
-    'Reconcile_entries',
-    480,
-    630,
-    'Process',
-    'Reconcile the entries',
-  ),
-  createFlowNode(
-    'transaction_completed',
-    300,
-    530,
-    'Process',
-    'Complete Transaction',
-  ),
-  createFlowNode('Data', 110, 530, 'Data', 'Send e-mail', 45, {
-    left: 25,
-    right: 25,
-  }), // Custom height of 45 with margin
-  createFlowNode('Database', 475, 530, 'DirectData', 'Customer Database', 70, {
-    left: 25,
-    right: 25,
-  }), // Custom height of 70 with margin
+  createFlowNode('Start', 300, 80, 'Terminator', i18n.t('INIT_NODE_START')),
+  createFlowNode('End', 300, 280, 'Terminator', i18n.t('INIT_NODE_END')),
 ]
 
 // Function to create connectors
@@ -125,79 +93,29 @@ function createConnector(
   }
 }
 // Initializing connectors
-let connectors: any = [
-  createConnector('connector1', 'NewIdea', 'Meeting'),
-  createConnector('connector2', 'Meeting', 'BoardDecision'),
-  createConnector('connector3', 'BoardDecision', 'Project'),
-  createConnector('connector4', 'Project', 'End', [
-    { content: 'Yes', style: { fill: 'white' } },
-  ]),
-  createConnector('connector5', 'End', 'transaction_completed', [
-    { content: 'Yes', style: { fill: 'white' } },
-  ]),
-  createConnector('connector6', 'transaction_completed', 'transaction_entered'),
-  createConnector('connector7', 'transaction_completed', 'Data'),
-  createConnector('connector8', 'transaction_completed', 'Database'),
-  createConnector('connector9', 'Payment_method', 'Meeting', [], 'Orthogonal', [
-    { direction: 'Top', type: 'Orthogonal', length: 120 },
-  ]),
-  createConnector(
-    'connector10',
-    'End',
-    'Payment_method',
-    [{ content: 'No', style: { fill: 'white' } }],
-    'Orthogonal',
-    [{ direction: 'Right', type: 'Orthogonal', length: 100 }],
-  ),
-  createConnector('connector11', 'Project', 'Payment_method', [
-    { content: 'No', style: { fill: 'white' } },
-  ]),
-  createConnector(
-    'connector12',
-    'transaction_entered',
-    'Reconcile_entries',
-    [],
-    'Straight',
-    [],
-    { strokeDashArray: '2,2' },
-  ),
-]
+
+// Example
+
+// createConnector('c-1', 'Start', 'End',
+//   [{ content: 'No', style: { fill: 'white' } }],
+// ),
+let connectors: any = [createConnector('c-1', 'Start', 'End')]
 
 //Initialize the flowshapes for the symbol palatte
 let flowshapes: NodeModel[] = [
   { id: 'Terminator', shape: { type: 'Flow', shape: 'Terminator' } },
   { id: 'Process', shape: { type: 'Flow', shape: 'Process' } },
   { id: 'Decision', shape: { type: 'Flow', shape: 'Decision' } },
-  { id: 'Document', shape: { type: 'Flow', shape: 'Document' } },
-  {
-    id: 'PreDefinedProcess',
-    shape: { type: 'Flow', shape: 'PreDefinedProcess' },
-  },
-  { id: 'PaperTap', shape: { type: 'Flow', shape: 'PaperTap' } },
-  { id: 'DirectData', shape: { type: 'Flow', shape: 'DirectData' } },
-  { id: 'SequentialData', shape: { type: 'Flow', shape: 'SequentialData' } },
-  { id: 'Sort', shape: { type: 'Flow', shape: 'Sort' } },
-  { id: 'MultiDocument', shape: { type: 'Flow', shape: 'MultiDocument' } },
-  { id: 'Collate', shape: { type: 'Flow', shape: 'Collate' } },
-  { id: 'SummingJunction', shape: { type: 'Flow', shape: 'SummingJunction' } },
-  { id: 'Or', shape: { type: 'Flow', shape: 'Or' } },
-  { id: 'InternalStorage', shape: { type: 'Flow', shape: 'InternalStorage' } },
-  { id: 'Extract', shape: { type: 'Flow', shape: 'Extract' } },
-  { id: 'ManualOperation', shape: { type: 'Flow', shape: 'ManualOperation' } },
-  { id: 'Merge', shape: { type: 'Flow', shape: 'Merge' } },
-  {
-    id: 'OffPageReference',
-    shape: { type: 'Flow', shape: 'OffPageReference' },
-  },
-  {
-    id: 'SequentialAccessStorage',
-    shape: { type: 'Flow', shape: 'SequentialAccessStorage' },
-  },
-  { id: 'Annotation', shape: { type: 'Flow', shape: 'Annotation' } },
-  { id: 'Annotation2', shape: { type: 'Flow', shape: 'Annotation2' } },
   { id: 'Data', shape: { type: 'Flow', shape: 'Data' } },
-  { id: 'Card', shape: { type: 'Flow', shape: 'Card' } },
-  { id: 'Delay', shape: { type: 'Flow', shape: 'Delay' } },
+
+  // Examples
+
+  // { id: 'Document', shape: { type: 'Flow', shape: 'Document' } },
+  // {
+  //   id: 'PreDefinedProcess',
+  //   shape: { type: 'Flow', shape: 'PreDefinedProcess' },
+  // },
+  // { id: 'PaperTap', shape: { type: 'Flow', shape: 'PaperTap' } },
 ]
 
 // function to create a connector symbol for the palette
