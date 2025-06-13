@@ -37,7 +37,9 @@ const App = () => {
     }
   }
   useEffect(() => {
-    console.log(document.querySelector('body>div[style]'))
+    console.log('app div styles')
+    // @TODO: fix if ad will show up
+    console.log(document.querySelectorAll('.root ~ div[style]:not([class])'))
     document.querySelector('body>div[style]').style.display = 'none'
     changeTheme(
       (localStorage.getItem('settings') &&
