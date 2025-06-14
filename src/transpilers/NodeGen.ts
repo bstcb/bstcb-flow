@@ -61,7 +61,7 @@ export class NodeGen {
     // debugger
     console.log(rfInstance.getNodes())
     let node: Node = {
-      id: `_${nodeCreationData.type}_${uuid()}`,
+      id: `${nodeCreationData.type}_${nodeIndex}`,
       type: nodeCreationData.type,
       position: {
         x: nodes[0].position.x,
@@ -176,7 +176,7 @@ export class NodeGen {
     // debugger
     let node: Node = {
       // define the type by getting closest opener
-      id: `_${blockEndType}_${uuid()}`,
+      id: `${blockEndType}_${nodeIndex}`,
       type: blockEndType,
       position: {
         x: nodes[0].position.x,

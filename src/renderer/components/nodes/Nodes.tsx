@@ -69,7 +69,7 @@ const Nodes = () => {
         let newNodeY = getNextNodeYPositionFromNodes(getNodes())
         console.log('newNodeY: ' + newNodeY)
         let newNode: Node = {
-          id: `_${nodeType}_${uuid()}`,
+          id: `${nodeType}_${nodes.length}`,
           type: nodeType,
           position: {
             // center x position relative
