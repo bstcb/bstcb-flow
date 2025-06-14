@@ -100,8 +100,15 @@ const WhileLoopNode = ({ data: props }: NodeProps<WhileLoopNodeProps>) => {
       </div>
       <Handle
         type='source'
-        position={Position.Bottom}
-        style={{ zIndex: 999, transform: 'translate(-3px, 5px)' }}
+        id='h_true'
+        position={Position.Left}
+        style={{ zIndex: 999, transform: 'translate(-30px, -3px)' }}
+      />
+      <Handle
+        type='source'
+        id='h_false'
+        position={Position.Right}
+        style={{ zIndex: 999, transform: 'translate(30px, -3px)' }}
       />
     </>
   )
