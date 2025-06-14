@@ -66,8 +66,6 @@ const Nodes = () => {
     window.electron.ipcRenderer.on(
       'add-node',
       (nodeType: string, value: string) => {
-        let newNodeY = getNextNodeYPositionFromNodes(getNodes())
-        console.log('newNodeY: ' + newNodeY)
         let newNode: Node = {
           id: `_${nodeType}_${uuid()}`,
           type: nodeType,
