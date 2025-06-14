@@ -6,3 +6,8 @@
   width: 100%;
   height: 100%;
 }
+
+.react-flow__node[data-id='_start'],
+.react-flow__node[data-id='_end'] {
+  border-radius: 50px;
+}
