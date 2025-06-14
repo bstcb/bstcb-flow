@@ -99,13 +99,15 @@ function createConnector(
 // createConnector('c-1', 'Start', 'End',
 //   [{ content: 'No', style: { fill: 'white' } }],
 // ),
-let connectors: any = [createConnector('c-1', 'Start', 'End')]
+let connectors: any = [
+  // createConnector('c-1', 'Start', 'End')
+]
 
 //Initialize the flowshapes for the symbol palatte
 let flowshapes: NodeModel[] = [
-  { id: 'Terminator', shape: { type: 'Flow', shape: 'Terminator' } },
-  { id: 'Process', shape: { type: 'Flow', shape: 'Process' } },
-  { id: 'Decision', shape: { type: 'Flow', shape: 'Decision' } },
+  { id: 'Начало/Конец', shape: { type: 'Flow', shape: 'Terminator' } },
+  { id: 'Процесс', shape: { type: 'Flow', shape: 'Process' } },
+  { id: 'Ветвление', shape: { type: 'Flow', shape: 'Decision' } },
   { id: 'Data', shape: { type: 'Flow', shape: 'Data' } },
 
   // Examples
@@ -140,11 +142,11 @@ function paletteConnectorSymbols(
 
 // Initializes connector symbols for the symbol palette
 let connectorSymbols: ConnectorModel[] = [
-  paletteConnectorSymbols('Link1', 'Orthogonal'),
-  paletteConnectorSymbols('link2', 'Orthogonal', 'None'),
-  paletteConnectorSymbols('Link3', 'Straight'),
-  paletteConnectorSymbols('lin4', 'Straight', 'None'),
-  paletteConnectorSymbols('link5', 'Bezier', 'None'),
+  paletteConnectorSymbols('Соеденить', 'Straight'),
+  // paletteConnectorSymbols('Link1', 'Orthogonal'),
+  // paletteConnectorSymbols('link2', 'Orthogonal', 'None'),
+  // paletteConnectorSymbols('lin4', 'Straight', 'None'),
+  // paletteConnectorSymbols('link5', 'Bezier', 'None'),
 ]
 let interval: number[]
 interval = [
@@ -948,14 +950,14 @@ function Default() {
                   expanded: true,
                   symbols: flowshapes,
                   iconCss: 'e-diagram-icons1 e-diagram-flow',
-                  title: 'Flow Shapes',
+                  title: 'Фигуры',
                 },
                 {
                   id: 'connectors',
                   expanded: true,
                   symbols: connectorSymbols,
                   iconCss: 'e-diagram-icons1 e-diagram-connector',
-                  title: 'Connectors',
+                  title: '',
                 },
               ]}
               width={'100%'}
