@@ -2,6 +2,7 @@ import {
   Connection,
   Controls,
   Edge,
+  MarkerType,
   Node,
   OnConnect,
   ReactFlow,
@@ -94,7 +95,18 @@ const Nodes = () => {
   }, [])
 
   const onConnect: OnConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            type: 'smoothstep',
+            markerEnd: { type: MarkerType.ArrowClosed },
+            style: { strokeWidth: 2 },
+          },
+          eds,
+        ),
+      ),
     [setEdges],
   )
 

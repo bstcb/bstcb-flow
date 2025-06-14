@@ -2,7 +2,13 @@ import { arrayInsert, enumFromString } from '../helpers/helpers'
 import { useCodeStore } from '../renderer/store/CodeStore'
 import { Variable } from '../renderer/types/variable'
 import { CodeLanguage } from './CodeLanguage'
-import { Edge, Node, ReactFlowActions, ReactFlowInstance } from 'reactflow'
+import {
+  Edge,
+  MarkerType,
+  Node,
+  ReactFlowActions,
+  ReactFlowInstance,
+} from 'reactflow'
 import { NodeTokenKind } from './Token'
 import { v4 as uuid } from 'uuid'
 import { getRandomInt } from '../renderer/utils/random'
@@ -102,13 +108,17 @@ export class NodeGen {
       const edges = []
       const conditionalTypes = ['_if_cond', '_for_lp', '_while_lp']
       for (let i = 0; i < nodes.length - 1; i++) {
-        edges.push({
+        let newEdge: Edge = {
           id: `e${nodes[i].id}-${nodes[i + 1].id}`,
           source: nodes[i].id,
           sourceHandle: conditionalTypes.includes([i + 1].type) && 'h_true', // @TODO: use condiotions from CST
           target: nodes[i + 1].id,
           targetHandle: conditionalTypes.includes([i + 1].type) && 'h_true', // @TODO: use condiotions from CST
-        })
+          type: 'smoothstep',
+          markerEnd: { type: MarkerType.ArrowClosed },
+          style: { strokeWidth: 2 },
+        }
+        edges.push(newEdge)
       }
       rfInstance.setEdges(edges)
     })
