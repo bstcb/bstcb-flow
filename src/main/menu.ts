@@ -124,7 +124,7 @@ export default class MenuBuilder {
                   this.mainWindow.webContents.send(
                     'add-node',
                     '_for_lp',
-                    'let i = 0; i < 5; i++',
+                    'i = 0; i < 5; i++',
                   )
                 },
               },
