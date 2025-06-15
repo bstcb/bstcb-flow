@@ -49,12 +49,20 @@ def parse(parsable_code_str: str):
             # Output call
             elif node_type == "call_expression":
                 parsed_chunks.append(output_query.make_output_node(lang_obj, node))
-            # If statement
+            # If statement (with possible else/else-if)
             elif node_type == "if_statement":
                 parsed_chunks.append(if_query.make_if_node(lang_obj, node))
-                # Recursively process the body of the if statement
                 for child in node.children:
-                    handle_node(child)
+                    # Handle the "then" block
+                    if child.type in ("consequence", "statement_block", "block"):
+                        for grandchild in child.children:
+                            handle_node(grandchild)
+                    # Handle the "else" clause
+                    elif child.type == "else_clause":
+                        parsed_chunks.append(if_query.make_else_node())
+                        for grandchild in child.children:
+                            handle_node(grandchild)
+                        parsed_chunks.append(if_query.make_else_end_node())
                 parsed_chunks.append(if_query.make_if_end_node(lang_obj))
             # For loop
             elif node_type == "for_statement":
@@ -69,7 +77,7 @@ def parse(parsable_code_str: str):
                     handle_node(child)
                 parsed_chunks.append(while_query.make_while_end_node())
             # Block statement (e.g., function bodies, if/else bodies)
-            elif node_type == "statement_block" or node_type == "block":
+            elif node_type in ("statement_block", "block"):
                 for child in node.children:
                     handle_node(child)
             # Expression statement (e.g., a call or assignment as a statement)
