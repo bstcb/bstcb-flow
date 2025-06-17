@@ -9,7 +9,6 @@ type State = {
   activeLanguage: string
   // @TODO: move to `ErrorStore`
   codeError?: CodeError
-  runResult: string
 }
 
 type Actions = {
@@ -18,7 +17,6 @@ type Actions = {
   setActiveLanguage: (al: string) => void
   setCode: (c: string) => void
   clearCode: () => void
-  setRunResult: (rr: string) => void
 }
 
 type Store = State & Actions
@@ -53,10 +51,6 @@ export const useCodeStore = createStore<Store>()(
     clearCode: () => {
       set((state) => ({ code: '' }))
       console.log('[STORE]: code cleared')
-    },
-    setRunResult: (rr: string) => {
-      set((state) => ({ runResult: rr }))
-      console.log('[STORE]: run result set')
     },
   })),
 )

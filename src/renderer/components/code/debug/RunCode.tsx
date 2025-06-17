@@ -7,6 +7,7 @@ import { delimiter } from 'path'
 import { useTranslation } from 'react-i18next'
 import i18n from '../../../../../i18config'
 import { JSInterpriter } from '../../../../interpriters/JSInterpriter'
+import { useRunStore } from '../../../store/RunStore'
 
 type Props = {
   code: string
@@ -20,7 +21,7 @@ const RunCode = (props: Props) => {
     console.log('running code')
     const runResult = JSInterpriter.runCode(code)
     console.log(runResult)
-    useCodeStore.getState().setRunResult(runResult)
+    useRunStore.getState().setRunResult(runResult)
   }
 
   return (
