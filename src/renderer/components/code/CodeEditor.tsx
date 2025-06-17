@@ -20,10 +20,14 @@ import RunCode from './debug/RunCode'
 
 const CodeEditor = () => {
   const [code, setCode] = useState<string>('')
+  const [lang, setLang] = useState<string>(
+    useCodeStore.getState().activeLanguage,
+  )
 
   const editorRef = useRef<AceEditor>(null)
   const unsubscribe = useCodeStore.subscribe((state) => {
     const activeLang = state.activeLanguage
+    setLang(activeLang)
     const editor = editorRef.current?.editor
     //@ts-ignore
     const currentLangStr = editor?.getSession().getMode().$id // $id prop exist but not declared in the type
@@ -69,7 +73,9 @@ const CodeEditor = () => {
         <LanguageSelector />
         <DebugNodes />
         <DebugCode code={code} />
-        <RunCode code={code} />
+        {useCodeStore.getState().activeLanguage == 'javascript' && (
+          <RunCode code={code} />
+        )}
       </div>
     </div>
   )
