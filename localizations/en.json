@@ -15,7 +15,7 @@
   "MENU_NODES_FOR_END": "For Loop End",
   "MENU_NODES_WHILE": "While Loop",
   "MENU_NODES_WHILE_END": "While Loop End",
-  "MENU_NODES_INPUT": "Input",
+  "MENU_NODES_INPUT": "Assign",
   "MENU_NODES_OUTPUT": "Output",
   "INIT_NODE_START": "Start",
   "INIT_NODE_END": "End",

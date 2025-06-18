@@ -15,7 +15,7 @@
   "MENU_NODES_FOR_END": "Конец Цикла For",
   "MENU_NODES_WHILE": "Цикл While",
   "MENU_NODES_WHILE_END": "Конец Цикла While",
-  "MENU_NODES_INPUT": "Ввод",
+  "MENU_NODES_INPUT": "Присваивание",
   "MENU_NODES_OUTPUT": "Вывод",
   "INIT_NODE_START": "Начало",
   "INIT_NODE_END": "Конец",
